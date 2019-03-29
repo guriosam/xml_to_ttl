@@ -30,17 +30,13 @@ public class Translator {
 
 			// The first line contains the namespaces for making the @prefix.
 			if (first) {
-
 				aux += fileLine;
-
-				System.out.println(fileLine);
 				// Checking if the namespaces ended or there is another line with it.
 				if (fileLine.endsWith(">")) {
 					first = false;
 				}
 
 				if (!first) {
-
 					String[] namespaces = fileLine.split(" ");
 
 					for (String namespace : namespaces) {
@@ -57,15 +53,14 @@ public class Translator {
 					}
 
 				}
-
 			} else {
-				
-				
 
+				
+				
 			}
 
 		}
-
+		xmlSchema.printPrefix();
 	}
 
 	public void objectToTTL(String fileContent) {

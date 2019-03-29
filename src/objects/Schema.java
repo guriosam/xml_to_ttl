@@ -52,6 +52,10 @@ public class Schema {
 	public void setEncoding(String encoding) {
 		this.encoding = encoding;
 	}
+	
+	public void printPrefix() {
+		System.out.println(prefix);
+	}
 
 	public void createSchema(String auxSchema) {
 		
