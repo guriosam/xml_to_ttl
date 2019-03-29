@@ -7,19 +7,26 @@ import objects.Schema;
 
 public class Translator {
 
+	private Schema xmlSchema;
+
 	public void xmlToObject(List<String> fileLines) {
 
-		Schema xmlSchema = new Schema();
+		xmlSchema = new Schema();
 
-		boolean first = true;
-
-		boolean started = false;
-		boolean ended = false;
-		String auxSchema = "";
+		boolean first = false;
 
 		String aux = "";
 
 		for (String fileLine : fileLines) {
+
+			if (fileLine.length() < 3) {
+				continue;
+			}
+
+			// Checking if is the line of the namespaces
+			if (fileLine.contains("xmlns")) {
+				first = true;
+			}
 
 			// Collecting the encoding for future needs
 			if (fileLine.contains("encoding")) {
@@ -31,36 +38,59 @@ public class Translator {
 			// The first line contains the namespaces for making the @prefix.
 			if (first) {
 				aux += fileLine;
-				// Checking if the namespaces ended or there is another line with it.
-				if (fileLine.endsWith(">")) {
+
+				// Checking if the namespaces ended or there is another line with them
+				if (fileLine.contains(">")) {
+					collectNamespaces(aux);
 					first = false;
 				}
 
-				if (!first) {
-					String[] namespaces = fileLine.split(" ");
+			} else {
+				// if isn't the first line or the encoding line
+				// there are three other options:
+				// 1. XML Attributes (resouces, about ..)
+				// 2. XML Values (identifiers, labels ..)
+				// 3. XML closing namespace
 
-					for (String namespace : namespaces) {
-						if (namespace.contains("xmlns")) {
-							String ns = namespace.substring(namespace.indexOf(":") + 1);
-							ns = ns.replace("\"", "");
-							ns = ns.replace(">", "");
+				// Removing whitespaces at the beginning
+				fileLine = fileLine.substring(fileLine.indexOf("<"));
 
-							String[] prefix = ns.split("=");
-							if (prefix.length == 2) {
-								xmlSchema.putPrefix(prefix[1], prefix[0]);
-							}
-						}
-					}
+				// checking if it's a closing namespace
+				if (fileLine.startsWith("</")) {
 
 				}
-			} else {
 
-				
-				
+				// checking if it's a value
+				else if (fileLine.contains("</")) {
+
+				}
+
+				// checking if it's a attribute
+				else if (fileLine.contains("=")) {
+					
+				}
+
 			}
 
 		}
-		xmlSchema.printPrefix();
+		// xmlSchema.printPrefix();
+	}
+
+	private void collectNamespaces(String fileLine) {
+		String[] namespaces = fileLine.split(" ");
+
+		for (String namespace : namespaces) {
+			if (namespace.contains("xmlns")) {
+				String ns = namespace.substring(namespace.indexOf(":") + 1);
+				ns = ns.replace("\"", "");
+				ns = ns.replace(">", "");
+
+				String[] prefix = ns.split("=");
+				if (prefix.length == 2) {
+					xmlSchema.putPrefix(prefix[1], prefix[0]);
+				}
+			}
+		}
 	}
 
 	public void objectToTTL(String fileContent) {

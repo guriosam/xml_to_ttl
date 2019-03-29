@@ -1,6 +1,7 @@
 package objects;
 
 import java.util.HashMap;
+import java.util.Set;
 
 public class Schema {
 
@@ -57,9 +58,7 @@ public class Schema {
 		System.out.println(prefix);
 	}
 
-	public void createSchema(String auxSchema) {
-		
+	public Set<String> getPrefixKeySet(){
+		return prefix.keySet();
 	}
-	
-	
 }
