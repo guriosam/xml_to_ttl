@@ -2,15 +2,17 @@ package utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IO {
-	
+
 	public static List<String> readAnyFile(String filename) {
 
 		List<String> lines = new ArrayList<String>();
@@ -23,7 +25,8 @@ public class IO {
 				return new ArrayList<>();
 			}
 
-			reader = new BufferedReader(new FileReader(filename));
+			// reader = new BufferedReader(new FileReader(filename));
+			reader = new BufferedReader(new InputStreamReader(new FileInputStream(filename), "UTF-8"));
 
 			// read file line by line
 			String line = reader.readLine();
@@ -123,6 +126,6 @@ public class IO {
 		}
 
 		return fileNames;
-}
+	}
 
 }
