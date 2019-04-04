@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+  <config>
+    <prefix>http://sws.ifi.uio.no/vocab/npd-v2</prefix>
+    <separator>#</separator>
+    <bnode>_:genid</bnode>
+    <version>0.1</version>
+  </config>
+  <views>
+    <view name="FILES" label="Files">
+      <documents>
+        <files datastore="file">
+          <attributes>
+            <entry key="path">/docs/</entry>
+          </attributes>
+          <includes>
+            <view>POCO</view>
+          </includes>
+          <file>first.txt</file>
+          <file label="segundo">second.txt</file>     
+        </files>
+        <files datastore="url">
+          <file>http://mycomputer.us.example.com/home.html</file>
+        </files>
+      </documents>
+    </view>
+  </views>
+</mapping>

@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:quiow="http://quiow.com/schema/" xmlns:quiow_2="http://quiow.com/schema#" xmlns:poco="http://agp.quiow.com/POCO#">
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#GROUP_DEFAULT">
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO">
     <rdf:type rdf:resource="http://www.w3.org/2000/01/rdf-schema#Class"/>
     <quiow_2:type rdf:resource="http://quiow.com/schema#Document"/>
@@ -12,7 +10,6 @@
     <quiow:identifier>true</quiow:identifier>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#B_A_P">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -21,7 +18,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#BACIA">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -30,7 +26,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#CADASTRO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -39,7 +34,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#CLASSIFICACAO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -48,7 +42,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#CODIGOPOCO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -57,7 +50,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#COORD_UTMBASE">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -66,7 +58,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#COORD_UTMFUNDO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -75,7 +66,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#COORD_UTMLOC_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -84,7 +74,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#DATAAPROV_LOC">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -93,7 +82,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#DATUM">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -102,7 +90,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#DATUMLOCACAO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -111,7 +98,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#DIRECIONAL_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -120,7 +106,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#DISTRITO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -129,7 +114,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#DOC_APROV_LOC_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -138,7 +122,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#EMPR_OPER_1_2">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -147,7 +130,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#ESTADO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -156,7 +138,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#FORMACAOP_F_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -165,7 +146,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#IDENTIFICADOR">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -174,7 +154,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#INICIO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -183,7 +162,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#LATITUDE">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -192,7 +170,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#LONGITUDE">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -201,7 +178,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#MAIORPROF_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -210,7 +186,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#MCC_UTMBASE">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -219,7 +194,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#MCLOCACAO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -228,7 +202,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#MERID_CENTRAL">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -237,7 +210,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#MESAROTATIVA">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -246,7 +218,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#METROSPERF_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -255,7 +226,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#NOME">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -264,7 +234,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#P_F_SONDADOR">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -273,7 +242,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#PROF_MX_PERF_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -282,7 +250,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#QUADRICULA">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -291,7 +258,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#RECLASSIFICACAO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -300,7 +266,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#SEDOC">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -309,7 +274,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#SITUACAOLOC_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -318,7 +282,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#SONDA">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -327,7 +290,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#TERMINO">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -336,7 +298,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#TERRA_MAR">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -345,7 +306,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#ULT_RECLASSIF_">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#date"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -354,7 +314,6 @@
     <quiow:indexing>false</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO#ULT_RECLASSIF__1">
     <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
     <rdfs:domain rdf:resource="http://agp.quiow.com/POCO"/>
@@ -363,7 +322,6 @@
     <quiow:indexing>true</quiow:indexing>
     <quiow:order>1</quiow:order>
   </rdf:Description>
-  
   <rdf:Description rdf:about="http://agp.quiow.com/POCO/1-BSS-0062-BS">
     <rdf:type rdf:resource="http://agp.quiow.com/POCO"/>
     <rdfs:label>1-BSS-0062-BS</rdfs:label>
@@ -408,5 +366,4 @@
     <poco:ULT_RECLASSIF_>1997-01-08</poco:ULT_RECLASSIF_>
     <poco:ULT_RECLASSIF__1>LOCACAO</poco:ULT_RECLASSIF__1>
   </rdf:Description>
-  
 </rdf:RDF>

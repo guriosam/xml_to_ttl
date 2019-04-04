@@ -32,13 +32,9 @@ public class Main {
 					xml += l + "\n";
 				}
 				
-				//JSONObject xmlJSONObj = XML.toJSONObject(xml);
-	           // String jsonPrettyPrintString = xmlJSONObj.toString(4);
-	           /// System.out.println(jsonPrettyPrintString);
-				
 				Translator t = new Translator();
-				t.xmlToObject(fileLines);
-				break;
+				String output = t.xmlToObject(fileLines);
+				IO.writeAnyString(path + file.replace(".xml", ".ttl"), output);
 			}
 		}
 

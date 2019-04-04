@@ -1,0 +1,26 @@
+
+	prefix "http://sws.ifi.uio.no/vocab/npd-v2"
+	separator "#"
+	bnode "_:genid"
+	version "0.1"
+	.
+
+	entry key="path" "/docs/"
+	.
+
+	view "POCO"
+	.
+
+	file "first.txt"
+	file label="segundo" "second.txt"
+	.
+
+	file "http://mycomputer.us.example.com/home.html"
+	.
+
+	.
+
+	.
+
+	.
+

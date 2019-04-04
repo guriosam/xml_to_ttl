@@ -3,17 +3,18 @@ package converter;
 import java.util.HashMap;
 import java.util.List;
 
-import objects.Schema;
+import objects.TTLSchema;
 
 public class Translator {
 
-	private Schema xmlSchema;
+	private TTLSchema xmlSchema;
 
-	public void xmlToObject(List<String> fileLines) {
+	public String xmlToObject(List<String> fileLines) {
 
-		xmlSchema = new Schema();
+		xmlSchema = new TTLSchema();
 
 		boolean first = false;
+		int level = -1;
 
 		String aux = "";
 
@@ -32,8 +33,6 @@ public class Translator {
 			if (fileLine.contains("encoding")) {
 				String encoding = getEncoding(fileLine);
 				xmlSchema.setEncoding(encoding);
-				System.out.println("Encoding:");
-				System.out.println(encoding);
 				continue;
 			}
 
@@ -45,14 +44,7 @@ public class Translator {
 				if (fileLine.contains(">")) {
 					collectNamespaces(aux);
 					first = false;
-
-					System.out.println(xmlSchema.getPrefixKeySet());
 				}
-
-				System.out.println("Open Namespace:");
-				System.out.println(aux);
-				System.out.println();
-
 			} else {
 				// if isn't the first line or the encoding line
 				// there are three other options:
@@ -65,90 +57,110 @@ public class Translator {
 
 				// checking if it's a closing namespace
 				if (fileLine.trim().startsWith("</")) {
-					System.out.println("EndScope");
-					System.out.println(fileLine);
-					System.out.println();
+					level = -1;
+					xmlSchema.addLine("\t.\n");
 				}
 
 				// checking if it's a value
 				else if (fileLine.contains("</")) {
-					System.out.println("Value:");
-					System.out.println(fileLine);
-					System.out.println();
+					xmlSchema.addLine('\t' + collectValue(fileLine));
 				}
 
 				// checking if it's a attribute
 				else if (fileLine.contains("=")) {
-					System.out.println("Attribute:");
-					System.out.println(fileLine);
+					String temp = collectResource(fileLine);
+					String[] parts = temp.split(" ");
 
 					if (fileLine.trim().endsWith("/>")) {
-						System.out.println("Resource:");
-
-						String[] lineSplitted = fileLine.split(" ");
-
-						try {
-
-							if (lineSplitted.length == 2) {
-								String firstPart = lineSplitted[0];
-								String secondPart = lineSplitted[1];
-
-								// removing '<' character at begging
-								firstPart = firstPart.substring(1);
-								secondPart = secondPart.substring(0, secondPart.lastIndexOf("/"));
-
-								String object = "";
-								String namespace = "";
-								String resource = "";
-								String prefix = "";
-
-								namespace = secondPart.substring(0, secondPart.indexOf(":"));
-
-								if (secondPart.contains("#")) {
-									object = secondPart.substring(secondPart.indexOf("#") + 1, secondPart.length() - 1);
-									resource = secondPart.substring(secondPart.indexOf("=") + 2,
-											secondPart.indexOf("#") + 1);
-
-									prefix = xmlSchema.getPrefix(resource);
-									
-									if(prefix == null) {
-										prefix = "<" + resource + object + ">";
-									} else {
-										prefix = xmlSchema.getPrefix(resource) + ":" + object;
-									}
-									
-								} else {
-									resource = secondPart.substring(secondPart.indexOf("=") + 1,
-											secondPart.lastIndexOf("\"") + 1);
-									prefix = namespace + ":" + resource;
-								}
-
-								String outLine = firstPart + " " + prefix + ";";
-								
-								System.out.println(outLine);
-								System.out.println();
-
-							} else {
-								System.out.println("WHICH CASE IS THAT?????");
-								System.out.println("!!!!!!!!!!!!!!!!!!");
-								System.out.println(fileLine);
-							}
-							
-							System.out.println();
-
-						} catch (Exception e) {
-							e.printStackTrace();
-							System.out.println(fileLine);// TODO: handle exception
+						xmlSchema.addLine('\t' + temp);
+					} else if (fileLine.contains("about=")) {
+						level++;
+						if (level == 0) {
+							xmlSchema.addLine(parts[0] + " a " + parts[1]);
+						} else if (level > 0) {
+							xmlSchema.addLine("a " + parts[1]);
 						}
-
 					}
-
 				}
-
 			}
 
 		}
-		// xmlSchema.printPrefix();
+
+		return xmlSchema.toString();
+	
+	}
+
+	private String collectValue(String fileLine) {
+
+		fileLine = fileLine.substring(1);
+
+		try {
+			String namespace = fileLine.substring(0, fileLine.indexOf(">"));
+			String value = fileLine.substring(fileLine.indexOf(">") + 1, fileLine.indexOf("<"));
+
+			return namespace + " \"" + value + "\"";
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return "";
+	}
+
+	private String collectResource(String fileLine) {
+
+		String[] lineSplitted = fileLine.split(" ");
+
+		try {
+
+			if (lineSplitted.length == 2) {
+				String firstPart = lineSplitted[0];
+				String secondPart = lineSplitted[1];
+
+				// removing '<' character at begging
+				firstPart = firstPart.substring(1);
+
+				// removing > or /> at end
+				secondPart = secondPart.substring(0, secondPart.lastIndexOf("\"") + 1);
+
+				String object = "";
+				String namespace = "";
+				String resource = "";
+				String prefix = "";
+
+				namespace = secondPart.substring(0, secondPart.indexOf(":"));
+
+				if (secondPart.contains("#")) {
+					object = secondPart.substring(secondPart.indexOf("#") + 1, secondPart.length() - 1);
+					resource = secondPart.substring(secondPart.indexOf("=") + 2, secondPart.indexOf("#") + 1);
+
+					prefix = xmlSchema.getPrefix(resource);
+
+					if (prefix == null) {
+						prefix = "<" + resource + object + ">";
+					} else {
+						prefix = xmlSchema.getPrefix(resource) + ":" + object;
+					}
+
+				} else {
+					resource = secondPart.substring(secondPart.indexOf("=") + 1, secondPart.lastIndexOf("\"") + 1);
+					prefix = namespace + ":" + resource;
+				}
+
+				return firstPart + " " + prefix + ";";
+
+			} else {
+				System.out.println("Case that I did not see it:");
+				System.out.println(fileLine);
+				System.out.println("");
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(fileLine);// TODO: handle exception
+		}
+
+		return "";
+
 	}
 
 	private void collectNamespaces(String fileLine) {
@@ -166,10 +178,6 @@ public class Translator {
 				}
 			}
 		}
-	}
-
-	public void objectToTTL(String fileContent) {
-
 	}
 
 	private String getEncoding(String line) {

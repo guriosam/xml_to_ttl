@@ -1,0 +1,414 @@
+@prefix rdf:<http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix poco:<http://agp.quiow.com/POCO#>.
+@prefix quiow_2:<http://quiow.com/schema#>.
+@prefix quiow:<http://quiow.com/schema/>.
+@prefix rdfs:<http://www.w3.org/2000/01/rdf-schema#>.
+
+rdf:Description a poco:GROUP_DEFAULT;
+	quiow:order "1"
+	.
+
+rdf:Description a rdf:"http://agp.quiow.com/POCO";
+	rdf:type rdfs:Class;
+	quiow_2:type quiow_2:Document;
+	rdfs:label "Poço"
+	quiow:identifier "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:B_A_P;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "B.a.p"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:BACIA;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Bacia"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:CADASTRO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Cadastro"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:CLASSIFICACAO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Classificacao"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:CODIGOPOCO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Codigo poco"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:COORD_UTMBASE;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Coord.utm base"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:COORD_UTMFUNDO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Coord.utm fundo"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:COORD_UTMLOC_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Coord.utm loc."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:DATAAPROV_LOC;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#date>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Data aprov.loc"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:DATUM;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Datum"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:DATUMLOCACAO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Datum locacao"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:DIRECIONAL_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Direcional?"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:DISTRITO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Distrito"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:DOC_APROV_LOC_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Doc.aprov.loc."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:EMPR_OPER_1_2;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Empr. oper.1/2"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:ESTADO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Estado"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:FORMACAOP_F_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Formacao p.f."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:IDENTIFICADOR;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Identificador"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:INICIO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#date>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Inicio"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:LATITUDE;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Latitude"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:LONGITUDE;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Longitude"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:MAIORPROF_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Maior prof."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:MCC_UTMBASE;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Mc c.utm base"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:MCLOCACAO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Mc locacao"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:MERID_CENTRAL;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Merid.central"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:MESAROTATIVA;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Mesa rotativa"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:METROSPERF_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Metros perf."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:NOME;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Nome"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:P_F_SONDADOR;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "P.f.sondador"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:PROF_MX_PERF_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Prof.mx.perf."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:QUADRICULA;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Quadricula"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:RECLASSIFICACAO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Reclassificacao"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:SEDOC;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#decimal>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Sedoc"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:SITUACAOLOC_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Situacao loc."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:SONDA;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Sonda"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:TERMINO;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#date>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Termino"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:TERRA_MAR;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Terra / mar"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:ULT_RECLASSIF_;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#date>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Ult.reclassif."
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "false"
+	quiow:order "1"
+	.
+
+rdf:Description a poco:ULT_RECLASSIF__1;
+	rdfs:range <http://www.w3.org/2001/XMLSchema#string>;
+	rdfs:domain rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "Ult.reclassif._1"
+	rdfs:subPropertyOf poco:GROUP_DEFAULT;
+	quiow:indexing "true"
+	quiow:order "1"
+	.
+
+rdf:Description a rdf:"http://agp.quiow.com/POCO/1-BSS-0062-BS";
+	rdf:type rdf:"http://agp.quiow.com/POCO";
+	rdfs:label "1-BSS-0062-BS"
+	poco:documentSource "AGP/HRT/1 BSS 0062 BS.agp"
+	poco:B_A_P "-1522.0"
+	poco:BACIA "SANTOS"
+	poco:CADASTRO "02198"
+	poco:CLASSIFICACAO "PIONEIRO"
+	poco:CODIGOPOCO "018391"
+	poco:COORD_UTMBASE "7233447.0S    574928.0W"
+	poco:COORD_UTMFUNDO "7233447.0S  574928.0W"
+	poco:COORD_UTMLOC_ "7233449.0S   574934.0W"
+	poco:DATAAPROV_LOC "1996-05-22"
+	poco:DATUM "ARATU"
+	poco:DATUMLOCACAO "ARATU"
+	poco:DIRECIONAL_ "VERTICAL"
+	poco:DISTRITO "E&amp;P-SUL"
+	poco:DOC_APROV_LOC_ "E&amp;P/GEREX 000048/1996"
+	poco:EMPR_OPER_1_2 "SONAT OFFSHORE"
+	poco:ESTADO "BS"
+	poco:FORMACAOP_F_ "F ITAACU"
+	poco:IDENTIFICADOR "SG23J21NE09W90A"
+	poco:INICIO "1996-11-23"
+	poco:LATITUDE "-25.01231 (  -25   0 44.3)"
+	poco:LONGITUDE "-44.25745 (  -44  15 26.8)"
+	poco:MAIORPROF_ "5196.0"
+	poco:MCC_UTMBASE "-45"
+	poco:MCLOCACAO "-45"
+	poco:MERID_CENTRAL "-45"
+	poco:MESAROTATIVA "14.0"
+	poco:METROSPERF_ "5196.0"
+	poco:NOME "BAC SANTOS SUB.83"
+	poco:P_F_SONDADOR "5196.0"
+	poco:PROF_MX_PERF_ "5196.0"
+	poco:QUADRICULA "49723357"
+	poco:RECLASSIFICACAO "SECO SEM INDICACAO DE H.C."
+	poco:SEDOC "1585"
+	poco:SITUACAOLOC_ "CONCLUIDO"
+	poco:SONDA "NS14"
+	poco:TERMINO "1996-12-30"
+	poco:TERRA_MAR "MAR"
+	poco:ULT_RECLASSIF_ "1997-01-08"
+	poco:ULT_RECLASSIF__1 "LOCACAO"
+	.
+
