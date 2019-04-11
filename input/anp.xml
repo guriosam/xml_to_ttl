@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?
+<mapping>
+  <config>
+    <prefix>http://anp.gov.br</prefix>
+    <origin>ANP</origin>
+    <separator>#</separator>
+    <bnode>_:genid</bnode>
+    <version>0.1</version>
+  </config>
+  <views>
+    <view name="CONTRATO" label="Contrato" identifier="true" >
+      <tables repcol="{NUMERO_CONTRATO}">
+        <table name="ANP_CONTRATO" owner="ANP">
+          <pk>CODCONTRATO</pk>
+          <group>
+            <column name="CODCONTRATO" exclude="true"/>
+            <column name="CODRODADA" label="Rodada" exclude="true"/>
+            <column name="NUMERO_CONTRATO" label="Número do Contrato"/>
+            <column name="OPERADOR" label="Operador" indexing="true"/>
+            <column name="CONSORCIO" label="Consórcio" indexing="true"/>
+            <column name="NOME_FANTASIA" label="Nome Fantasia" indexing="true"/>
+          </group>
+        </table>
+        <table name="ANP_RODADA" owner="ANP">
+          <pk>CODRODADA</pk>
+          <group>
+            <column name="CODRODADA" exclude="true"/>
+            <column name="RODADA" label="Rodada" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view name="CAMPO" label="Campo" identifier="true" >
+      <tables repcol="{CAMPO}">
+          <table name="ANP_CAMPO" owner="ANP">
+          <pk>CODCAMPO</pk>
+          <group>
+            <column name="CODCAMPO" exclude="true"/>
+            <column name="CAMPO" label="Campo"/>
+          </group>
+        </table>
+        <table name="ANP_CAMPO_FASES" owner="ANP">
+          <pk>CODCAMPO</pk>
+          <group>
+            <column name="CODCAMPO" exclude="true"/>
+            <!--
+                A chave primária natural da view deveria ser CODCAMPO + FASE
+                Então a decisão de ter como pk a CODCAMPO, vai provocar que as propriedades FASES e HISTÓRICO possam ser multivaloradas
+            -->
+            <column name="FASE" label="Fase" indexing="true"/>
+            <column name="ESTADO" label="Estado" indexing="true"/>
+            <column name="CODCONTRATO" label="Contrato" untagged="true">
+              <join view="CONTRATO">
+                <condition from="CODCONTRATO" to="CODCONTRATO"/>
+              </join>
+            </column>
+            <column name="LOCALIZACAO" label="Localização" indexing="true"/>
+            <column name="CONSORCIO" label="Consórcio" />
+            <column name="OPERADOR" as="CODGRUPO" exclude="true"/>            
+            <column name="MES" label="Mês (Timestamp)"/>
+            <column name="ANO" label="Ano (Timestamp)"/>
+            <column name="STATUS" label="Status" indexing="true"/>
+            <column name="CARACTERISTICA" label="Característica" indexing="true"/>
+            <column name="COM_CESSAO" label="Tipo de Contrato" indexing="true"/>
+            <column name="HISTORICO" label="Histórico">
+              <decode expr="ANP_CAMPO_FASES.FASE">
+                <entry search="ANP_CAMPO_FASES.FASE" result="ANP_CAMPO_FASES.FASE || ' (' || ANP_CAMPO_FASES.TIMESTAMP || ')'"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="ANP_GRUPO" owner="ANP">
+          <pk>CODGRUPO</pk>
+          <group>
+            <column name="CODGRUPO" exclude="true"/>            
+            <column name="GRUPO" as="OPERADOR" label="Operador" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view name="BLOCO_EXPLORATORIO" label="Bloco Exploratório" identifier="true" >
+      <tables repcol="{BLOCO}">
+        <table name="ANP_BLOCO_EXPLORATORIO" owner="ANP">
+          <pk>CODBLOCO</pk>
+          <group>
+            <column name="CODBLOCO" exclude="true"/>
+            <column name="BACIA" label="Bacia" indexing="true"/>
+            <column name="CODCONTRATO" label="Contrato" untagged="true">
+              <join view="CONTRATO">
+                <condition from="CODCONTRATO" to="CODCONTRATO"/>
+              </join>
+            </column>
+            <column name="BID" as="CODRODADA" exclude="true"/>
+            <column name="OPERADOR" as="CODGRUPO" exclude="true"/>
+            <column name="BLOCO" label="Bloco"/>
+            <column name="VENCIMENTO_1_PERIODO" label="Vencimento 1 Período"/>
+            <column name="VENCIMENTO_2_PERIODO" label="Vencimento 2 Período"/>
+            <column name="VENCIMENTO_3_PERIODO" label="Vencimento 3 Período"/>
+            <column name="VENCIMENTO_PAD" label="Vencimento PAD"/>
+            <column name="OBSERVACOES" label="Observações" indexing="true"/>
+            <column name="BLOCO" as="BLOCOOFERTADO" label="Bloco Ofertado" untagged="true">
+              <join view="BLOCO_OFERTADO">
+                <condition from="CODBLOCO" to="CODBLOCO"/>
+                <condition from="CODRODADA" to="CODRODADA"/>
+              </join>
+            </column>            
+            <column name="TIMESTAMP" label="Timestamp" untagged="true"/>
+          </group>
+        </table>
+        <table name="ANP_GRUPO" owner="ANP">
+          <pk>CODGRUPO</pk>
+          <group>
+            <column name="CODGRUPO" exclude="true"/>            
+            <column name="GRUPO" label="Operador" />
+          </group>
+        </table>
+        <table name="ANP_RODADA" owner="ANP">
+          <pk>CODRODADA</pk>
+          <group>
+            <column name="CODRODADA" exclude="true"/>
+            <column name="RODADA" label="Rodada" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>    
+    <view name="PROPOSTA" label="Proposta" >
+      <tables repcol="{RODADA} - {BLOCO} - {CONSORCIO}">
+        <table name="ANP_PROPOSTA" owner="ANP">
+          <pk>CODRODADA BLOCO CONSORCIO</pk>
+          <group>
+            <column name="BLOCO" label="Bloco" indexing="true"/>
+            <column name="CODBLOCO" exclude="true"/>
+            <column name="CODRODADA" exclude="true"/>
+            <column name="CODBLOCOOFERTADO" label="Bloco Ofertado" untagged="true">
+              <join view="BLOCO_OFERTADO">
+                <condition from="CODBLOCO" to="CODBLOCO"/>
+                <condition from="CODRODADA" to="CODRODADA"/>
+              </join>
+            </column>
+            <column name="BACIA" label="Bacia" indexing="true"/>
+            <column name="SETOR" label="Setor" indexing="true"/>
+            <column name="CONSORCIO" label="Consórcio" indexing="true"/>
+            <column name="RESULTADO" label="Resultado" indexing="true"/> 
+            <column name="OFERTA" label="Oferta"/> 
+            <column name="PEM" label="PEM"/> 
+            <column name="EXPLORACAO" label="Exploração"/> 
+            <column name="DESENVOLVIMENTO" label="Desenvolvimento"/> 
+          </group>
+        </table>
+        <table name="ANP_RODADA" owner="ANP">
+          <pk>CODRODADA</pk>
+          <group>
+            <column name="CODRODADA" exclude="true"/>
+            <column name="RODADA" label="Rodada" indexing="true"/>
+          </group>
+        </table>
+      </tables>  
+    </view>
+    <view name="BLOCO_OFERTADO" label="Bloco Ofertado" >
+      <tables repcol="{BLOCO} - {RODADA}">
+        <table name="ANP_BLOCO_OFERTADO" owner="ANP">
+          <pk>CODBLOCO CODRODADA</pk>
+          <group>
+            <column name="CODBLOCO" exclude="true"/>
+            <column name="BACIA" label="Bacia" indexing="true"/>              
+            <column name="BID" as="CODRODADA" exclude="true"/>              
+            <column name="SETOR" label="Setor" indexing="true"/>
+            <column name="HABILITACAO_MINIMA" label="Habilitação Mínima" indexing="true"/>
+            <column name="BONUS" label="Bônus"/>
+            <column name="LOCALIZACAO" label="Localização" indexing="true"/>
+            <column name="ARREMATADO" label="Resultado" indexing="true">
+              <decode expr="ANP_BLOCO_OFERTADO.ARREMATADO" default="NULL">
+                <entry search="'Sim'" result="Arrematado"/>                
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="ANP_RODADA" owner="ANP">
+          <pk>CODRODADA</pk>
+          <group>
+            <column name="CODRODADA" exclude="true"/>
+            <column name="RODADA" label="Rodada" indexing="true"/>
+          </group>
+        </table>
+        <table name="ANP_BLOCO" owner="ANP">
+          <pk>CODBLOCO</pk>
+          <group>
+            <column name="CODBLOCO" exclude="true"/>
+            <column name="BLOCO" label="Bloco" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view name="PRODUCAO_CAMPO" label="Produção de Campo" >
+      <tables repcol="{CAMPO} em {MES}/{ANO} - Óleo: {PETROLEO} e Gás: {GAS}">
+        <table name="ANP_PRODUCAO_MENSAL_CAMPO" owner="ANP">
+          <pk>CODPRODUCAOCAMPO</pk>
+          <group>
+            <column name="CODPRODUCAOCAMPO" exclude="true"/>
+            <column name="CODCAMPO" label="Campo" untagged="true" >
+              <join view="CAMPO">
+                <condition from="CODCAMPO" to="CODCAMPO"/>
+              </join>
+            </column>
+            <column name="CAMPO" exclude="true"/>
+            <column name="ESTADO" label="Estado" indexing="true"/>
+            <column name="PERIODO" label="Período"/>
+            <column name="PETROLEO" label="Produção de Petróleo"/>
+            <column name="GAS" label="Produção de Gás"/>
+            <column name="MES" label="Mês"/>
+            <column name="ANO" label="Ano"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view name="POCO" label="Poço" identifier="true" >
+      <tables repcol="{POCO}">
+        <table name="ANP_POCO" owner="ANP">
+          <pk>CODPOCO</pk>
+          <group>
+            <column name="CODPOCO" exclude="true"/>
+            <column name="POCO" label="Poço" />
+            <column name="NOMEPOCOANP" label="Nome ANP" indexing="true"/>
+          </group>
+        </table>
+        <table name="ANP_POCO_EM_EXPLORACAO" owner="ANP">
+          <pk>CODPOCO</pk>
+          <group>
+            <column name="CODPOCO" label="Poço" exclude="true"/>
+            <column name="NOME_OPERADOR" label="Nome dado pelo Operador" indexing="true"/>
+            <column name="OPERADOR" as="CODGRUPO" exclude="true"/>             
+            <!--<column name="CODCONTRATO" label="Contrato" untagged="true">
+              <join view="CONTRATO">
+                <condition from="CODCONTRATO" to="CODCONTRATO"/>
+              </join>
+            </column> -->
+            <column name="CATEGORIA" label="Categoria" indexing="true"/>
+            <column name="LOCALIZACAO" label="Localização" indexing="true"/>
+            <column name="BACIA" as="CODBACIA" exclude="true"/>
+            <column name="CODBLOCO" label="Bloco" untagged="true">
+              <join view="BLOCO_EXPLORATORIO">
+                <condition from="CODBLOCO" to="CODBLOCO"/>
+              </join>
+            </column>
+            <column name="CAMPO" label="Campo" exclude="true"/>
+            <column name="CODCAMPO" label="Campo" untagged="true">
+              <join view="CAMPO">
+                <condition from="CODCAMPO" to="CODCAMPO"/>
+              </join>
+            </column>            
+            <column name="ESTADO" label="Estado" indexing="true"/>
+            <column name="PROFUNDIDADE_FINAL_MEDIDA" label="Profundidade Final Medida"/>
+            <column name="LAMINA_DAGUA" label="Lâmina D’água"/>
+            <column name="STATUS" label="Status" indexing="true"/>
+            <column name="TIMESTAMP" as="HISTORICO" label="Histórico">
+              <decode expr="ANP_POCO_EM_EXPLORACAO.STATUS">
+                <entry search="ANP_POCO_EM_EXPLORACAO.STATUS" result="ANP_POCO_EM_EXPLORACAO.STATUS || ' (' || ANP_POCO_EM_EXPLORACAO.TIMESTAMP || ')'"/>
+              </decode>
+            </column>
+            <column name="LATITUDE" label="Latitude" untagged="true"/>
+            <column name="LONGITUDE" label="Longitude" untagged="true" />
+            <column name="OBJETIVO_INTERVENCAO" label="Objetivo Intervenção" indexing="true"/>
+            <column name="SONDA" label="Sonda" indexing="true"/>
+            <column name="DATA_INICIO_PERFURACAO" label="Início Perfuração"/>
+            <column name="DATA_TERMINO_PERFURACAO" label="Término Perfuração"/>
+            <column name="DATA_CONCLUSAO_PERFURACAO" label="Conclusão Perfuração"/>
+          </group>
+        </table>
+        <table name="ANP_DESCOBERTA" owner="ANP">
+          <pk>CODPOCO</pk>
+          <group>
+            <column name="CODPOCO" exclude="true"/>
+            <column name="DESCOBERTA" label="Descoberta" />
+            <column name="FLUIDO" label="Fluído" indexing="true"/>           
+            <column name="DATADESCOBERTA" label="Data Descoberta"/>
+          </group>
+        </table>
+        <table name="ANP_GRUPO" owner="ANP">
+          <pk>CODGRUPO</pk>
+          <group>
+            <column name="CODGRUPO" exclude="true"/>            
+            <column name="GRUPO" label="Operador" indexing="true"/>
+          </group>
+        </table>
+        <table name="ANP_BACIA" owner="ANP">
+          <pk>CODBACIA</pk>
+          <group>
+            <column name="CODBACIA" exclude="true"/>            
+            <column name="BACIA" label="Bacia" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+      <documents> 
+        <load_files datastore="file" type="AGP">
+          <file path="AGP/DVD-001036" filter="*.*" />
+        </load_files>
+      </documents>
+    </view>
+    <view name="PRODUCAO_POCO" label="Produção de Poço" >
+      <tables repcol="Poço: {POCO} - Período: {MES}/{ANO}">
+        <table name="ANP_PRODUCAO" owner="ANP">
+          <pk>CODPRODUCAOPOCO</pk>
+          <group>
+          <column name="CODPRODUCAOPOCO" exclude="true"/>
+           <column name="CODPOCO" untagged="true" label="Poço">
+              <join view="POCO">
+                <condition from="CODPOCO" to="CODPOCO"/>
+              </join>
+            </column>
+            <column name="POCO"    label="Poço ANP" />
+            <column name="ESTADO" label="Estado" indexing="true"/>
+            <column name="EMPRESA" indexing="true" label="Operador" /> 
+            <!--
+            <column name="CODCAMPO" untagged="true" label="Campo">
+              <join view="CAMPO">
+                <condition from="CODCAMPO" to="CODCAMPO"/>
+              </join>
+            </column>
+            <column name="CODCONTRATO" untagged="true" label="Contrato">
+              <join view="CONTRATO">
+                <condition from="CODCONTRATO" to="CODCONTRATO"/>
+              </join>
+            </column>
+            -->
+          </group>
+          <group name="Dados da Produção do Poço">
+            <column name="PRODUCAO_OLEO" label="Produção Óleo"/>
+            <column name="PRODUCAO_CONDENSADO" label="Produção Condensado"/>
+            <column name="PRODUCAO_PETROLEO" label="Produção Petróleo"/>
+            <column name="PRODUCAO_GAS_ASSOCIADO" label="Produção Gás Associado"/>
+            <column name="PRODUCAO_GAS_NAO_ASSOCIADO" label="Produção Gás Não Associado"/>
+            <column name="PRODUCAO_GAS_TOTAL" label="Produção Gás Total"/>
+            <column name="PRODUCAO_AGUA" label="Produção Água"/>
+            <column name="PERIODO" label="Período"/>
+            <column name="MES" label="Mês"/>
+            <column name="ANO" label="Ano"/>
+          </group>
+        </table>
+      </tables>
+    </view> 
+    <!-- Arquivos -->
+    <view name="PARTICIPACAO_ESPECIAL" label="Participação especial">
+      <documents>
+        <search_files datastore="url">
+          <includes>
+            <view>CAMPO</view>
+          </includes>
+          <file label="4º Trimestre/2016" path="http://www.anp.gov.br/wwwanp/images/Royalties-e-outras-participacoes/Participacao_Especial/Relatorio_4-Trimestre_2016.pdf">
+            <group><property name="Ano">2016</property></group>
+          </file>
+          <file label="3º Trimestre/2016" path="http://www.anp.gov.br/wwwanp/images/Royalties-e-outras-participacoes/Participacao_Especial/Relatorio_3Trimestre_2016.pdf">
+            <group><property name="Ano">2016</property></group>
+          </file>
+          <file label="2º Trimestre/2016" path="http://www.anp.gov.br/wwwanp/?dw=82505">
+            <group><property name="Ano">2016</property></group>
+          </file>
+          <file label="1º Trimestre/2016" path="http://www.anp.gov.br/wwwanp/?dw=80915">
+            <group><property name="Ano">2016</property></group>
+          </file>
+          <file label="4º Trimestre/2015" path="http://www.anp.gov.br/wwwanp/?dw=79579">
+            <group><property name="Ano">2015</property></group>
+          </file>
+          <file label="3º Trimestre/2015" path="http://www.anp.gov.br/wwwanp/?dw=78542">
+            <group><property name="Ano">2015</property></group>
+          </file>
+          <file label="2º Trimestre/2015" path="http://www.anp.gov.br/wwwanp/?dw=77159">
+            <group><property name="Ano">2015</property></group>
+          </file>
+          <file label="1° Trimestre/2015" path="http://www.anp.gov.br/wwwanp/?dw=75657">
+            <group><property name="Ano">2015</property></group>
+          </file>
+          <file label="4° Trimestre/2014" path="http://www.anp.gov.br/wwwanp/?dw=74993">
+            <group><property name="Ano">2014</property></group>
+          </file>
+          <file label="3° Trimestre/2014" path="http://www.anp.gov.br/wwwanp/?dw=73658">
+            <group><property name="Ano">2014</property></group>
+          </file>
+          <file label="2° Trimestre/2014" path="http://www.anp.gov.br/wwwanp/?dw=72079">
+            <group><property name="Ano">2014</property></group>
+          </file>
+          <file label="1° Trimestre/2014" path="http://www.anp.gov.br/wwwanp/?dw=73657">
+            <group><property name="Ano">2014</property></group>
+          </file>
+          <file label="4° Trimestre/2013" path="http://www.anp.gov.br/wwwanp/?dw=70671">
+            <group><property name="Ano">2013</property></group>
+          </file>
+          <file label="3° Trimestre/2013" path="http://www.anp.gov.br/wwwanp/?dw=69136">
+            <group><property name="Ano">2013</property></group>
+          </file>
+          <file label="2° Trimestre/2013" path="http://www.anp.gov.br/wwwanp/?dw=68949">
+            <group><property name="Ano">2013</property></group>
+          </file>
+          <file label="1° Trimestre/2013" path="http://www.anp.gov.br/wwwanp/?dw=66071">
+            <group><property name="Ano">2013</property></group>
+          </file>
+          <file label="4° Trimestre/2012" path="http://www.anp.gov.br/wwwanp/?dw=64655">
+            <group><property name="Ano">2012</property></group>
+          </file>
+          <file label="3° Trimestre/2012" path="http://www.anp.gov.br/wwwanp/?dw=63398">
+            <group><property name="Ano">2012</property></group>
+          </file>
+          <file label="2° Trimestre/2012" path="http://www.anp.gov.br/wwwanp/?dw=61864">
+            <group><property name="Ano">2012</property></group>
+          </file>
+          <file label="1° Trimestre/2012" path="http://www.anp.gov.br/wwwanp/?dw=60507">
+            <group><property name="Ano">2012</property></group>
+          </file>
+          <file label="4° Trimestre/2011" path="http://www.anp.gov.br/wwwanp/?dw=59496">
+            <group><property name="Ano">2011</property></group>
+          </file>
+          <file label="3° Trimestre/2011" path="http://www.anp.gov.br/wwwanp/?dw=58933">
+            <group><property name="Ano">2011</property></group>
+          </file>
+          <file label="2° Trimestre/2011" path="http://www.anp.gov.br/wwwanp/?dw=57863">
+            <group><property name="Ano">2011</property></group>
+          </file>
+          <file label="1° Trimestre/2011" path="http://www.anp.gov.br/wwwanp/?dw=51926">
+            <group><property name="Ano">2011</property></group>
+          </file>
+          <file label="4° Trimestre/2010" path="http://www.anp.gov.br/wwwanp/?dw=43579">
+            <group><property name="Ano">2010</property></group>
+          </file>
+          <file label="3° Trimestre/2010" path="http://www.anp.gov.br/wwwanp/?dw=37846">
+            <group><property name="Ano">2010</property></group>
+          </file>
+          <file label="2° Trimestre/2010" path="http://www.anp.gov.br/wwwanp/?dw=32747">
+            <group><property name="Ano">2010</property></group>
+          </file>
+          <file label="1° Trimestre/2010" path="http://www.anp.gov.br/wwwanp/?dw=25306">
+            <group><property name="Ano">2010</property></group>
+          </file>
+          <file label="4° Trimestre/2009" path="http://www.anp.gov.br/wwwanp/?dw=19100">
+            <group><property name="Ano">2009</property></group>
+          </file>
+          <file label="3° Trimestre/2009" path="http://www.anp.gov.br/wwwanp/?dw=10850">
+            <group><property name="Ano">2009</property></group>
+          </file>
+          <file label="2° Trimestre/2009" path="http://www.anp.gov.br/wwwanp/?dw=10890">
+            <group><property name="Ano">2009</property></group>
+          </file>
+          <file label="1° Trimestre/2009" path="http://www.anp.gov.br/wwwanp/?dw=5233">
+            <group><property name="Ano">2009</property></group>
+          </file>
+          <file label="4° Trimestre/2008" path="http://www.anp.gov.br/wwwanp/?dw=5238">
+            <group><property name="Ano">2008</property></group>
+          </file>
+          <file label="3° Trimestre/2008" path="http://www.anp.gov.br/wwwanp/?dw=5236">
+            <group><property name="Ano">2008</property></group>
+          </file>
+          <file label="2° Trimestre/2008 - complementar" path="http://www.anp.gov.br/wwwanp/?dw=5235">
+            <group><property name="Ano">2008</property></group>
+          </file>
+          <file label="2° Trimestre/2008" path="http://www.anp.gov.br/wwwanp/?dw=5234">
+            <group><property name="Ano">2008</property></group>
+          </file>
+          <file label="1° Trimestre/2008" path="http://www.anp.gov.br/wwwanp/?dw=5232">
+            <group><property name="Ano">2008</property></group>
+          </file>
+          <file label="4° Trimestre/2007" path="http://www.anp.gov.br/wwwanp/?dw=5237">
+            <group><property name="Ano">2007</property></group>
+          </file>
+          <file label="3° Trimestre/2007" path="http://www.anp.gov.br/wwwanp/?dw=5241">
+            <group><property name="Ano">2007</property></group>
+          </file>
+          <file label="2° Trimestre/2007" path="http://www.anp.gov.br/wwwanp/?dw=5240">
+            <group><property name="Ano">2007</property></group>
+          </file>
+          <file label="1° Trimestre/2007" path="http://www.anp.gov.br/wwwanp/?dw=5239">
+            <group><property name="Ano">2007</property></group>
+          </file>
+        </search_files>
+      </documents>
+    </view>
+  </views>
+</mapping>

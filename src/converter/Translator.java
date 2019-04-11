@@ -13,6 +13,87 @@ public class Translator {
 
 		xmlSchema = new TTLSchema();
 
+		// boolean first = false;
+		int level = -1;
+
+		String aux = "";
+
+		for (String fileLine : fileLines) {
+
+			if (fileLine.length() < 3) {
+				continue;
+			}
+
+			// Checking if is the line of the namespaces
+			// if (fileLine.contains("xmlns")) {
+			// first = true;
+			// }
+
+			// Collecting the encoding for future needs
+			if (fileLine.contains("encoding")) {
+				String encoding = getEncoding(fileLine);
+				xmlSchema.setEncoding(encoding);
+				continue;
+			}
+
+			// The first line contains the namespaces for making the @prefix.
+			// if (first) {
+			// aux += fileLine;
+
+			// Checking if the namespaces ended or there is another line with them
+			// if (fileLine.contains(">")) {
+			// collectNamespaces(aux);
+			// first = false;
+			// }
+			// } else {
+			// if isn't the first line or the encoding line
+			// there are three other options:
+			// 1. XML Attributes (resouces, about ..)
+			// 2. XML Values (identifiers, labels ..)
+			// 3. XML closing namespace
+
+			// Removing whitespaces at the beginning
+			fileLine = fileLine.substring(fileLine.indexOf("<"));
+
+			// checking if it's a closing namespace
+			if (fileLine.trim().startsWith("</")) {
+				level = -1;
+				xmlSchema.addLine("\t.\n");
+			}
+
+			// checking if it's a value
+			else if (fileLine.contains("</")) {
+				xmlSchema.addLine('\t' + collectValue(fileLine));
+			}
+
+			// checking if it's a attribute
+			else if (fileLine.contains("=")) {
+				String temp = collectResource(fileLine);
+				String[] parts = temp.split(" ");
+
+				if (fileLine.trim().endsWith("/>")) {
+					xmlSchema.addLine('\t' + temp);
+				} else if (fileLine.contains("about=")) {
+					level++;
+					if (level == 0) {
+						xmlSchema.addLine(parts[0] + " a " + parts[1]);
+					} else if (level > 0) {
+						xmlSchema.addLine("a " + parts[1]);
+					}
+				}
+			}
+		}
+
+		// }
+
+		return xmlSchema.toString();
+
+	}
+
+	public String xmlToTTL(List<String> fileLines) {
+
+		xmlSchema = new TTLSchema();
+
 		boolean first = false;
 		int level = -1;
 
@@ -87,7 +168,7 @@ public class Translator {
 		}
 
 		return xmlSchema.toString();
-	
+
 	}
 
 	private String collectValue(String fileLine) {
