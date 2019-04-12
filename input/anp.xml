@@ -32,7 +32,7 @@
     </view>
     <view name="CAMPO" label="Campo" identifier="true" >
       <tables repcol="{CAMPO}">
-          <table name="ANP_CAMPO" owner="ANP">
+        <table name="ANP_CAMPO" owner="ANP">
           <pk>CODCAMPO</pk>
           <group>
             <column name="CODCAMPO" exclude="true"/>

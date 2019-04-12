@@ -1,93 +1,96 @@
 package converter;
 
-import java.util.HashMap;
 import java.util.List;
 
 import objects.TTLSchema;
+import objects.XMLObject;
 
 public class Translator {
 
 	private TTLSchema xmlSchema;
+	private XMLObject xmlObject;
 
 	public String xmlToObject(List<String> fileLines) {
 
-		xmlSchema = new TTLSchema();
+		xmlObject = new XMLObject();
 
-		// boolean first = false;
-		int level = -1;
-
-		String aux = "";
-
+		boolean comment = false;
+		
 		for (String fileLine : fileLines) {
 
-			if (fileLine.length() < 3) {
-				continue;
-			}
-
-			// Checking if is the line of the namespaces
-			// if (fileLine.contains("xmlns")) {
-			// first = true;
-			// }
-
-			// Collecting the encoding for future needs
-			if (fileLine.contains("encoding")) {
-				String encoding = getEncoding(fileLine);
-				xmlSchema.setEncoding(encoding);
-				continue;
-			}
-
-			// The first line contains the namespaces for making the @prefix.
-			// if (first) {
-			// aux += fileLine;
-
-			// Checking if the namespaces ended or there is another line with them
-			// if (fileLine.contains(">")) {
-			// collectNamespaces(aux);
-			// first = false;
-			// }
-			// } else {
-			// if isn't the first line or the encoding line
-			// there are three other options:
-			// 1. XML Attributes (resouces, about ..)
-			// 2. XML Values (identifiers, labels ..)
-			// 3. XML closing namespace
-
-			// Removing whitespaces at the beginning
-			fileLine = fileLine.substring(fileLine.indexOf("<"));
-
-			// checking if it's a closing namespace
-			if (fileLine.trim().startsWith("</")) {
-				level = -1;
-				xmlSchema.addLine("\t.\n");
-			}
-
-			// checking if it's a value
-			else if (fileLine.contains("</")) {
-				xmlSchema.addLine('\t' + collectValue(fileLine));
-			}
-
-			// checking if it's a attribute
-			else if (fileLine.contains("=")) {
-				String temp = collectResource(fileLine);
-				String[] parts = temp.split(" ");
-
-				if (fileLine.trim().endsWith("/>")) {
-					xmlSchema.addLine('\t' + temp);
-				} else if (fileLine.contains("about=")) {
-					level++;
-					if (level == 0) {
-						xmlSchema.addLine(parts[0] + " a " + parts[1]);
-					} else if (level > 0) {
-						xmlSchema.addLine("a " + parts[1]);
-					}
+			try {
+				
+				if(fileLine.contains("<!")) {
+					comment = true;
 				}
+				
+				if(fileLine.contains("-->")) {
+					comment = false;
+					continue;
+				}
+				
+				if(comment) {
+					continue;
+				}
+				
+				if(fileLine.contains("exclude=\"true\"")) {
+					continue;
+				}
+
+				if (fileLine.length() < 3) {
+					continue;
+				}
+				
+				// Collecting the encoding for future needs
+				//if (fileLine.contains("encoding")) {
+				//	String encoding = getEncoding(fileLine);
+					//xmlSchema.setEncoding(encoding);
+				//	continue;
+				//}
+					
+				// Removing whitespaces at the beginning
+				fileLine = fileLine.substring(fileLine.indexOf("<"));
+				
+				if(fileLine.matches("<[A-Z]*[a-z]*>")) {
+					//System.out.println("Opening: " + fileLine);
+					//openingNamespace(fileLine);
+				} else if(fileLine.matches("<[/][A-Z]*[a-z]*>")) {
+					//System.out.println("Closing: " + fileLine);
+					
+				}
+				
+				if(fileLine.matches("<(\\w)*([\\s]*[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_ ]*=\"[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_ ]*\")+\\s*>")) {
+					System.out.println("Namespace: " + fileLine);
+				}
+
+				// checking if it's a closing namespace
+				/*
+				 * TO REVIEW
+				 */
+				if (fileLine.trim().startsWith("</")) {
+					//xmlObject.addLine("\t.\n");
+				}
+
+				// checking if it's a value
+				else if (fileLine.contains("</")) {
+					//xmlSchema.addLine('\t' + collectValue(fileLine));
+					//System.out.println("Value: " + collectValue(fileLine));
+				}
+
+	
+			} catch (Exception e) {
+				System.out.println(fileLine);
+				e.printStackTrace();
 			}
 		}
 
-		// }
+		return "";
 
-		return xmlSchema.toString();
+	}
 
+	private void openingNamespace(String fileLine) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public String xmlToTTL(List<String> fileLines) {

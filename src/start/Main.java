@@ -27,12 +27,13 @@ public class Main {
 			}
 			
 			if (file.contains(".xml")) {
-				List<String> fileLines = IO.readAnyFile("file:" + path + file);
+				List<String> fileLines = IO.readAnyFile(path + file);
 
-				String xml = "";
-				for (String l : fileLines) {
-					xml += l + "\n";
-				}
+				//String xml = "";
+				//for (String l : fileLines) {
+				//	xml += l + "\n";
+				//}
+				System.out.println(fileLines.size());
 				
 				Translator t = new Translator();
 				String output = t.xmlToObject(fileLines);
