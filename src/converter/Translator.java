@@ -15,69 +15,59 @@ public class Translator {
 		xmlObject = new XMLObject();
 
 		boolean comment = false;
-		
+
 		for (String fileLine : fileLines) {
 
 			try {
-				
-				if(fileLine.contains("<!")) {
+
+				if (fileLine.contains("<!")) {
 					comment = true;
 				}
-				
-				if(fileLine.contains("-->")) {
+
+				if (fileLine.contains("-->")) {
 					comment = false;
 					continue;
 				}
-				
-				if(comment) {
+
+				if (comment) {
 					continue;
 				}
-				
-				if(fileLine.contains("exclude=\"true\"")) {
+
+				if (fileLine.contains("exclude=\"true\"")) {
 					continue;
 				}
 
 				if (fileLine.length() < 3) {
 					continue;
 				}
-				
+
 				// Collecting the encoding for future needs
-				//if (fileLine.contains("encoding")) {
-				//	String encoding = getEncoding(fileLine);
-					//xmlSchema.setEncoding(encoding);
-				//	continue;
-				//}
-					
+				// if (fileLine.contains("encoding")) {
+				// String encoding = getEncoding(fileLine);
+				// xmlSchema.setEncoding(encoding);
+				// continue;
+				// }
+
 				// Removing whitespaces at the beginning
 				fileLine = fileLine.substring(fileLine.indexOf("<"));
-				
-				if(fileLine.matches("<[A-Z]*[a-z]*>")) {
-					//System.out.println("Opening: " + fileLine);
-					//openingNamespace(fileLine);
-				} else if(fileLine.matches("<[/][A-Z]*[a-z]*>")) {
-					//System.out.println("Closing: " + fileLine);
+
+				if (fileLine.matches("<[A-Z]*[a-z]*>")) {
+					// System.out.println("Opening: " + fileLine);
 					
-				}
-				
-				if(fileLine.matches("<(\\w)*([\\s]*[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_ ]*=\"[A-Za-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ_ ]*\")+\\s*>")) {
-					System.out.println("Namespace: " + fileLine);
+				} else if (fileLine.matches("<[/][A-Z]*[a-z]*>")) {
+					// System.out.println("Closing: " + fileLine);
+
 				}
 
-				// checking if it's a closing namespace
-				/*
-				 * TO REVIEW
-				 */
-				if (fileLine.trim().startsWith("</")) {
-					//xmlObject.addLine("\t.\n");
+				if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*>")) {
+					//System.out.println("Namespace: " + fileLine);
 				}
 
-				// checking if it's a value
-				else if (fileLine.contains("</")) {
-					//xmlSchema.addLine('\t' + collectValue(fileLine));
-					//System.out.println("Value: " + collectValue(fileLine));
+				if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
+					//System.out.println("Values: " + fileLine);
 				}
 
-	
+			
 			} catch (Exception e) {
 				System.out.println(fileLine);
 				e.printStackTrace();
@@ -86,11 +76,6 @@ public class Translator {
 
 		return "";
 
-	}
-
-	private void openingNamespace(String fileLine) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	public String xmlToTTL(List<String> fileLines) {
