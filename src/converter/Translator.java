@@ -52,19 +52,23 @@ public class Translator {
 				fileLine = fileLine.substring(fileLine.indexOf("<"));
 
 				if (fileLine.matches("<[A-Z]*[a-z]*>")) {
-					// System.out.println("Opening: " + fileLine);
+					 System.out.println("Opening: " + fileLine);
 					
 				} else if (fileLine.matches("<[/][A-Z]*[a-z]*>")) {
-					// System.out.println("Closing: " + fileLine);
+					 System.out.println("Closing: " + fileLine);
 
 				}
 
 				if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*>")) {
-					//System.out.println("Namespace: " + fileLine);
+					System.out.println("Namespace: " + fileLine);
+				}
+				
+				if(fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*\\/>")) {
+					System.out.println("Namespace closed: " + fileLine);
 				}
 
 				if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
-					//System.out.println("Values: " + fileLine);
+					System.out.println("Values: " + fileLine);
 				}
 
 			
