@@ -1,0 +1,2124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mapping>
+  <config>
+    <version>1.5</version>
+    <prefix>http://petrobras.com.br/</prefix>
+    <origin>Petrobras</origin>
+    <database>prolab</database>
+  </config>
+  
+  <views>
+    
+    <!-- Bacia -->
+    <view name="BACIA" label="Bacia" identifier="true">
+      <tables repcol="BACI_NM_BACIA">
+        <table name="BACIA" owner="INR">
+          <pk>BACI_CD_BACIA</pk>
+          <group>
+            <column name="BACI_CD_BACIA" exclude="true"/>
+            <column name="BACI_NM_BACIA" label="Nome"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    
+    <!-- Campo - Pendente STATUS_CAMPO (não temos acesso) -->
+    <view name="CAMPO" label="Campo" identifier="true">
+      <tables repcol="CAMP_NM_CAMPO">
+        <table name="CAMPO" owner="RST">
+          <pk>CAMP_CD_CAMPO</pk>
+          <group>
+            <column name="CAMP_CD_CAMPO" exclude="true"/>
+            <column name="CAMP_NM_CAMPO" label="Nome"/>
+            <column name="CAMP_NM_ABREV" label="Abreviação" indexing="true"/>
+            <column name="CAMP_SG_CAMPO" label="Sigla" indexing="true"/>
+            <column name="STCA_CD_CAMPO" exclude="true"/>
+            <column name="CAMP_DT_DECL_COMERC" label="Data de Declaração de Comercialidade"/>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNAD_CD_UNID_ADM" exclude="true"/>
+          </group>
+          <group name="Localização">
+            <column name="BACI_CD_BACIA" label="Bacia" untagged="true">
+              <join view="BACIA">
+                <condition from="BACI_CD_BACIA" to="BACI_CD_BACIA"/>
+              </join>
+            </column>
+            <column name="BLOC_CD_BLOCO" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_ADMINISTRAT" owner="TBB">
+          <pk>UNAD_CD_UNID_ADM</pk>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM" exclude="true"/>
+            <column name="UNAD_SG_UNID_ADM" label="Sigla da Unidade da Aprovação da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNAD_SG_UNID_ADM"/>
+              </decode>
+            </column>
+            <column name="UNAD_NM_UNID_ADM" label="Nome da Unidade da Aprovação da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNAD_NM_UNID_ADM"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>      
+        <table name="BLOCO" owner="ACO">
+          <pk>BLOC_CD_BLOCO</pk>
+          <group>
+            <column name="BLOC_CD_BLOCO" exclude="true"/>
+            <column name="BLOC_SG_BLOCO" label="Sigla do Bloco" indexing="true">
+              <decode expr="BLOCO.BLOC_CD_BLOCO">
+                <entry search="null" result="null"/>
+                <entry search="BLOCO.BLOC_CD_BLOCO" result="BLOC_SG_BLOCO"/>
+              </decode>
+            </column>
+            <column name="BLOC_NM_BLOCO" label="Nome do Bloco" indexing="true">
+              <decode expr="BLOCO.BLOC_CD_BLOCO">
+                <entry search="null" result="null"/>
+                <entry search="BLOCO.BLOC_CD_BLOCO" result="BLOC_NM_BLOCO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   
+    <!-- Furo - OK -->  
+    <view name="FURO" label="Furo" identifier="true">
+      <tables repcol="FURO_NM_FURO_ABREV"> 
+        <table name="FURO" owner="AES">
+          <pk>FURO_CD_FURO</pk>
+          <group>
+            <column name="FURO_CD_FURO" exclude="true"/>
+            <column name="FURO_NM_FURO_ABREV" label="Abreviação"/>
+            <column name="FURO_NM_FURO" label="Nome" indexing="true"/>
+          </group>
+          <group name="Localização">
+            <column name="BACI_CD_BACIA" label="Bacia" untagged="true">
+              <join view="BACIA">
+                <condition from="BACI_CD_BACIA" to="BACI_CD_BACIA"/>
+              </join>
+            </column>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="MUNI_CD_MUNICIPIO" exclude="true"/>
+          </group>
+          <group name="Medidas">
+            <column name="FURO_MD_FUNDO" label="Profundidade" unit="m"/>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+          <group name="Cadastro">
+            <column name="FURO_DT_CADASTRO" label="Data do Cadastro"/>
+            <column name="ATPB_CD_ATOR_PROLAB" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="MUNICIPIO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF MUNI_CD_MUNICIPIO</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="MUNI_CD_MUNICIPIO" exclude="true"/>
+            <column name="MUNI_NM_MUNICIPIO" label="Município" indexing="true">
+              <decode expr="MUNICIPIO.MUNI_CD_MUNICIPIO">
+                <entry search="null" result="null"/>
+                <entry search="MUNICIPIO.MUNI_CD_MUNICIPIO" result="MUNI_NM_MUNICIPIO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_PROLAB</pk>
+          <group>
+            <column name="ATPB_CD_ATOR_PROLAB" exclude="true"/>
+            <column name="ATPB_NM_ATOR" label="Ator PROLAB" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   
+    <!-- Afloramento - OK --> 
+    <view name="AFLORAMENTO" label="Afloramento">
+      <tables repcol="AFLO_NM_AFLORAMENTO">
+        <table name="AFLORAMENTO" owner="AES">
+          <pk>AFLO_CD_AFLORAMENTO</pk>
+          <group>
+            <column name="AFLO_CD_AFLORAMENTO" exclude="true"/>
+            <column name="AFLO_NM_AFLORAMENTO" label="Nome"/>
+            <column name="AFLO_NM_ABREVIADO" label="Abreviação" indexing="true"/>
+            <column name="AFLO_TX_OBSERVACAO" label="Observação" indexing="true"/>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNLI_CD_UNID_LITO" exclude="true" />
+            <column name="UNCN_CD_UNID_CRONO" exclude="true"/>
+            <column name="UNBI_CD_UNID_BIOES" exclude="true"/>
+          </group>
+          <group name="Localização">
+            <column name="MUNI_CD_MUNICIPIO" exclude="true"/>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="BACI_CD_BACIA" label="Bacia" untagged="true">
+              <join view="BACIA">
+                <condition from="BACI_CD_BACIA" to="BACI_CD_BACIA"/>
+              </join>
+            </column>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="AFLO_DS_AFLORAMENTO" label="Descrição da Localização" indexing="true"/>
+            <column name="AFLO_SG_ORIENTACAO" label="Orientação" indexing="true"/>
+          </group>
+          <group name="Medidas">
+            <column name="AFLO_MD_ALTURA" label="Altura" unit="m"/>
+            <column name="AFLO_MD_COMPRIMENTO" label="Comprimento" unit="m"/>
+            <column name="AFLO_MD_LARGURA" label="Largura" unit="m"/>
+          </group>
+          <group name="Cadastro">
+            <column name="AFLO_DT_CADASTRO" label="Data do Cadastro"/>
+            <column name="ATPB_CD_ATOR_PROLAB" exclude="true"/>
+          </group>
+          <group name="Outras">
+            <column name="DAGE_CD_DATUM_GEOD" exclude="true"/>
+            <column name="PRES_CD_PROVINCIA_ESTRUTURAL" label="Província Estrutural"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="UNID_LITOESTRATIGR" owner="INR">
+          <pk>UNLI_CD_UNID_LITO</pk>
+          <group name="Unidades">
+            <column name="UNLI_CD_UNID_LITO" exclude="true"/>
+            <column name="UNLI_SG_UNID_LITO" label="Sigla da Unidade Litoestratigráfica" indexing="true">
+              <decode expr="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO">
+                <entry search="null" result="null"/>
+                <entry search="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO" result="UNLI_SG_UNID_LITO"/>
+              </decode>
+            </column>
+            <column name="UNLI_NM_UNID_LITO" label="Nome da Unidade Litoestratigráfica" indexing="true">
+              <decode expr="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO">
+                <entry search="null" result="null"/>
+                <entry search="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO" result="UNLI_NM_UNID_LITO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_CRONOESTRATIG" owner="INR">
+          <pk>UNCN_CD_UNID_CRONO</pk>
+          <group name="Unidades">
+            <column name="UNCN_CD_UNID_CRONO" exclude="true"/>
+            <column name="UNCN_SG_UNID_CRONO" label="Sigla da Unidade Cronoestratigráfica" indexing="true">
+              <decode expr="UNID_CRONOESTRATIG.UNCN_CD_UNID_CRONO">
+                <entry search="null" result="null"/>
+                <entry search="UNID_CRONOESTRATIG.UNCN_CD_UNID_CRONO" result="UNCN_SG_UNID_CRONO"/>
+              </decode>
+            </column>
+            <column name="UNCN_NM_UNID_CRONO" label="Nome da Unidade Cronoestratigráfica" indexing="true">
+              <decode expr="UNID_CRONOESTRATIG.UNCN_CD_UNID_CRONO">
+                <entry search="null" result="null"/>
+                <entry search="UNID_CRONOESTRATIG.UNCN_CD_UNID_CRONO" result="UNCN_NM_UNID_CRONO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_BIOESTRATIGR" owner="INR">
+          <pk>UNBI_CD_UNID_BIOES</pk>
+          <group name="Unidades">
+            <column name="UNBI_CD_UNID_BIOES" exclude="true"/>
+            <column name="UNBI_SG_UNID_BIOES" label="Sigla da Unidade Bioestratigrafica" indexing="true">
+              <decode expr="UNID_BIOESTRATIGR.UNBI_CD_UNID_BIOES">
+                <entry search="null" result="null"/>
+                <entry search="UNID_BIOESTRATIGR.UNBI_CD_UNID_BIOES" result="UNBI_SG_UNID_BIOES"/>
+              </decode>
+            </column>
+            <column name="UNBI_NM_UNID_BIOES" label="Nome da Unidade Bioestratigrafica" indexing="true">
+              <decode expr="UNID_BIOESTRATIGR.UNBI_CD_UNID_BIOES">
+                <entry search="null" result="null"/>
+                <entry search="UNID_BIOESTRATIGR.UNBI_CD_UNID_BIOES" result="UNBI_NM_UNID_BIOES"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="MUNICIPIO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF MUNI_CD_MUNICIPIO</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="MUNI_CD_MUNICIPIO" exclude="true"/>
+            <column name="MUNI_NM_MUNICIPIO" label="Município" indexing="true">
+              <decode expr="MUNICIPIO.MUNI_CD_MUNICIPIO">
+                <entry search="null" result="null"/>
+                <entry search="MUNICIPIO.MUNI_CD_MUNICIPIO" result="MUNI_NM_MUNICIPIO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="DATUM_GEODESICO" owner="CAR">
+          <pk>DAGE_CD_DATUM_GEOD</pk>
+          <group name="Outras">
+            <column name="DAGE_CD_DATUM_GEOD" exclude="true"/>
+            <column name="DAGE_SG_DATUM_GEOD" label="Sigla do Datum Geodésico">
+              <decode expr="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD">
+                <entry search="null" result="null"/>
+                <entry search="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD" result="DAGE_SG_DATUM_GEOD"/>
+              </decode>
+            </column>
+            <column name="DAGE_NM_DATUM_GEOD" label="Nome do Datum Geodésico">
+              <decode expr="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD">
+                <entry search="null" result="null"/>
+                <entry search="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD" result="DAGE_NM_DATUM_GEOD"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_PROLAB</pk>
+          <group>
+            <column name="ATPB_CD_ATOR_PROLAB" exclude="true"/>
+            <column name="ATPB_NM_ATOR" label="Ator PROLAB" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    
+    <!-- Poço - Pendente EEP.FINALIDADE_POCO, EEP.STATUS_POCO, TBB.EMP_CAT_SERV_PROD (não temos acesso) -->  
+    <view name="POCO" label="Poço" identifier="true">
+      <tables repcol="POCO_NM_COMPLETO">
+        <table name="POCO" owner="EEP">
+          <pk>POCO_CD_POCO</pk>
+          <group>
+            <column name="POCO_CD_POCO" exclude="true"/>
+            <column name="POCO_CD_POCO_ORIG" label="Poço Origem" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO_ORIG" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="POCO_NM_COMPLETO" label="Nome Completo">
+              <decode>
+                <entry search="null" result="'POCO ' || POCO_CD_POCO"/>
+              </decode>
+            </column>
+            <column name="POCO_SG_LOCACAO" label="Locação" indexing="true"/>
+            <!-- Propriedade usada para ligar os dados da ANP com Getulio -->
+            <column name="POCO_SG_PREF_DEPEX" label="Prefixo ANP" untagged="true"/>
+            <column name="POCO_CD_PROPRIET" exclude="true"/>
+            <!-- <column name="SEPR_CD_SERV_PROD" label="Serviço ou Produto"/> -->
+            <column name="TIRC_CD_RECLASSIF" exclude="true"/>
+            <column name="POCO_NR_GEDOC" label="Número GEDOC"/>
+            <!-- <column name="CAEM_CD_CATEGORIA" label="Categoria" indexing="true"/> -->
+            <column name="POCO_SG_REPETICAO" label="Repetição" indexing="true"/>
+            <column name="POCO_SG_SUBM" label="Tipo" indexing="true">
+              <decode expr="UPPER(SUBSTR(POCO_SG_SUBM, 1, 1))" default="'Terrestre'">
+                <entry search="'S'" result="'Submarino'"/>
+              </decode>
+            </column>
+            <column name="POCO_SG_API" label="API" indexing="true"/>
+            <column name="FPOC_CD_FINALIDADE" exclude="true"/>
+            <column name="STPO_CD_STATUS" exclude="true"/>
+            <column name="TDIR_CD_TIPO_DIR" label="Tipo de Direção" indexing="true">
+              <decode>
+                <entry search="'H'" result="'Horizontal'"/>
+                <entry search="'V'" result="'Vertical'"/>
+                <entry search="'D'" result="'Direcional'"/>
+              </decode>
+            </column>  
+            <column name="POCO_CD_CONDICAO" label="Condição"/>
+          </group>
+          <group name="Localização">
+            <column name="POCO_TX_DET_LOCAL" label="Detalhamento da Localização" indexing="true"/>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="MUNI_CD_MUNICIPIO" exclude="true"/>
+            <column name="BACI_CD_BACIA" label="Bacia" untagged="true">
+              <join view="BACIA">
+                <condition from="BACI_CD_BACIA" to="BACI_CD_BACIA"/>
+              </join>
+            </column>
+            <column name="CAMP_CD_CAMPO" label="Campo" untagged="true">
+              <join view="CAMPO">
+                <condition from="CAMP_CD_CAMPO" to="CAMP_CD_CAMPO"/>
+              </join>
+            </column>
+          </group>
+          <group name="Datas">
+            <column name="POCO_DT_CONCLUSAO" label="Data da Conclusão" />
+            <column name="POCO_DT_TERMINO" label="Data do Término da Perfuração"/>
+            <!-- <column name="POCO_DT_PREV_INOP" label="Data do Início Previsto das Operações"/> -->
+          </group>
+          <group name="Medidas">
+            <column name="POCO_MD_PUTM_BASE" label="Coordenadas Planas da Base"/>
+            <column name="POCO_MD_LUTM_PR_BS" label="Coordenada Leste da Base (Prevista)"/>
+            <column name="POCO_MD_LUTM_BASE" label="Coordenada Leste da Base"/>
+            <column name="POCO_MD_NUTM_PR_BS" label="Coordenada Norte da Base (Prevista)"/>
+            <column name="POCO_MD_NUTM_BASE" label="Coordenada Norte da Base"/>
+            <column name="POCO_MD_LUTM_PR_FN" label="Coordenada Leste do Fundo (Prevista)"/>
+            <column name="POCO_MD_LUTM_FUNDO" label="Coordenada Leste do Fundo"/>
+            <column name="POCO_MD_NUTM_PR_FN" label="Coordenada Norte do Fundo (Prevista)"/>
+            <column name="POCO_MD_NUTM_FUNDO" label="Coordenada Norte do Fundo"/>
+            <column name="POCO_MD_LATI_FUNDO" label="Latitude do Fundo"/>
+            <column name="POCO_MD_LONG_FUNDO" label="Longitude do Fundo"/>
+            <column name="POCO_MD_LATI_BASE" label="Latitude da Base"/>
+            <column name="POCO_MD_LONG_BASE" label="Longitude da Base"/>
+            <column name="POCO_MD_COTA_ALTIM" label="Cota Altimétrica"/>
+            <column name="POCO_MD_DIST_COSTA" label="Distância da Costa" unit="m"/>
+            <column name="POCO_MD_COT_FN_PREV" label="Cota Final (Prevista)"/>
+            <column name="POCO_MD_L_AGUA_PR" label="Lâmina D’água (Prevista)"/>
+            <column name="POCO_MD_LAMIN_AGUA" label="Lâmina D’água"/>
+            <column name="POCO_MD_PROF_PREVI" label="Profundidade (Prevista)"/>
+            <column name="POCO_MD_PROF_FN_PR" label="Profundidade Final da Perfilagem"/>
+            <column name="POCO_MD_MERID_CENT" label="Meridiano Central (Graus)"/>
+            <column name="POCO_MD_MERID_CENT_MIN" label="Meridiano Central (Minutos)"/>
+            <column name="POCO_MD_MERID_CENT_SEG" label="Meridiano Central (Segundos)"/>
+            <!-- <column name="POCO_MD_TVD" label="Profundidade Vertical Verdadeira"/> -->
+            <!-- <column name="POCO_MD_METROS_PERF" label="Total de Metros Perfurados"/> -->
+          </group>
+          <group name="Indicadores">
+            <column name="POCO_IN_ATING_ALVO" label="Alvo" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Alvo atingido'"/>
+                <entry search="'N'" result="'Alvo não atingido'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_CO2_PREV" label="Previsão de CO2" indexing="true">
+              <decode>
+                <entry search="'S'" result="'CO2 previsto'"/>
+                <entry search="'N'" result="'CO2 não previsto'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_OCORR_CO2" label="Ocorrência de CO2" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Ocorrência de CO2'"/>
+                <entry search="'N'" result="'Sem ocorrência de CO2'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_H2S_PREV" label="Previsão de H2S" indexing="true">
+              <decode>
+                <entry search="'S'" result="'H2S previsto'"/>
+                <entry search="'N'" result="'H2S não previsto'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_OCORR_H2S" label="Ocorrência de H2S" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Ocorrência de H2S'"/>
+                <entry search="'N'" result="'Sem ocorrência de H2S'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_PERDIDO" label="Perdido" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Perdido'"/>
+                <entry search="'N'" result="'Não perdido'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_LOCACAO" label="Locação" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Com Locação'"/>
+                <entry search="'N'" result="'Sem Locação'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_MULTILATER" label="Multilateral" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Multilateral'"/>
+                <entry search="'N'" result="'Não multilateral'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_DIRECIONAL" label="Direcional" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Direcional'"/>
+                <entry search="'N'" result="'Não direcional'"/>
+              </decode>
+            </column>
+            <column name="POCO_IN_PARCERIA" label="Parceria" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Com parceria'"/>
+                <entry search="'N'" result="'Sem parceria'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM_G" exclude="true"/>
+            <column name="UNAD_CD_UNID_ADM_L" exclude="true"/>
+            <column name="UNAD_CD_UNID_ADM_P" exclude="true"/>
+            <column name="UNAD_CD_UNID_ADM_A" exclude="true"/>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_CD_UNID_RESP" exclude="true"/>
+            <column name="UNLI_CD_UNID_LITO" exclude="true"/>
+          </group>
+          <group name="Ambientes">
+            <column name="AMBI_CD_AMBI_BS" exclude="true"/>
+            <column name="AMBI_CD_AMBI_FN" exclude="true"/>
+          </group>
+          <group name="Blocos">
+            <column name="BLOC_CD_BLOCO_CONT" exclude="true"/>
+            <column name="BLOC_CD_BLOCO_PEM" exclude="true"/>
+          </group>
+          <group name="Outras">
+            <column name="DAGE_CD_DATUM_GEOD" exclude="true"/>
+            <column name="POCO_TX_OBS_LOCA" label="Observações" indexing="true"/>
+            <column name="POCO_TX_QUADR_PREV" label="Previsões Geológicas" indexing="true"/>
+            <column name="POCO_TX_FINALIDADE" label="Finalidade" indexing="true"/>
+          </group>  
+        </table>
+        <table name="TIPO_RECLASSIFICA" owner="ACG">
+          <pk>TIRC_CD_RECLASSIF</pk>
+          <group>
+            <column name="TIRC_CD_RECLASSIF" label="CÓDIGO RECLASSIF" exclude="true"/>
+            <column name="TIRC_TX_RECLASSIF" label="Reclassificação" indexing="true">
+              <decode expr="TIPO_RECLASSIFICA.TIRC_CD_RECLASSIF">
+                <entry search="null" result="null"/>
+                <entry search="TIPO_RECLASSIFICA.TIRC_CD_RECLASSIF" result="TIRC_TX_RECLASSIF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="DATUM_GEODESICO" owner="CAR">
+          <pk>DAGE_CD_DATUM_GEOD</pk>
+          <group name="Outras">
+            <column name="DAGE_CD_DATUM_GEOD" exclude="true"/>
+            <column name="DAGE_SG_DATUM_GEOD" label="Sigla do Datum Geodésico">
+              <decode expr="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD">
+                <entry search="null" result="null"/>
+                <entry search="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD" result="DAGE_SG_DATUM_GEOD"/>
+              </decode>
+            </column>
+            <column name="DAGE_NM_DATUM_GEOD" label="Nome do Datum Geodésico">
+              <decode expr="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD">
+                <entry search="null" result="null"/>
+                <entry search="DATUM_GEODESICO.DAGE_CD_DATUM_GEOD" result="DAGE_NM_DATUM_GEOD"/>
+              </decode>
+            </column>
+          </group>
+        </table> 
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="MUNICIPIO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF MUNI_CD_MUNICIPIO</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="MUNI_CD_MUNICIPIO" exclude="true"/>
+            <column name="MUNI_NM_MUNICIPIO" label="Município" indexing="true">
+              <decode expr="MUNICIPIO.MUNI_CD_MUNICIPIO">
+                <entry search="null" result="null"/>
+                <entry search="MUNICIPIO.MUNI_CD_MUNICIPIO" result="MUNI_NM_MUNICIPIO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_ADMINISTRAT" owner="TBB">
+          <pk>UNAD_CD_UNID_ADM_G</pk>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM" as="UNAD_CD_UNID_ADM_G" exclude="true"/>
+            <column name="UNAD_SG_UNID_ADM" as="UNAD_SG_UNID_ADM_G" label="Sigla da Unidade do Acompanhamento Geológico" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_SG_UNID_ADM"/>
+              </decode>
+            </column>
+            <column name="UNAD_NM_UNID_ADM" as="UNAD_NM_UNID_ADM_G" label="Nome da Unidade do Acompanhamento Geológico" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_NM_UNID_ADM"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_ADMINISTRAT" owner="TBB">
+          <pk>UNAD_CD_UNID_ADM_P</pk>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM" as="UNAD_CD_UNID_ADM_P" exclude="true"/>
+            <column name="UNAD_SG_UNID_ADM" as="UNAD_SG_UNID_ADM_P" label="Sigla da Unidade da Perfuração" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_SG_UNID_ADM"/>
+              </decode>
+            </column>
+            <column name="UNAD_NM_UNID_ADM" as="UNAD_NM_UNID_ADM_P" label="Nome da Unidade da Perfuração" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_NM_UNID_ADM"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_ADMINISTRAT" owner="TBB">
+          <pk>UNAD_CD_UNID_ADM_A</pk>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM" as="UNAD_CD_UNID_ADM_A" exclude="true"/>
+            <column name="UNAD_SG_UNID_ADM" as="UNAD_SG_UNID_ADM_A" label="Sigla da Unidade da Aprovação da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_SG_UNID_ADM"/>
+              </decode>
+            </column>
+            <column name="UNAD_NM_UNID_ADM" as="UNAD_NM_UNID_ADM_A" label="Nome da Unidade da Aprovação da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_NM_UNID_ADM"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_ADMINISTRAT" owner="TBB">
+          <pk>UNAD_CD_UNID_ADM_L</pk>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM" as="UNAD_CD_UNID_ADM_L" exclude="true"/>
+            <column name="UNAD_SG_UNID_ADM" as="UNAD_SG_UNID_ADM_L" label="Sigla da Unidade da Geração da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_SG_UNID_ADM"/>
+              </decode>
+            </column>
+            <column name="UNAD_NM_UNID_ADM" as="UNAD_NM_UNID_ADM_L" label="Nome da Unidade da Geração da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNID_ADMINISTRAT.UNAD_NM_UNID_ADM"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_RESP</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" as="UNOP_CD_UNID_RESP" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" as="UNOP_SG_UNID_RESP" label="Sigla da Unidade Responsável" indexing="true">
+              <decode expr="UNID_OPERATIVA.UNOP_CD_UNID_OPER">
+                <entry search="null" result="null"/>
+                <entry search="UNID_OPERATIVA.UNOP_CD_UNID_OPER" result="UNID_OPERATIVA.UNOP_SG_UNID_OPER"/>
+              </decode>
+            </column>
+            <column name="UNOP_NM_UNID_OPER" as="UNOP_NM_UNID_RESP" label="Nome da Unidade Responsável" indexing="true">
+              <decode expr="UNID_OPERATIVA.UNOP_CD_UNID_OPER">
+                <entry search="null" result="null"/>
+                <entry search="UNID_OPERATIVA.UNOP_CD_UNID_OPER" result="UNID_OPERATIVA.UNOP_NM_UNID_OPER"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_LITOESTRATIGR" owner="INR">
+          <pk>UNLI_CD_UNID_LITO</pk>
+          <group name="Unidades">
+            <column name="UNLI_CD_UNID_LITO" exclude="true"/>
+            <column name="UNLI_SG_UNID_LITO" label="Sigla da Unidade Litoestratigráfica" indexing="true">
+              <decode expr="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO">
+                <entry search="null" result="null"/>
+                <entry search="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO" result="UNLI_SG_UNID_LITO"/>
+              </decode>
+            </column>
+            <column name="UNLI_NM_UNID_LITO" label="Nome da Unidade Litoestratigráfica" indexing="true">
+              <decode expr="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO">
+                <entry search="null" result="null"/>
+                <entry search="UNID_LITOESTRATIGR.UNLI_CD_UNID_LITO" result="UNLI_NM_UNID_LITO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="AMBIENTE" owner="EEP">
+          <pk>AMBI_CD_AMBI_BS</pk>
+          <group name="Ambiente">
+            <column name="AMBI_CD_AMBIENTE" as="AMBI_CD_AMBI_BS" exclude="true"/>
+            <column name="AMBI_NM_AMBIENTE" as="AMBI_NM_AMBIENTE_BS" label="Ambiente Base" indexing="true">
+              <decode expr="AMBIENTE.AMBI_CD_AMBIENTE">
+                <entry search="null" result="null"/>
+                <entry search="AMBIENTE.AMBI_CD_AMBIENTE" result="AMBIENTE.AMBI_NM_AMBIENTE"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="AMBIENTE" owner="EEP">
+          <pk>AMBI_CD_AMBI_FN</pk>
+          <group name="Ambiente">
+            <column name="AMBI_CD_AMBIENTE" as="AMBI_CD_AMBI_FN" exclude="true"/>
+            <column name="AMBI_NM_AMBIENTE" as="AMBI_NM_AMBIENTE_FN" label="Ambiente Fundo" indexing="true">
+              <decode expr="AMBIENTE.AMBI_CD_AMBIENTE">
+                <entry search="null" result="null"/>
+                <entry search="AMBIENTE.AMBI_CD_AMBIENTE" result="AMBIENTE.AMBI_NM_AMBIENTE"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="BLOCO" owner="ACO">
+          <pk>BLOC_CD_BLOCO_CONT</pk>
+          <group>
+            <column name="BLOC_CD_BLOCO" as="BLOC_CD_BLOCO_CONT" exclude="true"/>
+            <column name="BLOC_SG_BLOCO" as="BLOC_SG_BLOCO_CONT" label="Sigla do Bloco" indexing="true">
+              <decode expr="BLOCO.BLOC_CD_BLOCO">
+                <entry search="null" result="null"/>
+                <entry search="BLOCO.BLOC_CD_BLOCO" result="BLOCO.BLOC_SG_BLOCO"/>
+              </decode>
+            </column>
+            <column name="BLOC_NM_BLOCO" as="BLOC_NM_BLOCO_CONT" label="Nome do Bloco" indexing="true">
+              <decode expr="BLOCO.BLOC_CD_BLOCO">
+                <entry search="null" result="null"/>
+                <entry search="BLOCO.BLOC_CD_BLOCO" result="BLOCO.BLOC_NM_BLOCO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="BLOCO" owner="ACO">
+          <pk>BLOC_CD_BLOCO_PEM</pk>
+          <group>
+            <column name="BLOC_CD_BLOCO" as="BLOC_CD_BLOCO_PEM" exclude="true"/>
+            <column name="BLOC_SG_BLOCO" as="BLOC_SG_BLOCO_PEM" label="Sigla do Bloco PEM" indexing="true">
+              <decode expr="BLOCO.BLOC_CD_BLOCO">
+                <entry search="null" result="null"/>
+                <entry search="BLOCO.BLOC_CD_BLOCO" result="BLOCO.BLOC_SG_BLOCO"/>
+              </decode>
+            </column>
+            <column name="BLOC_NM_BLOCO" as="BLOC_NM_BLOCO_PEM" label="Nome do Bloco PEM" indexing="true">
+              <decode expr="BLOCO.BLOC_CD_BLOCO">
+                <entry search="null" result="null"/>
+                <entry search="BLOCO.BLOC_CD_BLOCO" result="BLOCO.BLOC_NM_BLOCO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view> 
+   
+    <!-- Poço Não BR - OK -->
+    <view name="POCO_NAO_BR" label="Poço Não BR" identifier="true">
+      <tables repcol="PNBR_SG_PREF_DEPEX">
+        <table name="POCO_NAO_BR" owner="AES">
+          <pk>PNBR_CD_POCO_NAO_BR</pk>
+          <group>
+            <column name="PNBR_CD_POCO_NAO_BR" exclude="true"/>
+            <column name="PNBR_SG_PREF_DEPEX" label="Sigla"/>
+            <column name="PNBR_SG_PREF_POCO" label="Prefixo" indexing="true"/>
+            <!-- <column name="PNBR_SG_LOCACAO" label="Locação" indexing="true"/> -->
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+          <group name="Localização">
+            <!-- Column CAMP_CD_CAMPO in view POCO_NAO_BR.CAMP_CD_CAMPO only contains null data -->
+            <!-- <column name="CAMP_CD_CAMPO" label="Campo" untagged="true">
+              <join view="CAMPO">
+                <condition from="CAMP_CD_CAMPO" to="CAMP_CD_CAMPO"/>
+              </join>
+            </column> -->
+            <column name="BACI_CD_BACIA" label="Bacia" untagged="true">
+              <join view="BACIA">
+                <condition from="BACI_CD_BACIA" to="BACI_CD_BACIA"/>
+              </join>
+            </column>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>        
+            <!-- <column name="AMBI_CD_AMBIENTE" exclude="true"/> -->
+          </group>
+          <group name="Cadastro">
+            <column name="ATPB_CD_ATOR_CADASTR" exclude="true"/>
+            <column name="PNBR_DT_CADASTRO" label="Data do Cadastro"/>
+          </group>
+          <group name="Medidas">
+            <!-- <column name="PNBR_MD_COTA_ALTIM" label="Cota Altimétrica"/> -->
+            <!-- <column name="PNBR_MD_LUTIM_BASE" label="Coordenada Leste da Base"/> -->
+            <column name="PNBR_MD_PROF_FINAL" label="Profundidade Final"/>
+          </group>
+          <group name="Indicadores">
+            <!-- <column name="PNBR_IN_LOCACAO" label="Locação" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Com Locação'"/>
+                <entry search="'N'" result="'Sem Locação'"/>
+              </decode>
+            </column> -->
+            <column name="PNBR_IN_DIRECIONAL" label="Direcional" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Direcional'"/>
+                <entry search="'N'" result="'Não Direcional'"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <!--
+        <table name="AMBIENTE" owner="EEP">
+          <pk>AMBI_CD_AMBIENTE</pk>
+          <group>
+            <column name="AMBI_CD_AMBIENTE" exclude="true"/>
+            <column name="AMBI_NM_AMBIENTE" label="Ambiente" indexing="true">
+              <decode expr="AMBIENTE.AMBI_CD_AMBIENTE">
+                <entry search="null" result="null"/>
+                <entry search="AMBIENTE.AMBI_CD_AMBIENTE" result="AMBI_NM_AMBIENTE"/>
+              </decode>
+            </column>
+          </group>
+        </table> -->
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_CADASTR</pk>
+          <group>
+            <column name="ATPB_CD_ATOR_PROLAB" as="ATPB_CD_ATOR_CADASTR" exclude="true"/>
+            <column name="ATPB_NM_ATOR" as="ATPB_NM_ATOR_CADASTR" label="Ator PROLAB" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+      
+    <!-- Amostra - Pendente Validação Petrobrás -->
+    <view name="AMOSTRA" label="Amostra">
+      <tables repcol="'Topo ' || AMOS_MD_TOPO || '/Base ' || AMOS_MD_BASE">
+        <table name="AMOSTRA" owner="AES">
+          <pk>AMOS_CD_AMOSTRA</pk>
+          <group>
+            <column name="AMOS_CD_AMOSTRA" exclude="true"/>
+            <column name="AMOS_NM_AMOSTRA" label="Nome" indexing="true"/>
+            <column name="AMOS_CD_AMOSTRA_PAI" label="Amostra Origem" untagged="true">
+              <join view="AMOSTRA">
+                <condition from="AMOS_CD_AMOSTRA_PAI" to="AMOS_CD_AMOSTRA"/>
+              </join>
+            </column>
+            <column name="AGOR_CD_ORIGEM" exclude="true"/>
+            <column name="TIAM_SG_TIPO_AMOSTRA" exclude="true"/>
+            <column name="AMOS_MD_TOPO" label="Profundidade do Topo"/>
+            <column name="AMOS_MD_BASE" label="Profundidade da Base"/>
+            <column name="TEMU_NR_TESTEMUNHO" label="Testemunho" untagged="true">
+              <join view="TESTEMUNHO">
+                <condition from="TEMU_NR_TESTEMUNHO" to="TEMU_NR_TESTEMUNHO"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMLA_SQ_AM_LATERAL" label="Amostra Lateral" untagged="true">
+              <join view="AMOSTRA_LATERAL">
+                <condition from="AMLA_SQ_AM_LATERAL" to="AMLA_SQ_AM_LATERAL"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMCA_CD_AMOSTRA" label="Amostra de Calha" untagged="true">
+              <join view="AMOSTRA_CALHA">
+                <condition from="AMCA_CD_AMOSTRA" to="AMCA_CD_AMOSTRA"/>
+              </join>
+            </column>
+            <column name="ESCG_SQ_ESTUDO_CAMPO" exclude="true"/>
+            <column name="AMAF_NR_AMOSTRA" label="Amostra de Afloramento" untagged="true">
+              <join view="AMOSTRA_AFLORAMENTO">
+                <condition from="AMAF_NR_AMOSTRA" to="AMAF_NR_AMOSTRA"/>
+                <condition from="AFLO_CD_AFLORAMENTO" to="AFLO_CD_AFLORAMENTO"/>
+                <condition from="ESCG_SQ_ESTUDO_CAMPO" to="ESCG_SQ_ESTUDO_CAMPO"/>
+              </join>
+            </column>
+            <column name="AMPE_CD_AM_PETROF" as="PLUGUE" label="Plugue" untagged="true">
+              <join view="PLUGUE">
+                <condition from="PLUGUE" to="AMPE_CD_AM_PETROF"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMPE_CD_AM_PETROF" as="WHOLE_CORE" label="Whole Core" untagged="true">
+              <join view="WHOLE_CORE">
+                <condition from="WHOLE_CORE" to="AMPE_CD_AM_PETROF"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="ATPB_CD_ATOR_CADASTRADOR" exclude="true"/>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="AGREGA_ORIGEM" owner="AES">      
+          <pk>AGOR_CD_ORIGEM</pk>
+          <group name="Origem">
+            <column name="AGOR_CD_ORIGEM" exclude="true"/>
+            <column name="AGOR_IN_TIPO_ORIGEM" label="Tipo da Origem" indexing="true">
+              <decode>
+                <entry search="'P'" result="'Poço'"/>
+                <entry search="'A'" result="'Afloramento'"/>
+                <entry search="'N'" result="'Poço Não Petrobrás'"/>
+                <entry search="'F'" result="'Furo'"/>
+              </decode>
+            </column>
+            <column name="POCO_CD_POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="PNBR_CD_POCO_NAO_BR" label="Poço Não BR" untagged="true">
+              <join view="POCO_NAO_BR">
+                <condition from="PNBR_CD_POCO_NAO_BR" to="PNBR_CD_POCO_NAO_BR"/>
+              </join>
+            </column>
+            <column name="FURO_CD_FURO" label="Furo" untagged="true">
+              <join view="FURO">
+                <condition from="FURO_CD_FURO" to="FURO_CD_FURO"/>
+              </join>
+            </column>
+            <column name="AFLO_CD_AFLORAMENTO" label="Afloramento" untagged="true">
+              <join view="AFLORAMENTO">
+                <condition from="AFLO_CD_AFLORAMENTO" to="AFLO_CD_AFLORAMENTO"/>
+              </join>
+            </column>
+          </group>
+        </table>
+        <table name="TIPO_AMOSTRA" owner="AES">    
+          <pk>TIAM_SG_TIPO_AMOSTRA</pk>
+          <group>
+            <column name="TIAM_SG_TIPO_AMOSTRA" exclude="true"/>
+            <column name="TIAM_DS_TIPO_AMOSTRA" label="Tipo da Amostra" indexing="true"/>
+          </group>
+        </table>
+        <table name="ATOR_PROLAB" owner="AES">    
+          <pk>ATPB_CD_ATOR_CADASTRADOR</pk>
+          <group>
+            <column name="ATPB_CD_ATOR_PROLAB" as="ATPB_CD_ATOR_CADASTRADOR" exclude="true"/>
+            <column name="ATPB_NM_ATOR" as="ATPB_NM_ATOR_CADASTRADOR" label="Ator Cadastrador" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    
+    <!-- Testemunho -->
+    <view name="TESTEMUNHO" label="Testemunho">
+      <tables repcol="TEMU_NR_TESTEMUNHO">
+        <table name="TESTEMUNHO" owner="ACG"> 
+          <pk>TEMU_NR_TESTEMUNHO POCO_CD_POCO</pk>
+          <group>
+            <column name="TEMU_NR_TESTEMUNHO" exclude="true"/>
+            <column name="POCO_CD_POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="TEMU_DT_AMOSTRAGEM" label="Data da Coleta"/>
+            <column name="TEMU_TX_DESCRICAO" label="Descrição" indexing="true"/>
+            <column name="TEMU_TX_OBS_CAMPO" label="Observação" indexing="true"/>
+            <column name="TITE_CD_TP_TESTEMU" label="Tipo"/>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNAD_CD_UNID_ADM" exclude="true"/>
+          </group>
+          <group name="Indicadores">
+            <column name="TEMU_IN_ORIENTADO" label="Orientado" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Orientado'"/>
+                <entry search="'N'" result="'Não orientado'"/>
+              </decode>
+            </column>
+            <column name="TEMU_IN_EXISTE_F" label="Existe Fisicamente" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Existe fisicamente'"/>
+                <entry search="'N'" result="'Não existe fisicamente'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Medidas">
+            <column name="TEMU_MD_PREVISTO" label="Tamanho Previsto"/>
+            <column name="TEMU_MD_CORTADO" label="Tamanho Cortado"/>
+            <column name="TEMU_MD_RECUPERADO" label="Comprimento"/>
+            <column name="TEMU_MD_TOPO" label="Profundidade do Topo"/>
+            <column name="TEMU_MD_BASE" label="Profundidade da Base"/>
+          </group>
+          <group name="Outras">
+            <column name="DITV_CD_DIA_TT_VAL" label="Diâmetro" indexing="true"/>
+            <column name="SIDE_NR_IDENT" label="Sidetrack"/>
+          </group>
+        </table>
+        <table name="UNID_ADMINISTRAT" owner="TBB">
+          <pk>UNAD_CD_UNID_ADM</pk>
+          <group name="Unidades">
+            <column name="UNAD_CD_UNID_ADM" exclude="true"/>
+            <column name="UNAD_SG_UNID_ADM" label="Sigla da Unidade da Aprovação da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNAD_SG_UNID_ADM"/>
+              </decode>
+            </column>
+            <column name="UNAD_NM_UNID_ADM" label="Nome da Unidade da Aprovação da Locação" indexing="true">
+              <decode expr="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM">
+                <entry search="null" result="null"/>
+                <entry search="UNID_ADMINISTRAT.UNAD_CD_UNID_ADM" result="UNAD_NM_UNID_ADM"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+      
+    <!-- Amostra de Calha -->
+    <view name="AMOSTRA_CALHA" label="Amostra de Calha">
+      <tables repcol="'Profundidade: ' || AMCA_MD_PROFUNDIDADE || 'm'">
+        <table name="AMOSTRA_CALHA" owner="AQG">
+          <pk>AMCA_CD_AMOSTRA</pk>
+          <group>
+            <column name="AMCA_CD_AMOSTRA" exclude="true"/>
+            <column name="POCO_CD_POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMCA_CD_UNIVERSAL" label="Identificador Universal"/>
+            <column name="AMCA_TX_OBSERVACAO" label="Observação" indexing="true"/>
+            <column name="AMCA_DT_AMOSTRA" label="Data"/>
+          </group>
+          <group name="Medidas">
+            <column name="AMCA_MD_TAMAN_AMOS" label="Tamanho"/>
+            <column name="AMCA_MD_PROFUNDIDADE" label="Profundidade"/>
+            <column name="AMCA_MD_DENSIDADE" label="Densidade"/>
+          </group>
+          <!-- <group name="Outras">
+            <column name="SIDE_NR_IDENT" label="Sidetrack"/>
+          </group> -->
+        </table>
+        <table name="POCO" owner="EEP">
+          <pk>POCO_CD_POCO</pk>
+          <group>
+            <column name="POCO_CD_POCO"/>            
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+      
+    <!-- Amostra de Afloramento -->
+    <view name="AMOSTRA_AFLORAMENTO" label="Amostra de Afloramento">
+      <tables repcol="AMAF_NR_AMOSTRA">
+        <table name="AMOSTRA_AFLORAMENTO" owner="AES">
+          <pk>AMAF_NR_AMOSTRA AFLO_CD_AFLORAMENTO ESCG_SQ_ESTUDO_CAMPO</pk>
+          <group>
+            <column name="AMAF_NR_AMOSTRA" label="Número"/>
+            <column name="ESCG_SQ_ESTUDO_CAMPO" exclude="true"/>
+            <column name="AFLO_CD_AFLORAMENTO" label="Afloramento" untagged="true">
+              <join view="AFLORAMENTO">
+                <condition from="AFLO_CD_AFLORAMENTO" to="AFLO_CD_AFLORAMENTO"/>
+              </join>
+            </column>
+            <!-- <column name="AMAF_TX_REFERENCIA_COLETA" label="Localização" indexing="true"/> -->
+            <column name="OECG_CD_OBJETIVO" exclude="true"/>
+          </group>
+        </table>
+        <table name="OBJETIVO_EST_CAMPO_GEOLOGICO" owner="AES">
+          <pk>OECG_CD_OBJETIVO</pk>
+          <group>
+            <column name="OECG_CD_OBJETIVO" exclude="true"/>
+            <column name="OECG_NM_OBJETIVO" label="Objetivo" indexing="true">
+              <decode expr="OBJETIVO_EST_CAMPO_GEOLOGICO.OECG_CD_OBJETIVO">
+                <entry search="null" result="null"/>
+                <entry search="OBJETIVO_EST_CAMPO_GEOLOGICO.OECG_CD_OBJETIVO" result="OECG_NM_OBJETIVO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="AFLORAMENTO" owner="AES">
+          <pk>AFLO_CD_AFLORAMENTO</pk>
+          <group>
+            <column name="AFLO_CD_AFLORAMENTO"/>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+      
+    <!-- Plugue -->
+    <view name="PLUGUE" label="Plugue">
+      <tables repcol="'Base ' || AMPE_MD_BASE || 'm'">
+        <table name="AM_PETROF" owner="RST">
+          <pk>AMPE_CD_AM_PETROF POCO_CD_POCO</pk>
+          <where> AMPE_CD_TIPO_AMOST = 'P' </where>
+          <group>
+            <column name="AMPE_CD_AM_PETROF" label="Código" />
+            <column name="POCO_CD_POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMPE_CD_TIPO_AMOST" exclude="true"/>
+            <column name="AMPE_CD_DIRECAO" label="Direção" indexing="true"/>
+            <column name="AMPE_CD_CX_TEMU" label="Caixa do Testemunho" indexing="true"/>
+            <column name="AMPE_CD_ENCAPSULA" label="Encapsulamento" indexing="true"/>
+            <column name="AMPE_TX_COMENTARIO" label="Comentário" indexing="true"/>
+            <column name="TEMU_NR_TESTEMUNHO" label="Testemunho" untagged="true">
+              <join view="TESTEMUNHO">
+                <condition from="TEMU_NR_TESTEMUNHO" to="TEMU_NR_TESTEMUNHO"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+          <group name="Datas">
+            <column name="AMPE_DT_PROFUND_CO" label="Data da Última Correção da Profundidade"/>
+            <column name="AMPE_DT_ULT_ATU" label="Data da Última Atualização"/>
+            <column name="AMPE_DT_PLUGAGEM" label="Data da Obtenção do Plugue"/>
+          </group>
+          <group name="Indicadores">
+            <column name="AMPE_IN_UTILIZADA" label="Utilizada" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Utilizada'"/>
+                <entry search="'N'" result="'Não utilizada'"/>
+              </decode>
+            </column>
+            <column name="AMPE_IN_DESTRUIDA" label="Destruída" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Destruída'"/>
+                <entry search="'N'" result="'Não destruída'"/>
+              </decode>
+            </column>
+            <column name="AMPE_IN_DANO_OPRL_PLUGUE" label="Plugue Desagregado" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Plugue desagregado'"/>
+                <entry search="'N'" result="'Plugue não desagregado'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Medidas">
+            <column name="AMPE_MD_PROFUND_CO" label="Profundidade Corrigida"/>
+            <column name="AMPE_MD_DIAMETRO" label="Diâmetro"/>
+            <column name="AMPE_MD_BASE" label="Profundidade"/>
+          </group>
+          <group name="Usuários">
+            <column name="USUA_CD_CHAVE" exclude="true"/>
+            <column name="USUA_CD_PROFUND_CO" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="CADUSER" owner="ADM">
+          <pk>USUA_CD_CHAVE</pk>
+          <group>
+            <column name="USER_ID" as="USUA_CD_CHAVE" exclude="true"/>
+            <column name="USER_NM_NOME" as="USUA_NM_CHAVE" label="Usuário do Cadastro" indexing="true"/>
+          </group>
+        </table>
+        <table name="CADUSER" owner="ADM">
+          <pk>USUA_CD_PROFUND_CO</pk>
+          <group>
+            <column name="USER_ID" as="USUA_CD_PROFUND_CO" exclude="true"/>
+            <column name="USER_NM_NOME" as="USUA_NM_PROFUND_CO" label="Usuário da Última Correção" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view> 
+
+    <!-- Whole Core -->
+    <view name="WHOLE_CORE" label="Whole Core">
+      <tables repcol="'Base ' || AMPE_MD_BASE || 'm'">
+        <table name="AM_PETROF" owner="RST">
+          <pk>AMPE_CD_AM_PETROF POCO_CD_POCO</pk>
+          <where> AMPE_CD_TIPO_AMOST = 'W' </where>
+          <group>
+            <column name="AMPE_CD_AM_PETROF" label="Código" />
+            <column name="POCO_CD_POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMPE_CD_TIPO_AMOST" exclude="true"/>
+            <column name="AMPE_CD_DIRECAO" label="Direção" indexing="true"/>
+            <column name="AMPE_CD_CX_TEMU" label="Caixa do Testemunho" indexing="true"/>
+            <column name="AMPE_CD_ENCAPSULA" label="Encapsulamento" indexing="true"/>
+            <column name="AMPE_TX_COMENTARIO" label="Comentário" indexing="true"/>
+            <column name="TEMU_NR_TESTEMUNHO" label="Testemunho" untagged="true">
+              <join view="TESTEMUNHO">
+                <condition from="TEMU_NR_TESTEMUNHO" to="TEMU_NR_TESTEMUNHO"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+          <group name="Datas">
+            <column name="AMPE_DT_PROFUND_CO" label="Data da Última Correção da Profundidade"/>
+            <column name="AMPE_DT_ULT_ATU" label="Data da Última Atualização"/>
+            <column name="AMPE_DT_PLUGAGEM" label="Data da Obtenção do Plugue"/>
+          </group>
+          <group name="Indicadores">
+            <column name="AMPE_IN_UTILIZADA" label="Utilizada" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Utilizada'"/>
+                <entry search="'N'" result="'Não utilizada'"/>
+              </decode>
+            </column>
+            <column name="AMPE_IN_DESTRUIDA" label="Destruída" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Destruída'"/>
+                <entry search="'N'" result="'Não destruída'"/>
+              </decode>
+            </column>
+            <column name="AMPE_IN_DANO_OPRL_PLUGUE" label="Plugue Desagregado" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Plugue desagregado'"/>
+                <entry search="'N'" result="'Plugue não desagregado'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Medidas">
+            <column name="AMPE_MD_PROFUND_CO" label="Profundidade Corrigida"/>
+            <column name="AMPE_MD_DIAMETRO" label="Diâmetro"/>
+            <column name="AMPE_MD_BASE" label="Profundidade"/>
+          </group>
+          <group name="Usuários">
+            <column name="USUA_CD_CHAVE" exclude="true"/>
+            <column name="USUA_CD_PROFUND_CO" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="CADUSER" owner="ADM">
+          <pk>USUA_CD_CHAVE</pk>
+          <group>
+            <column name="USER_ID" as="USUA_CD_CHAVE" exclude="true"/>
+            <column name="USER_NM_NOME" as="USUA_NM_CHAVE" label="Usuário do Cadastro" indexing="true"/>
+          </group>
+        </table>
+        <table name="CADUSER" owner="ADM">
+          <pk>USUA_CD_PROFUND_CO</pk>
+          <group>
+            <column name="USER_ID" as="USUA_CD_PROFUND_CO" exclude="true"/>
+            <column name="USER_NM_NOME" as="USUA_NM_PROFUND_CO" label="Usuário da Última Correção" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+
+    <!-- Amostra Lateral - Tipo: LATE (Lateral) 
+       Pendente Desnormalizar TIAL_CD_TP_AM_LATER e FIAL_CD_FIN_AM_LAT -->
+    <view name="AMOSTRA_LATERAL" label="Amostra Lateral">
+      <tables repcol="'Profundidade: ' || AMLA_MD_PROF_AMOST || 'm'">
+        <table name="AMOSTRA_LATERAL" owner="AQG">
+          <pk>AMLA_SQ_AM_LATERAL POCO_CD_POCO</pk>
+          <group>
+            <column name="AMLA_SQ_AM_LATERAL" exclude="true"/>
+            <column name="POCO_CD_POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMLA_NR_AM_LATERAL" label="Tentativa" />
+            <column name="AMLA_NR_AM_RECUPERADA" label="Extração"/>
+            <column name="AMLA_CD_UNIVERSAL_AMOSTRA" label="Identificador Universal"/>
+            <column name="AMLA_TX_DESCRICAO" label="Descrição" indexing="true"/>
+            <!-- <column name="AMLA_TX_OBS_CAMPO" label="Observação" indexing="true"/> -->
+            <column name="AMLA_NR_CORRIDA_ETIQUETA" label="Corrida"/>
+            <column name="AMLA_NR_PERFILAGEM_ETIQUETA" label="Perfilagem Exata"/>
+            <column name="PERF_NR_PERFILAGEM" label="Perfilagem"/>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+          <group name="Datas">
+            <column name="AMLA_DT_AMOSTRA" label="Data da Amostra"/>
+            <column name="AMLA_DT_ULT_ALTERACAO" label="Data da Última Alteração"/>
+            <column name="AMLA_DT_IMPRESSAO_ETIQUETA" label="Data da Última Impressão de Etiqueta"/>
+          </group>
+          <group name="Indicadores">
+            <column name="AMLA_IN_INDICIO" label="Hidrocarboneto" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Indício de hidrocarboneto'"/>
+                <entry search="'N'" result="'Sem indício de hidrocarboneto'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Medidas">
+            <column name="AMLA_MD_COMPRIMENT" label="Comprimento Recuperado"/>
+            <column name="AMLA_MD_PROF_AMOST" label="Profundidade"/>
+            <column name="AMLA_MD_COMPRIMENTO_ESPERADO" label="Comprimento Esperado"/>
+            <column name="AMLA_MD_TEMPO_CORTE" label="Tempo de Corte"/>
+          </group>
+          <group name="Tipos">
+            <column name="TDAL_CD_TIPO_DIAMETRO" exclude="true"/>
+            <column name="TROC_CD_TIPO_ROCHA" exclude="true"/>
+            <column name="TIAL_CD_TP_AM_LATER" exclude="true"/>
+            <column name="TRAL_CD_REC_AM_LAT" exclude="true"/>
+          </group>
+          <group name="Outras">
+            <column name="GRPC_NR_GPC" label="Perfis Combinados"/>
+            <column name="AMLA_PR_RECUPERACAO" label="Recuperação"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+        <table name="TIPO_DIAMETRO_AMST_LATERAL" owner="AQG">
+          <pk>TDAL_CD_TIPO_DIAMETRO</pk>
+          <group>
+            <column name="TDAL_CD_TIPO_DIAMETRO" exclude="true"/>
+            <column name="TDAL_TX_TIPO_DIAMETRO" label="Tipo do Diâmetro" indexing="true">
+              <decode expr="TIPO_DIAMETRO_AMST_LATERAL.TDAL_CD_TIPO_DIAMETRO">
+                <entry search="null" result="null"/>
+                <entry search="TIPO_DIAMETRO_AMST_LATERAL.TDAL_CD_TIPO_DIAMETRO" result="TDAL_TX_TIPO_DIAMETRO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="TIPO_RECU_AM_LATER" owner="AQG">
+          <pk>TRAL_CD_REC_AM_LAT</pk>
+          <group>
+            <column name="TRAL_CD_REC_AM_LAT" exclude="true"/>
+            <column name="TRAL_TX_DESCRICAO" label="Tipo da Recuperação" indexing="true">
+              <decode expr="TIPO_RECU_AM_LATER.TRAL_CD_REC_AM_LAT">
+                <entry search="null" result="null"/>
+                <entry search="TIPO_RECU_AM_LATER.TRAL_CD_REC_AM_LAT" result="TRAL_TX_DESCRICAO"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="TIPO_ROCHA" owner="INR">
+          <pk>TROC_CD_TIPO_ROCHA</pk>
+          <group>
+            <column name="TROC_CD_TIPO_ROCHA" exclude="true"/>
+            <column name="TROC_NM_TIPO_ROCHA" label="Tipo de Rocha" indexing="true">
+              <decode expr="TIPO_ROCHA.TROC_CD_TIPO_ROCHA">
+                <entry search="null" result="null"/>
+                <entry search="TIPO_ROCHA.TROC_CD_TIPO_ROCHA" result="TROC_NM_TIPO_ROCHA"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>  
+       
+    <!-- Análise Petrofísica -->
+    <view name="ANALISE_PETROFISICA" label="Análise Petrofísica">
+      <tables repcol="'Profundidade: ' || AMPE_MD_PROFUND || 'm'">
+        <table name="VW_ANALISE_PETROFISICA" owner="AES">
+          <pseudoPk>AMPE_CD_AM_PETROF POCO_CD_POCO</pseudoPk>
+          <where> AMPE_CD_TIPO_AMOST IN ('A','P','W') </where>
+          <group>
+            <column name="AMPE_CD_AM_PETROF" exclude="true"/>
+            <column name="POCO_CD_POCO" exclude="true"/>
+            <column name="AMPE_CD_AM_PETROF" as="PLUGUE" label="Plugue" untagged="true">
+              <join view="PLUGUE">
+                <condition from="AMPE_CD_AM_PETROF" to="AMPE_CD_AM_PETROF"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="AMPE_CD_AM_PETROF" as="WHOLE_CORE" label="Whole Core" untagged="true">
+              <join view="WHOLE_CORE">
+                <condition from="AMPE_CD_AM_PETROF" to="AMPE_CD_AM_PETROF"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="POCO_CD_POCO" as="POCO" label="Poço" untagged="true">
+              <join view="POCO">
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+            <column name="BACI_NM_BACIA" label="Bacia" indexing="true"/>
+            <column name="UNCN_NM_UNID_CRONO" label="Unidade Cronoestratigráfica" indexing="true"/>
+            <column name="UNLI_NM_UNID_LITO" label="Unidade Litoestratigráfica" indexing="true"/>
+          </group>
+          <group name="Medidas">
+            <column name="AMPE_MD_PROFUND" label="Profundidade"/>
+            <column name="ANPB_VL_POROSIDADE" label="Porosidade"/>
+            <column name="ANPB_VL_PERM_AB_L" label="Permeabilidade"/>
+            <column name="ANSO_MD_SAT_AGUA" label="Saturação da Água"/>
+            <column name="ANSO_MD_SAT_OLEO" label="Saturação do Óleo"/>
+          </group>
+        </table>
+        <table name="AM_PETROF" owner="RST">
+          <pk>AMPE_CD_AM_PETROF POCO_CD_POCO</pk>
+          <group>
+            <column name="AMPE_CD_AM_PETROF" exclude="true"/>
+            <column name="POCO_CD_POCO" exclude="true"/>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="AMPE_CD_TIPO_AMOST" exclude="true"/>
+            <column name="AMLA_SQ_AM_LATERAL" label="Amostra Lateral" untagged="true">
+              <join view="AMOSTRA_LATERAL">
+                <condition from="AMLA_SQ_AM_LATERAL" to="AMLA_SQ_AM_LATERAL"/>
+                <condition from="POCO_CD_POCO" to="POCO_CD_POCO"/>
+              </join>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+  
+    <!-- Macroscopia -->
+    <view name="MACROSCOPIA" label="Macroscopia" identifier="true">
+      <tables repcol="TBB_NM_TP_ROCHA">
+        <table name="VW_RESULTADO_ANALISE_MACRO" owner="AES">
+          <pseudoPk>ANMA_SQ_ANALISE_MACRO TROL_CD_TIPO_ROCHA_LABORATORIO</pseudoPk>
+          <group>
+            <column name="ANMA_SQ_ANALISE_MACRO" exclude="true"/>
+            <column name="TROL_CD_TIPO_ROCHA_LABORATORIO" exclude="true"/>
+            <column name="AMOS_CD_AMOSTRA" label="Amostra" untagged="true"> 
+              <join view="AMOSTRA">
+                <condition from="AMOS_CD_AMOSTRA" to="AMOS_CD_AMOSTRA"/>
+              </join>
+            </column>
+            <column name="TBB_NM_TP_ROCHA" label="Litologia">
+              <decode>
+                <entry search="null" result="TROL_CD_TIPO_ROCHA_LABORATORIO"/>
+              </decode>
+            </column>
+            <column name="ANMA_DT_ANALISE_MACRO" label="Data da Análise"/>
+            <column name="ANMA_DT_ULTIMA_ATUALIZACAO" label="Data da Última Atualização"/>
+            <column name="ANMA_TX_ANALISE_ORIGINAL" label="Descrição Original" indexing="true"/>
+            <column name="ANMA_TX_OBSERVACAO" label="Observação" indexing="true"/>
+          </group>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+          <group name="Indicadores">
+            <column name="ANMA_IN_ESTRATIFICACAO" label="Estratificação" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Com estratificação'"/>
+                <entry search="'N'" result="'Sem estratificação'"/>
+              </decode>
+            </column>
+            <column name="ANMA_IN_UTILIZACAO_MICROSCOPIA" label="Microscopia" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Com utilização de microscopia'"/>
+                <entry search="'N'" result="'Sem utilização de microscopia'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Atores">
+            <column name="NOME_CADASTRADOR" label="Cadastrador" indexing="true"/>
+            <column name="NOME_SOLICITANTE" label="Solicitante" indexing="true"/>
+            <column name="NOME_RESPONSAVEL" label="Responsável" indexing="true"/>
+          </group>
+          <group name="Resultado">
+            <column name="REAM_VL_RESULT_ANALISE_MACRO" label="Valor do Resultado"/>
+            <column name="REAM_TX_RES_ANA_MACRO_OUTRO" label="Descrição do Resultado" indexing="true"/>
+          </group>    
+          <factTable>
+            <fact propertyColumn="ATMA_NM_ATRIBUTO_MACROSCOPIA" valueColumn="NOME" groupTemplate="'Atributos'"/>
+          </factTable>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    
+    <!-- Coleta -->
+    <view name="COLETA" label="Coleta">
+      <tables repcol="COLE_CD_COLETA">
+        <table name="COLETA" owner="AES">
+          <pk>COLE_CD_COLETA</pk>
+          <group>
+            <column name="COLE_CD_COLETA" exclude="true"/>
+            <column name="COLE_CD_COLETA_PAI" label="Pai" untagged="true">
+              <join view="COLETA">
+                <condition from="COLE_CD_COLETA_PAI" to="COLE_CD_COLETA"/>
+              </join>
+            </column>
+            <column name="AMOS_CD_AMOSTRA" label="Amostra" untagged="true">
+              <join view="AMOSTRA">
+                <condition from="AMOS_CD_AMOSTRA" to="AMOS_CD_AMOSTRA"/>
+              </join>
+            </column>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="SEAM_NR_SEGMENTO" label="Número do Segmento"/>
+            <!-- <column name="TPSO_IN_TIPO_SEGMENTO" label="Tipo do Segmento" indexing="true">
+              <decode>
+                <entry search="'ANP'" result="'Porção ANP'"/>
+                <entry search="'PBR'" result="'Porção Petrobrás'"/>
+                <entry search="'INT'" result="'Integro'"/>
+                <entry search="'NIF'" result="'Não Informado'"/>
+              </decode>
+            </column> -->
+            <column name="TANA_CD_TIPO_ANALISE" label="Tipo de Análise"/>
+            <column name="COLE_DT_COLETA" label="Data"/>
+            <column name="COLE_TX_OBSERVACAO" label="Observação" indexing="true"/>
+            <column name="COLE_NR_REGISTRO" label="Número do Registro"/>
+            <!--
+                 PERGUNTAR A PUC: investigar tx-registro vs nr_registro, nr_ano, sigla 
+              -->
+            <column name="COLE_TX_REGISTRO" label="Texto do Registro" indexing="true"/>
+            <!-- REMOVER: Não importa muito.
+                 <column name="COLE_TX_CAIXA_TEST" label="Caixa do Testemunho" indexing="true"/>
+              -->
+            <column name="COLE_IN_CABECA_PLUG" label="Parte do PLUG" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Cabeça do PLUG'"/>
+                <entry search="'N'" result="'Próprio PLUG'"/>
+              </decode>
+            </column>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="COLE_NR_ANO" label="Ano"/>
+            <column name="COLE_TX_DETALHE_AMOSTRA" label="Detalhe da Amostra" indexing="true"/>
+            <!--
+                 PERGUNTAR A PUC: investigar o que eh isso 
+              -->
+            <column name="COLE_SG_COMPOSICAO_UNICA" label="Composição Única" indexing="true">
+              <decode>
+                <entry search="'BIOA'" result="'Bioacumulada'"/>
+                <entry search="'FOSS'" result="'Fóssil'"/>
+                <entry search="'FELD'" result="'Feldspato'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Medidas">
+            <column name="COLE_MD_TOPO" label="Profundidade do Topo"/>
+            <column name="COLE_MD_BASE" label="Profundidade da Base"/>
+            <column name="COLE_MD_PESO" label="Peso"/>
+            <column name="COLE_MD_PESO_POS_PULV" label="Peso após a Pulverização"/>
+          </group>
+          <group name="Atores">
+            <column name="ATPB_CD_ATOR_PROLAB" exclude="true"/>
+            <column name="ATPB_CD_ATOR_COLETOR" exclude="true"/>
+            <column name="ATPB_CD_ATOR_CADAST" exclude="true"/>
+          </group>
+          <group name="Rochas">
+            <column name="TROC_CD_TIPO_ROCHA_PRIN" exclude="true"/>
+            <column name="TROC_CD_TIPO_ROCHA_SEC" exclude="true"/>
+            <column name="SUCG_CD_CLASSIF_ROCHA_PRIN" exclude="true"/>
+            <column name="SUCG_CD_CLASSIF_ROCHA_SEC" exclude="true"/>
+            <column name="COLE_SG_CLASSE_ROCHA_PRIM" label="Classe da Rocha Principal" indexing="true"/>
+            <column name="COLE_SG_CLASSE_ROCHA_SEC" label="Classe da Rocha Secundária" indexing="true"/>
+          </group>
+        </table>
+        <table name="LABORATORIO_GEOLOGIA" owner="AES">
+          <pk>LABG_SG_LABORATORIO</pk>
+          <group>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="LABG_NM_LABORATORIO" label="Laboratório" indexing="true"/>
+          </group>
+        </table>
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    
+    <!-- Preparação Amostra -->
+    <view name="PREPARACAO_AMOSTRA" label="Preparação Amostra">
+      <tables repcol="PREP_CD_PREPARACAO_AMO">
+        <table name="PREPARACAO_AMOSTRA" owner="AES">
+          <pk>PREP_CD_PREPARACAO_AMO</pk>
+          <group>
+            <column name="PREP_CD_PREPARACAO_AMO" exclude="true"/>
+            <column name="COLE_CD_COLETA" label="Coleta" untagged="true">
+              <join view="COLETA">
+                <condition from="COLE_CD_COLETA" to="COLE_CD_COLETA"/>
+              </join>
+            </column>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="PREP_DT_INICIO" label="Data de Início"/>
+            <column name="PREP_DT_FIM" label="Data de Término"/>
+            <column name="PREP_NR_SOLICITACAO" label="Solicitação"/>
+            <column name="PREP_TX_OBS_PREPARADOR" label="Observação" indexing="true"/>
+            <column name="PREP_IN_TIPO_PREPARACAO" label="Tipo de Preparação da Amostra" indexing="true"/>
+            <column name="TIRO_SG_TIPO_PREP_AMOSTRA" label="Tipo de Preparação para Confecção de Lâmina ou Célula" indexing="true"/>
+            <column name="PREP_MD_PENEIRA" label="Tamanho da Peneira"/>
+            <column name="PREP_IN_RESIDUO" label="Resíduo" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Há resíduo'"/>
+                <entry search="'N'" result="'Não há resíduo'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Atores">
+            <column name="ATPB_CD_ATOR_SOLIC" exclude="true"/>
+            <column name="ATPB_CD_ATOR_PREP" exclude="true"/>
+            <column name="ATPB_CD_ATOR_CADAST" exclude="true"/>
+          </group>
+        </table>
+        <table name="LABORATORIO_GEOLOGIA" owner="AES">
+          <pk>LABG_SG_LABORATORIO</pk>
+          <group>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="LABG_NM_LABORATORIO" label="Laboratório" indexing="true"/>
+          </group>
+        </table>
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="COLETA" owner="AES">
+          <pk>COLE_CD_COLETA</pk>
+          <group>
+            <column name="COLE_CD_COLETA"/>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+      
+    <!-- Produto Laboratório -->
+    <view name="PRODUTO_LABORATORIO" label="Produto Laboratório">
+      <tables repcol="PRLB_CD_PRODUTO">
+        <table name="PRODUTO_LABORATORIO" owner="AES">
+          <pk>PRLB_CD_PRODUTO</pk>
+          <group>
+            <column name="PRLB_CD_PRODUTO" exclude="true"/>
+            <column name="PREP_CD_PREPARACAO_AMO" label="Preparação Amostra" untagged="true">
+              <join view="PREPARACAO_AMOSTRA">
+                <condition from="PREP_CD_PREPARACAO_AMO" to="PREP_CD_PREPARACAO_AMO"/>
+              </join>
+            </column>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="PRLB_IN_TIPO" label="Tipo" indexing="true"/>
+            <column name="PRLB_NR_SEQUENCIAL" label="Número Sequencial"/>
+            <column name="PRLB_DT_CRIACAO" label="Data da Criação"/>
+            <column name="PRLB_IN_EXISTENCIA" label="Indicador de Existência" indexing="true"/>
+            <column name="CLBI_CD_CEL_BIO" exclude="true"/>
+            <column name="ATPB_CD_DIGITADOR" exclude="true"/>
+            <column name="LAMI_CD_LAMINA" exclude="true"/>
+            <column name="PRLB_TX_OBSERVACAO" label="Observação" indexing="true"/>
+            <column name="PRLB_IN_STATUS_ANALISE" label="Status" indexing="true">
+              <decode>
+                <entry search="'AA'" result="'Aguardando Análise'"/>
+                <entry search="'NA'" result="'Não Analisada'"/>
+                <entry search="'EA'" result="'Em Análise'"/>
+                <entry search="'AF'" result="'Análise Finalizada'"/>
+                <entry search="'AE'" result="'Análise Externa'"/>
+              </decode>
+            </column>
+            <!-- <column name="PRLA_CD_PROJETO" exclude="true"/> -->
+            <!-- <column name="DEPL_CD_DET_PLANEJAMENTO" label="Planejamento"/> -->
+            <column name="PRLB_IN_CRIACAO_CONSULTORIA" label="Consultoria" indexing="true">
+              <decode>
+                <entry search="'S'" result="'Com consultoria externa'"/>
+                <entry search="'N'" result="'Sem consultoria externa'"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="LABORATORIO_GEOLOGIA" owner="AES">
+          <pk>LABG_SG_LABORATORIO</pk>
+          <group>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="LABG_NM_LABORATORIO" label="Laboratório" indexing="true"/>
+          </group>
+        </table>
+        <table name="UNIDADE_FEDERACAO" owner="TBB">
+          <pk>PAIS_CD_PAIS UNFE_CD_UF</pk>
+          <group name="Localização">
+            <column name="PAIS_CD_PAIS" exclude="true"/>
+            <column name="UNFE_CD_UF" exclude="true"/>
+            <column name="UNFE_SG_UF" label="Sigla da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_SG_UF"/>
+              </decode>
+            </column>
+            <column name="UNFE_NM_UF" label="Nome da Federação" indexing="true">
+              <decode expr="UNIDADE_FEDERACAO.UNFE_CD_UF">
+                <entry search="null" result="null"/>
+                <entry search="UNIDADE_FEDERACAO.UNFE_CD_UF" result="UNFE_NM_UF"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="PREPARACAO_AMOSTRA" owner="AES">
+          <pk>PREP_CD_PREPARACAO_AMO</pk>
+          <group>
+            <column name="PREP_CD_PREPARACAO_AMO"/>
+            <column name="COLE_CD_COLETA" exclude="true"/>
+          </group>
+        </table>
+        <table name="COLETA" owner="AES">
+          <pk>COLE_CD_COLETA</pk>
+          <group>
+            <column name="COLE_CD_COLETA" exclude="true"/>
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+      
+    <!-- Microscopia -->
+    <view name="MICROSCOPIA" label="Microscopia">      
+      <tables repcol="NOME_TIPO_ROCHA">
+        <table name="VW_RESULTADO_ANALISE_MICRO" owner="AES">
+          <pseudoPk>ANMR_SQ_ANALISE_MICROSCOPIA ID_TIPO_ROCHA ID_LITOLOGIA_ANALISE</pseudoPk>   
+          <group>
+            <column name="ID_ANALISE_MICROSCOPIA" as="ANMR_SQ_ANALISE_MICROSCOPIA" exclude="true"/>
+            <column name="ID_LITOLOGIA_ANALISE" exclude="true"/>
+            <column name="ID_TIPO_ROCHA" exclude="true"/>
+            <column name="ID_AMOSTRA" label="Amostra" untagged="true">
+              <join view="AMOSTRA">
+                <condition from="ID_AMOSTRA" to="AMOS_CD_AMOSTRA"/>
+              </join>
+            </column>
+            <column name="NOME_TIPO_ROCHA" label="Litologia"/>
+          </group>
+          <factTable>
+            <fact propertyColumn="NOME_ATRIBUTO" valueColumn="VALOR_ELEMENTO" groupTemplate="NOME_CATEGORIA"/> 
+          </factTable>
+        </table>
+        <table name="ANALISE_MICROSCOPIA" owner="AES">
+          <pk>ANMR_SQ_ANALISE_MICROSCOPIA</pk>
+          <group>
+            <column name="ANMR_SQ_ANALISE_MICROSCOPIA" exclude="true"/>
+            <column name="ANMR_IN_TIPO_ANALISE_MICRO" label="Tipo" indexing="true">
+              <decode>
+                <entry search="'DS'" result="'Descritiva'"/>
+                <entry search="'RF'" result="'Registro Fotográfico'"/>
+              </decode>
+            </column>
+            <column name="ANMR_DT_ANALISE_MICROSCOPIA" label="Data da Análise"/>            
+            <column name="ANMR_DS_DESC_DOC_TECNICO" label="Descrição Petrográfica" indexing="true"/>            
+            <column name="ANMR_TX_OBSERVACAO" label="Observação" indexing="true"/>
+            <column name="OBAN_SG_OBJETIVO_ANALISE" exclude="true"/>
+          </group>
+          <group name="Atores">
+            <!-- <column name="ATPB_CD_ATOR_APROVADOR" exclude="true"/> -->
+            <column name="ATPB_CD_ATOR_SOLICITANTE" exclude="true"/>
+            <column name="ATPB_CD_ATOR_RESPONSAVEL" exclude="true"/>
+            <column name="ATPB_CD_ATOR_CADASTRADOR" exclude="true"/>
+          </group>
+        </table>
+        <table name="OBJETIVO_ANALISE" owner="AES">
+          <pk>OBAN_SG_OBJETIVO_ANALISE</pk>
+          <group name="Objetivos">
+            <column name="OBAN_SG_OBJETIVO_ANALISE" exclude="true"/>
+            <column name="OBAN_NM_OBJETIVO_ANALISE" label="Objetivo" indexing="true"/>
+          </group>
+        </table>
+        <!-- <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_APROVADOR</pk>
+          <group name="Atores">
+            <column name="ATPB_CD_ATOR_PROLAB" as="ATPB_CD_ATOR_APROVADOR" exclude="true"/>
+            <column name="ATPB_NM_ATOR" as="ATPB_NM_ATOR_APROVADOR" label="Aprovador" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATOR_PROLAB.ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table> -->
+        <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_SOLICITANTE</pk>
+          <group name="Atores">
+            <column name="ATPB_CD_ATOR_PROLAB" as="ATPB_CD_ATOR_SOLICITANTE" exclude="true"/>
+            <column name="ATPB_NM_ATOR" as="ATPB_NM_ATOR_SOLICITANTE" label="Solicitante" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATOR_PROLAB.ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_RESPONSAVEL</pk>
+          <group name="Atores">
+            <column name="ATPB_CD_ATOR_PROLAB" as="ATPB_CD_ATOR_RESPONSAVEL" exclude="true"/>
+            <column name="ATPB_NM_ATOR" as="ATPB_NM_ATOR_RESPONSAVEL" label="Responsável" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATOR_PROLAB.ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="ATOR_PROLAB" owner="AES">
+          <pk>ATPB_CD_ATOR_CADASTRADOR</pk>
+          <group name="Atores">
+            <column name="ATPB_CD_ATOR_PROLAB" as="ATPB_CD_ATOR_CADASTRADOR" exclude="true"/>
+            <column name="ATPB_NM_ATOR" as="ATPB_NM_ATOR_CADASTRADOR" label="Cadastrador" indexing="true">
+              <decode expr="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB">
+                <entry search="null" result="null"/>
+                <entry search="ATOR_PROLAB.ATPB_CD_ATOR_PROLAB" result="ATOR_PROLAB.ATPB_NM_ATOR"/>
+              </decode>
+            </column>
+          </group>
+        </table>
+        <table name="AMOSTRA" owner="AES">
+          <pk>ID_AMOSTRA</pk>
+          <group>
+            <column name="AMOS_CD_AMOSTRA" as="ID_AMOSTRA"/>          
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>  
+
+    <!-- Item Armazenado -->
+    <view name="LITOTECA_ACERVO" label="Litoteca Acervo">
+      <tables repcol="IARM_CD_ITEM_ARMAZENADO">
+        <table name="VW_LITOTECA_ACERVO" owner="AES">
+          <pk>IARM_CD_ITEM_ARMAZENADO</pk>
+          <group>
+            <column name="IARM_CD_ITEM_ARMAZENADO" exclude="true"/>
+            <column name="AMOS_CD_AMOSTRA" label="Amostra" untagged="true">
+              <join view="AMOSTRA">
+                <condition from="AMOS_CD_AMOSTRA" to="AMOS_CD_AMOSTRA"/>
+              </join>
+            </column>
+            <column name="COLE_CD_COLETA" label="Coleta" untagged="true">
+              <join view="COLETA">
+                <condition from="COLE_CD_COLETA" to="COLE_CD_COLETA"/>
+              </join>
+            </column>
+            <column name="COER_CD_CONTAINER" label="Container" untagged="true">
+              <join view="CONTAINER">
+                <condition from="COER_CD_CONTAINER" to="COER_CD_CONTAINER"/>
+              </join>
+            </column>
+            <column name="STIR_NM_STATUS_ITEM_ARMAZENADO" label="Status" indexing="true"/>
+            <column name="IARM_DT_ENTRADA" label="Data de Entrada"/>
+            <column name="SEAM_NR_SEGMENTO" label="Número do Segmento" />
+            <column name="TTAR_SG_TIPO_ITEM_ARMAZENADO" label="Tipo do Item" indexing="true"/>
+            <column name="TPSO_IN_TIPO_SEGMENTO" label="Tipo do Segmento" indexing="true">
+              <decode>
+                <entry search="'ANP'" result="'Porção ANP'"/>
+                <entry search="'PBR'" result="'Porção Petrobrás'"/>
+                <entry search="'INT'" result="'Integro'"/>
+                <entry search="'NIF'" result="'Não Informado'"/>
+              </decode>
+            </column>
+          </group>
+          <group name="Localização">
+            <column name="IARM_NR_CAIXA" label="Caixa" />
+            <column name="IARM_NR_TOTAL_CAIXA" label="Numeração da Caixa"/>
+          </group>
+          <group name="Medidas">
+            <column name="IARM_MD_TOPO" label="Profundidade do Topo"/>
+            <column name="IARM_MD_BASE" label="Profundidade da Base"/>
+          </group>
+          <group name="Instalação">
+            <column name="INAC_NM_INSTALACAO" label="Nome da Instalação" indexing="true"/>
+            <column name="INAC_IN_TIPO_INSTALACAO" label="Tipo da Instalação" indexing="true"/>
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+          </group>
+        </table>
+        <table name="LABORATORIO_GEOLOGIA" owner="AES">
+          <pk>LABG_SG_LABORATORIO</pk>
+          <group name="Instalação">
+            <column name="LABG_SG_LABORATORIO" exclude="true"/>
+            <column name="LABG_NM_LABORATORIO" label="Laboratório" indexing="true"/>
+          </group>
+        </table>
+        <table name="AMOSTRA" owner="AES">
+          <pk>AMOS_CD_AMOSTRA</pk>
+          <group>
+            <column name="AMOS_CD_AMOSTRA"/>          
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+  
+    <!-- Container -->
+    <view name="CONTAINER" label="Container">
+      <tables repcol="COER_NM_CONTAINER">
+        <table name="CONTAINER" owner="AES">
+          <pk>COER_CD_CONTAINER</pk>
+          <group>
+            <column name="COER_CD_CONTAINER" exclude="true"/>
+            <column name="COER_CD_CONTAINER_PAI" label="Pai" untagged="true">
+              <join view="CONTAINER">
+                <condition from="COER_CD_CONTAINER_PAI" to="COER_CD_CONTAINER"/>
+              </join>
+            </column>
+            <column name="COER_NM_CONTAINER" label="Nome"/>
+            <column name="TCON_SG_TIPO_CONTAINER" exclude="true"/>
+            <column name="COER_DT_CADASTRO" label="Data de Cadastro"/>
+            <column name="COER_CD_MASCARA" label="Máscara" indexing="true"/>
+            <column name="COER_CD_MASCARA_FILHO" label="Máscara Filho" indexing="true"/>
+            <column name="COER_CD_LIMITE_INFERIOR" label="Limite Inferior" indexing="true"/>
+          </group>
+          <group name="Localização">
+            <column name="COER_DS_ENDERECO" label="Endereço" indexing="true"/>
+            <column name="COER_TX_ENDERECO_SEPARADO" label="Endereço Separado" indexing="true"/>
+            <column name="COER_NR_POS_X_NO_PAI" label="Posição X no Pai"/>
+            <column name="COER_NR_POS_Y_NO_PAI" label="Posição Y no Pai"/>
+          </group>
+          <group name="Medidas">
+            <!-- <column name="COER_MD_ALTURA" label="Altura"/> -->
+            <column name="COER_MD_LARGURA" label="Largura"/>
+            <column name="COER_MD_COMPRIMENTO" label="Comprimento"/>
+            <!-- <column name="COER_MD_PESO_CONTAINER" label="Peso"/> -->
+          </group>
+        </table>
+        <table name="TIPO_CONTAINER" owner="AES">
+          <pk>TCON_SG_TIPO_CONTAINER</pk>
+          <group>
+            <column name="TCON_SG_TIPO_CONTAINER" exclude="true" />
+            <column name="TCON_NM_TIPO_CONTAINER" label="Tipo do Container" indexing="true"/>
+          </group>
+        </table>
+        <!--Removed because IARM_CD_ITEM_ARMAZENADO is not unique -->
+        <!-- <table name="VW_LITOTECA_ACERVO" owner="AES">
+          <pk>IARM_CD_ITEM_ARMAZENADO</pk>
+          <group>
+            <column name="IARM_CD_ITEM_ARMAZENADO" exclude="true"/>
+            <column name="AMOS_CD_AMOSTRA" label="Amostra" exclude="true"/>  
+            <column name="COER_CD_CONTAINER" label="Container" exclude="true"/>
+          </group>
+        </table>
+        <table name="AMOSTRA" owner="AES">
+          <pk>AMOS_CD_AMOSTRA</pk>
+          <group>
+            <column name="AMOS_CD_AMOSTRA" exclude="true"/>          
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+          </group>
+        </table>
+        <table name="UNID_OPERATIVA" owner="TBB">
+          <pk>UNOP_CD_UNID_OPER</pk>
+          <group name="Unidades">
+            <column name="UNOP_CD_UNID_OPER" exclude="true"/>
+            <column name="UNOP_SG_UNID_OPER" label="Sigla da Unidade Operativa" indexing="true"/>
+            <column name="UNOP_NM_UNID_OPER" label="Nome da Unidade Operativa" indexing="true"/>
+          </group>
+        </table> -->
+      </tables>
+    </view>
+    
+  </views>
+  
+</mapping>

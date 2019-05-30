@@ -2,42 +2,40 @@ package converter;
 
 import java.util.List;
 
+import objects.ColumnXML;
+import objects.ConfigXML;
+import objects.DecodeXML;
+import objects.JoinXML;
 import objects.TTLSchema;
-import objects.XMLObject;
+import objects.TableXML;
+import objects.TablesXML;
+import objects.ViewXML;
+import objects.XMLGeneric;
 
 public class Translator {
 
 	private TTLSchema xmlSchema;
-	private XMLObject xmlObject;
+	private XMLGeneric xmlObject;
+
+	private boolean skip;
+	private boolean views;
+	private boolean databases;
+	private boolean config;
 
 	public String xmlToObject(List<String> fileLines) {
 
-		xmlObject = new XMLObject();
+		xmlObject = new XMLGeneric();
 
-		boolean comment = false;
+		skip = false;
 
 		for (String fileLine : fileLines) {
 
 			try {
 
-				if (fileLine.contains("<!")) {
-					comment = true;
-				}
+				fileLine = fileLine.replace(" =", "=");
+				fileLine = fileLine.replace("= ", "=");
 
-				if (fileLine.contains("-->")) {
-					comment = false;
-					continue;
-				}
-
-				if (comment) {
-					continue;
-				}
-
-				if (fileLine.contains("exclude=\"true\"")) {
-					continue;
-				}
-
-				if (fileLine.length() < 3) {
+				if (!validation(fileLine)) {
 					continue;
 				}
 
@@ -51,27 +49,39 @@ public class Translator {
 				// Removing whitespaces at the beginning
 				fileLine = fileLine.substring(fileLine.indexOf("<"));
 
-				if (fileLine.matches("<[A-Z]*[a-z]*>")) {
-					 System.out.println("Opening: " + fileLine);
-					
-				} else if (fileLine.matches("<[/][A-Z]*[a-z]*>")) {
-					 System.out.println("Closing: " + fileLine);
-
+				if (checkLevel(fileLine)) {
+					continue;
 				}
 
-				if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*>")) {
-					System.out.println("Namespace: " + fileLine);
-				}
-				
-				if(fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*\\/>")) {
-					System.out.println("Namespace closed: " + fileLine);
+				/*
+				 * if (fileLine.matches("<[A-Z]*[a-z]*>")) { System.out.println("Opening: " +
+				 * fileLine);
+				 * 
+				 * if (fileLine.contains("<group")) { if (tableXML != null) {
+				 * tableXML.collectGroup(fileLine); } }
+				 * 
+				 * continue; }
+				 */
+
+				/*
+				 * else if (fileLine.matches("<[/][A-Z]*[a-z]*>")) {
+				 * System.out.println("Closing: " + fileLine);
+				 * 
+				 * if (fileLine.contains("join")) { join = false; joinXML = null; }
+				 * 
+				 * continue; }
+				 */
+
+				if (config) {
+					xmlObject.getConfigXML().collectConfig(fileLine);
+				} else if (databases) {
+					// xmlObject.getDatabaseXML().collectDatabase(fileLine);
+				} else if (views) {
+///*				
+					xmlObject.collectViews(fileLine);
+//*/
 				}
 
-				if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
-					System.out.println("Values: " + fileLine);
-				}
-
-			
 			} catch (Exception e) {
 				System.out.println(fileLine);
 				e.printStackTrace();
@@ -80,6 +90,86 @@ public class Translator {
 
 		return "";
 
+	}
+
+	private boolean checkLevel(String fileLine) {
+
+		if (fileLine.matches("<config>")) {
+			System.out.println("Opening Config: " + fileLine);
+			config = true;
+			return true;
+		} else if (fileLine.matches("<[/]config>")) {
+			System.out.println("Closing Config: " + fileLine);
+			config = false;
+			return true;
+		}
+
+		if (fileLine.matches("<databases>")) {
+			System.out.println("Opening Databases: " + fileLine);
+			databases = true;
+			return true;
+		} else if (fileLine.matches("<[/]dabatases>")) {
+			System.out.println("Closing Databases: " + fileLine);
+			databases = false;
+			return true;
+		}
+
+		if (fileLine.matches("<views>")) {
+			System.out.println("Opening Views: " + fileLine);
+			views = true;
+			return true;
+		} else if (fileLine.matches("<[/]views>")) {
+			System.out.println("Closing Views: " + fileLine);
+			views = false;
+			return true;
+		}
+
+		if (fileLine.matches("<group>")) {
+			System.out.println("Opening Views: " + fileLine);
+			xmlObject.getLastView().getTables().getLastTable().collectGroup(fileLine);
+			return true;
+		} else if (fileLine.matches("<[/]group>")) {
+			System.out.println("Closing Views: " + fileLine);
+			return true;
+		}
+
+		return false;
+
+	}
+
+	private boolean validation(String fileLine) {
+
+		if (fileLine.contains("<!")) {
+			skip = true;
+		}
+
+		if (fileLine.contains("-->")) {
+			skip = false;
+			return false;
+		}
+
+		if (fileLine.contains("exclude=\"true\"")) {
+			skip = true;
+		}
+
+		if (fileLine.contains("<documents")) {
+			skip = true;
+		}
+
+		if (fileLine.contains("</documents")) {
+			skip = false;
+			return false;
+		}
+
+		if (fileLine.trim().length() < 3) {
+			return false;
+		}
+
+		if (skip) {
+			return false;
+		}
+
+		return true;
 	}
 
 	public String xmlToTTL(List<String> fileLines) {

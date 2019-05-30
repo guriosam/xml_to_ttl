@@ -8,6 +8,11 @@ public class DatabaseXML {
 	private String port;
 	private String sid;
 	private String dblink;
+	
+	public void collectDatabase(String fileLine) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	public String getUsername() {
 		return username;
@@ -69,5 +74,6 @@ public class DatabaseXML {
 
 		return print;
 	}
+
 
 }

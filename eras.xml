@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+  <config>
+    <version>1.6</version>
+    <prefix>http://eras.tecgraf.puc-rio.br</prefix> 
+    <database>eras</database>
+  </config>
+  <views>
+    <view origin="ERAS" name="jobs" label="Jobs" identifier="true" >
+      <tables repcol="id">
+		<table name="jobs" owner="public"> 
+          <pk>id</pk>
+          <group name="Dados Gerais">
+            <column name="id" label="ID" exclude="true"/>
+            <column name="auto_machine_selected" label="Auto machine selected"/>
+            <column name="cpu_time" label="CPU time"/>
+            <column name="description" label="Description" indexing="true"/>
+            <column name="end_time" label="End time"/>             
+            <column name="execution_machine" label="Execution machine" indexing="true"/>             
+            <column name="description" label="Description" indexing="true"/>
+            <column name="exit_code" label="Exit code"/>           
+            <column name="exit_status" label="Exit status"/>          
+            <column name="flow_id" label="Flow id"/>
+            <column name="flow_name" label="Flow name" indexing="true"/>
+            <column name="flow_raw" label="Flow raw"/>
+            <column name="flow_version" label="Flow version"/>
+            <column name="group_id" label="Group"/>
+            <column name="guilty_node_id" label="Guilty node" />
+            <column name="job_id" label="Job id" />
+            <column name="user_id" label="User"/>
+            <column name="job_type" label="Job type" indexing="true"/>
+            <column name="last_modified_time" label="Last modified time" />
+            <column name="jobs_multiple_execution" label="Multiple execution" />
+            <column name="number_of_processes" label="Number of processes" />
+            <column name="number_of_processes_by_machine" label="Number of processes by machine" />
+            <column name="number_of_retries" label="Number of retries" />
+            <column name="priority" label="Priority" />
+            <column name="project_id" label="Project" />
+            <column name="ram_mem" label="RAM memory" />
+            <column name="submission_time" label="Submission time" />
+            <column name="wall_clock_time" label="Wall clock time" />
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="ERAS" name ="job_algo_params" label="Param-Algorithm" identifier="true">
+      <tables repcol="id || '-' || param_label">
+        <table name="job_algo_params" owner="public">
+          <pk>id</pk>
+          <group name="Dados Gerais">
+            <column name="id" label="ID" exclude="true"/>
+            <column name="param_type" label="Type" indexing="true"/>
+			<column name="param_id" label="Param_Id" indexing="true"/>
+			<column name="job_algo_id" label="Algorithm" untagged="true">
+				<join view="job_algorithms">
+					<column from="job_algo_id" to= "id"/>
+				</join>
+			</column>
+          </group>
+        </table>
+        <table name="job_param_values" owner="public">
+          <pk>job_algo_param_id</pk>
+          <group name="Dados Gerais">
+            <column name="job_algo_param_id" as="id" label="job_algo_param_id" exclude="true"/>
+            <column name="value" label="Value"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="ERAS" name ="job_algorithms" label="Algorithm" identifier="true">
+      <tables repcol="algo_id">
+		<table name="job_algorithms" owner="public">
+			<pk>id</pk>
+			<group name="Dados Gerais">
+            <column name="id" label="ID" exclude="true"/>
+            <column name="algo_name" label="Name" indexing="true"/>
+			<column name="algo_version" label="Version"/>
+			<column name="job_id" label="Job" untagged="true">
+				<join view="jobs">
+					<column from="job_id" to= "id"/>
+				</join>
+			</column>
+          </group>
+		</table>
+	  </tables>
+    </view>
+	<view origin="ERAS" name ="job_selected_machines" label="Selected Machine" identifier="true">
+      <tables repcol="machine_name">
+		<table name="job_selected_machines" owner="public">
+			<pk>id</pk>
+			<group name="Dados Gerais">
+            <column name="id" label="ID" exclude="true"/>
+            <column name="machine_name" label="Name" indexing="true"/>
+			<column name="job_id" label="Job" untagged="true">
+				<join view="jobs">
+					<column from="job_id" to= "id"/>
+				</join>
+			</column>
+          </group>
+		</table>
+	  </tables>
+    </view>
+	<view origin="ERAS" name ="job_status_history" label="Status history" identifier="true">
+      <tables repcol="job_id || '-' || job_status">
+		<table name="job_status_history" owner="public">
+			<pk>id</pk>
+			<group name="Dados Gerais">
+            <column name="id" label="ID" exclude="true"/>
+            <column name="job_status" label="Status" indexing="true"/>
+			<column name="status_timestamp" label="Timestamp"/>
+			<column name="job_id" label="Job" untagged="true">
+				<join view="jobs">
+					<column from="job_id" to= "id"/>
+				</join>
+			</column>
+          </group>
+		</table>
+	  </tables>
+    </view>
+  </views>
+</mapping>
