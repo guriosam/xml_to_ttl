@@ -11,6 +11,8 @@ public class ColumnXML {
 	private Boolean untagged;
 	private List<JoinXML> joins;
 	private List<DecodeXML> decodes;
+	
+	private String domain;
 
 	public ColumnXML() {
 		setJoins(new ArrayList<>());
@@ -170,4 +172,19 @@ public class ColumnXML {
 		return column;
 	}
 
+	
+	public String toStringTTL() {
+		
+		String ttl = "";
+		
+		//( anp:BLOCO_OFERTADO#SETOR rdfs:domain   anp:BLOCO_OFERTADO )
+		// ( anp:BLOCO_OFERTADO#SETOR     rdfs:label      "Setor" )
+		// ( anp:BLOCO_OFERTADO#SETOR     :indexing       "true" )
+		
+		ttl += domain + ":" + "nomeDaView#" +  name  + " rdfs:domain " + domain + ":" + "nomedaView;\n";
+		ttl += domain + ":" + "nomeDaView#" + name + " rdfs:label \"" + label + "\";\n";
+		ttl += domain + ":" + "nomeDaView#" + name + " rdfs:indexing " + indexing + "\";\n";
+				
+		return ttl;
+	}
 }

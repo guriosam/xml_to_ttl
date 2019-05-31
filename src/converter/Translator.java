@@ -66,7 +66,7 @@ public class Translator {
 
 		}
 
-		System.out.println(xmlObject);
+		//System.out.println(xmlObject);
 
 		return "";
 

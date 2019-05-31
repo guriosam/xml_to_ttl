@@ -116,5 +116,22 @@ public class ViewXML {
 		
 		return view;
 	}
+	
+	public String toStringTTL() {
+		String ttl = "";
+		
+		//anp:BLOCO_OFERTADO rdfs:type rdfs:Class
+		//anp:BLOCO_OFERTADO rdfs:label “Bloco ofertado”
+		
+		ttl += ":" + name + " rdfs:type rdfs:Class;\n";
+		ttl += ":" + name + " rdfs:label \"" + label + "\";\n";
+		
+		//What about identifier? origin? 
+		//ttl += ":" + name + "";
+
+		
+		
+		return ttl;
+	}
 
 }
