@@ -1,7 +1,6 @@
 package objects;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ViewXML {
 
@@ -34,6 +33,8 @@ public class ViewXML {
 			String identifier = aux.substring(0, aux.indexOf("\""));
 			this.identifier = Boolean.valueOf(identifier);
 		}
+		
+		
 	}
 
 	public void collectTables(String fileLine) {
@@ -92,7 +93,7 @@ public class ViewXML {
 
 	@Override
 	public String toString() {
-		String view = "<view";
+		String view = "    <view";
 
 		if (origin != null && !origin.equals("")) {
 			view += " origin=\"" + origin + "\"";
@@ -103,12 +104,16 @@ public class ViewXML {
 		if (label != null && !label.equals("")) {
 			view += " label=\"" + label + "\"";
 		}
-		if (identifier != null && !origin.equals("")) {
+		if (identifier != null && !identifier.equals("")) {
 			view += " identifier=\"" + identifier + "\"";
 		}
 
-		view += ">";
+		view += ">\n";
 
+		view += tables + "\n";
+		
+		view += "    </view>";
+		
 		return view;
 	}
 

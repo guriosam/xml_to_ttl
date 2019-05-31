@@ -22,7 +22,7 @@ public class ColumnXML {
 		JoinXML join = new JoinXML();
 
 		if (fileLine.contains("view=")) {
-			String aux = fileLine.substring(fileLine.indexOf("view=\"") + 8);
+			String aux = fileLine.substring(fileLine.indexOf("view=\"") + 6);
 			String view = aux.substring(0, aux.indexOf("\""));
 
 			join.setView(view);
@@ -38,17 +38,17 @@ public class ColumnXML {
 
 		DecodeXML decode = new DecodeXML();
 
-		String expr = "null";
+		String expr = "";
 
 		if (fileLine.contains("expr=")) {
-			String aux = fileLine.substring(fileLine.indexOf("expr=\"") + 8);
+			String aux = fileLine.substring(fileLine.indexOf("expr=\"") + 6);
 			expr = aux.substring(0, aux.indexOf("\""));
 		}
 
 		decode.setExpr(expr);
-		
-		decodes.add(decode);
 
+		decodes.add(decode);
+		
 		return decode;
 	}
 
@@ -99,7 +99,7 @@ public class ColumnXML {
 	public void setDecodes(List<DecodeXML> decodes) {
 		this.decodes = decodes;
 	}
-	
+
 	public JoinXML getLastJoin() {
 		if (joins.size() == 0) {
 			System.out.println("Error in Join");
@@ -108,6 +108,66 @@ public class ColumnXML {
 
 		JoinXML join = joins.get(joins.size() - 1);
 		return join;
+	}
+	
+	public DecodeXML getLastDecode() {
+		if (decodes.size() == 0) {
+			System.out.println("Error in Decode");
+			throw new NullPointerException();
+		}
+
+		DecodeXML dec = decodes.get(decodes.size() - 1);
+		return dec;
+	}
+
+	@Override
+	public String toString() {
+		// <column name="" label="" indexing=""/>
+		String column = "            <column";
+
+		if (name != null && !name.equals("")) {
+			column += " name=\"" + name + "\"";
+		}
+		if (label != null && !label.equals("")) {
+			column += " label=\"" + label + "\"";
+		}
+		if (indexing != null && !indexing.equals("")) {
+			column += " identifier=\"" + indexing + "\"";
+		}
+
+		boolean f = true;
+
+		if (joins.size() != 0) {
+
+			column += ">\n";
+
+			for (JoinXML join : joins) {
+				column += join + "\n";
+			}
+
+			column += "            </column>";
+
+			f = false;
+		}
+
+		if (decodes.size() != 0) {
+
+			column += ">\n";
+
+			for (DecodeXML d : decodes) {
+				column += d + "\n";
+			}
+
+			column += "            </column>";
+
+			f = false;
+		}
+
+		if (f) {
+			column += "/>";
+		}
+
+		return column;
 	}
 
 }

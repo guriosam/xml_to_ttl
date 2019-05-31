@@ -21,4 +21,21 @@ public class EntryXML {
 		this.result = result;
 	}
 
+	@Override
+	public String toString() {
+		String entry = "                <entry";
+
+		if (search != null && !search.equals("")) {
+			entry += " search=\"" + search + "\"";
+		}
+
+		if (result != null && !result.equals("")) {
+			entry += " result=\"" + result + "\"";
+		}
+
+		entry += "/>";
+
+		return entry;
+	}
+
 }

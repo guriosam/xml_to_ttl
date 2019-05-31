@@ -1,10 +1,8 @@
 package objects;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class XMLGeneric {
 
+	private String encoding;
 	private DatabasesXML databasesXML;
 	private ConfigXML configXML;
 	private ViewsXML viewsXML;
@@ -14,8 +12,7 @@ public class XMLGeneric {
 		TableXML tableXML;
 
 		if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\\\"[\\S ]+)\\\"[\\s]*>")) {
-
-			System.out.println("Namespace: " + fileLine);
+			// System.out.println("Namespace: " + fileLine);
 
 			if (fileLine.contains("<view ")) {
 				ViewXML viewXML = new ViewXML();
@@ -31,9 +28,6 @@ public class XMLGeneric {
 			}
 
 		} else if (fileLine.contains("<table name=")) {
-			// I really don't know why, but the first table namespace of the file isn't
-			// matching with the regex.
-			// So I create an If clause for it.
 
 			TablesXML tables = getLastView().getTables();
 
@@ -48,14 +42,12 @@ public class XMLGeneric {
 		} else if (fileLine.contains("<tables repcol=")) {
 			ViewXML viewXML = getLastView();
 			viewXML.collectTables(fileLine);
-		}
+		} else if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*\\/>")) {
+			// System.out.println("Namespace closed: " + fileLine);
 
-		if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*\\/>")) {
-			System.out.println("Namespace closed: " + fileLine);
+			tableXML = getLastView().getTables().getLastTable();
 
 			if (fileLine.contains("column ")) {
-
-				tableXML = getLastView().getTables().getLastTable();
 
 				if (tableXML != null) {
 					if (tableXML.getGroups() != null) {
@@ -65,20 +57,70 @@ public class XMLGeneric {
 
 			}
 
-		}
+			if (fileLine.contains("<condition ")) {
+				JoinXML joinXML = tableXML.getLastGroup().getLastColumn().getLastJoin();
+				if (joinXML != null) {
+					joinXML.collectColumn(fileLine);
+				}
+			}
 
-		if (fileLine.matches("<(\\w)*>[\\s]+<\\/(\\w)*>")) {
-			System.out.println("Values: " + fileLine);
+			if (fileLine.contains("<entry ")) {
+
+				ColumnXML columnXML = tableXML.getLastGroup().getLastColumn();
+
+				if (columnXML != null) {
+					columnXML.getLastDecode().collectEntry(fileLine);
+				}
+			}
+
+		} else if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
+			// System.out.println("Values: " + fileLine);
 
 			if (fileLine.contains("<pk>")) {
 
 				tableXML = getLastView().getTables().getLastTable();
-
 				tableXML.collectPk(fileLine);
+
+			} else if (fileLine.contains("<pseudoPk>")) {
+
+				tableXML = getLastView().getTables().getLastTable();
+
+				tableXML.collectPseudoPk(fileLine);
+			} else if (fileLine.contains("<where>")) {
+
+				tableXML = getLastView().getTables().getLastTable();
+				tableXML.collectWhere(fileLine);
 			}
+
+		} else if (fileLine.contains("column ")) {
+			tableXML = getLastView().getTables().getLastTable();
+
+			if (tableXML != null) {
+				if (tableXML.getGroups() != null) {
+					tableXML.getLastGroup().collectColumn(fileLine);
+				}
+			}
+		} else if (fileLine.contains("view ")) {
+
+			ViewXML viewXML = new ViewXML();
+			viewXML.collectView(fileLine);
+			viewsXML.getViewsXML().add(viewXML);
+
+		} else if (fileLine.contains("<pseudoPk>")) {
+
+			tableXML = getLastView().getTables().getLastTable();
+			tableXML.collectPseudoPk(fileLine);
 
 		}
 
+	}
+
+	public ViewsXML getViewsXML() {
+		return viewsXML;
+	}
+
+	public void setViewsXML(ViewsXML viewsXML) {
+		this.viewsXML = viewsXML;
 	}
 
 	public ViewXML getLastView() {
@@ -101,11 +143,23 @@ public class XMLGeneric {
 
 	@Override
 	public String toString() {
-		String toString = "";
 
-		toString += configXML + "\n" + databasesXML + "\n" + viewsXML + "\n";
+		String toString = "<mapping>\n";
 
-		return toString;
+		if (configXML != null) {
+			toString += configXML + "\n";
+		}
+		if (databasesXML != null) {
+			toString += databasesXML + "\n";
+		}
+
+		if (viewsXML != null) {
+			toString += viewsXML + "\n";
+		}
+
+		toString += "</mapping>";
+
+		return encoding + "\n" + toString;
 	}
 
 	public String printTTL() {
@@ -126,6 +180,14 @@ public class XMLGeneric {
 
 	public void setDatabasesXML(DatabasesXML databasesXML) {
 		this.databasesXML = databasesXML;
+	}
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
 	}
 
 }

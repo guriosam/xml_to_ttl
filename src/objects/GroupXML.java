@@ -37,9 +37,9 @@ public class GroupXML {
 			String untagged = aux.substring(0, aux.indexOf("\""));
 			columnXML.setUntagged(Boolean.valueOf(untagged));
 		}
-		
+
 		columns.add(columnXML);
-		
+
 		return columnXML;
 
 	}
@@ -63,15 +63,36 @@ public class GroupXML {
 	public void setColumns(List<ColumnXML> columns) {
 		this.columns = columns;
 	}
-	
+
 	public ColumnXML getLastColumn() {
 		if (columns.size() == 0) {
-			System.out.println("Error in View");
+			System.out.println("Error in Column");
 			throw new NullPointerException();
 		}
 
 		ColumnXML columnXML = columns.get(columns.size() - 1);
 		return columnXML;
+	}
+
+	@Override
+	public String toString() {
+		String group = "          <group";
+
+		if (name != null && !name.equals("")) {
+			group += " name=\"" + name + "\"";
+		}
+
+		group += ">\n";
+
+		for (ColumnXML c : columns) {
+
+			group += c + "\n";
+
+		}
+
+		group += "          </group>";
+
+		return group;
 	}
 
 }

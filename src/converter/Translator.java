@@ -4,12 +4,9 @@ import java.util.List;
 
 import objects.ColumnXML;
 import objects.ConfigXML;
-import objects.DecodeXML;
-import objects.JoinXML;
+import objects.DatabasesXML;
 import objects.TTLSchema;
-import objects.TableXML;
-import objects.TablesXML;
-import objects.ViewXML;
+import objects.ViewsXML;
 import objects.XMLGeneric;
 
 public class Translator {
@@ -28,8 +25,9 @@ public class Translator {
 
 		skip = false;
 
+		int i = 0;
 		for (String fileLine : fileLines) {
-
+			i++;
 			try {
 
 				fileLine = fileLine.replace(" =", "=");
@@ -40,11 +38,11 @@ public class Translator {
 				}
 
 				// Collecting the encoding for future needs
-				// if (fileLine.contains("encoding")) {
-				// String encoding = getEncoding(fileLine);
-				// xmlSchema.setEncoding(encoding);
-				// continue;
-				// }
+				if (fileLine.contains("encoding")) {
+					String encoding = getEncoding(fileLine);
+					xmlObject.setEncoding(encoding);
+					continue;
+				}
 
 				// Removing whitespaces at the beginning
 				fileLine = fileLine.substring(fileLine.indexOf("<"));
@@ -53,40 +51,22 @@ public class Translator {
 					continue;
 				}
 
-				/*
-				 * if (fileLine.matches("<[A-Z]*[a-z]*>")) { System.out.println("Opening: " +
-				 * fileLine);
-				 * 
-				 * if (fileLine.contains("<group")) { if (tableXML != null) {
-				 * tableXML.collectGroup(fileLine); } }
-				 * 
-				 * continue; }
-				 */
-
-				/*
-				 * else if (fileLine.matches("<[/][A-Z]*[a-z]*>")) {
-				 * System.out.println("Closing: " + fileLine);
-				 * 
-				 * if (fileLine.contains("join")) { join = false; joinXML = null; }
-				 * 
-				 * continue; }
-				 */
-
 				if (config) {
 					xmlObject.getConfigXML().collectConfig(fileLine);
 				} else if (databases) {
 					// xmlObject.getDatabaseXML().collectDatabase(fileLine);
 				} else if (views) {
-///*				
 					xmlObject.collectViews(fileLine);
-//*/
 				}
 
 			} catch (Exception e) {
-				System.out.println(fileLine);
+				System.out.println(i + ":" + fileLine);
 				e.printStackTrace();
 			}
+
 		}
+
+		System.out.println(xmlObject);
 
 		return "";
 
@@ -95,41 +75,57 @@ public class Translator {
 	private boolean checkLevel(String fileLine) {
 
 		if (fileLine.matches("<config>")) {
-			System.out.println("Opening Config: " + fileLine);
+			// System.out.println("Opening Config: " + fileLine);
 			config = true;
+			xmlObject.setConfigXML(new ConfigXML());
 			return true;
 		} else if (fileLine.matches("<[/]config>")) {
-			System.out.println("Closing Config: " + fileLine);
+			// System.out.println("Closing Config: " + fileLine);
 			config = false;
 			return true;
 		}
 
 		if (fileLine.matches("<databases>")) {
-			System.out.println("Opening Databases: " + fileLine);
+			// System.out.println("Opening Databases: " + fileLine);
 			databases = true;
+			xmlObject.setDatabasesXML(new DatabasesXML());
 			return true;
 		} else if (fileLine.matches("<[/]dabatases>")) {
-			System.out.println("Closing Databases: " + fileLine);
+			// System.out.println("Closing Databases: " + fileLine);
 			databases = false;
 			return true;
 		}
 
 		if (fileLine.matches("<views>")) {
-			System.out.println("Opening Views: " + fileLine);
+			// System.out.println("Opening Views: " + fileLine);
+			xmlObject.setViewsXML(new ViewsXML());
 			views = true;
 			return true;
 		} else if (fileLine.matches("<[/]views>")) {
-			System.out.println("Closing Views: " + fileLine);
+			// System.out.println("Closing Views: " + fileLine);
 			views = false;
 			return true;
 		}
 
 		if (fileLine.matches("<group>")) {
-			System.out.println("Opening Views: " + fileLine);
+			// System.out.println("Opening Views: " + fileLine);
 			xmlObject.getLastView().getTables().getLastTable().collectGroup(fileLine);
 			return true;
 		} else if (fileLine.matches("<[/]group>")) {
-			System.out.println("Closing Views: " + fileLine);
+			// System.out.println("Closing Views: " + fileLine);
+			return true;
+		}
+
+		if (fileLine.matches("<decode>")) {
+			// System.out.println("Opening Views: " + fileLine);
+			ColumnXML columnXML = xmlObject.getLastView().getTables().getLastTable().getLastGroup().getLastColumn();
+
+			if (columnXML != null) {
+				columnXML.collectDecode(fileLine);
+			}
+			return true;
+		} else if (fileLine.matches("<[/]decode>")) {
+			// System.out.println("Closing Views: " + fileLine);
 			return true;
 		}
 
@@ -149,7 +145,7 @@ public class Translator {
 		}
 
 		if (fileLine.contains("exclude=\"true\"")) {
-			skip = true;
+			return false;
 		}
 
 		if (fileLine.contains("<documents")) {
@@ -203,7 +199,8 @@ public class Translator {
 			if (first) {
 				aux += fileLine;
 
-				// Checking if the namespaces ended or there is another line with them
+				// Checking if the namespaces ended or there is another line
+				// with them
 				if (fileLine.contains(">")) {
 					collectNamespaces(aux);
 					first = false;
@@ -344,9 +341,9 @@ public class Translator {
 	}
 
 	private String getEncoding(String line) {
-		String encoding = line.substring(line.indexOf("encoding") + 10);
-		encoding = encoding.substring(0, encoding.indexOf("\""));
-		System.out.println(encoding);
-		return encoding;
+		//String encoding = line.substring(line.indexOf("encoding") + 10);
+		//encoding = encoding.substring(0, encoding.indexOf("\""));
+		//System.out.println(encoding);
+		return line;
 	}
 }

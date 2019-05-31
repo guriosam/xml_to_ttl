@@ -1,14 +1,19 @@
 package objects;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DecodeXML {
 
 	private String expr;
 	private List<EntryXML> entries;
+	
+	public DecodeXML(){
+		entries = new ArrayList<>();
+	}
 
 	public void collectEntry(String fileLine) {
-
+		
 		EntryXML entry = new EntryXML();
 
 		String search = "";
@@ -27,6 +32,8 @@ public class DecodeXML {
 		}
 
 		entry.setResult(result);
+		
+		entries.add(entry);
 
 	}
 
@@ -45,5 +52,27 @@ public class DecodeXML {
 	public void setEntries(List<EntryXML> entries) {
 		this.entries = entries;
 	}
+	
+	@Override
+	public String toString() {
+		String decode = "              <decode";
+
+		if (expr != null && !expr.equals("")) {
+			decode += " expr=\"" + expr + "\"";
+		}
+
+		decode += ">\n";
+
+		for (EntryXML e : entries) {
+
+			decode += e + "\n";
+
+		}
+
+		decode += "              </decode>";
+
+		return decode;
+	}
+
 
 }

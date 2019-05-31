@@ -21,13 +21,13 @@ public class ViewsXML {
 
 	@Override
 	public String toString() {
-		String views = "<views>\n";
+		String views = "  <views>\n";
 
 		for (ViewXML view : viewsXML) {
 			views += view + "\n";
 		}
 
-		views += "</views>";
+		views += "  </views>";
 
 		return views;
 	}

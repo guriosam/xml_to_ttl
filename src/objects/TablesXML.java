@@ -24,14 +24,14 @@ public class TablesXML {
 		TableXML table = new TableXML();
 
 		if (fileLine.contains("name=")) {
-			String aux = fileLine.substring(fileLine.indexOf("name=\"") + 8);
+			String aux = fileLine.substring(fileLine.indexOf("name=\"") + 6);
 			String name = aux.substring(0, aux.indexOf("\""));
 
 			table.setName(name);
 		}
 
 		if (fileLine.contains("owner=")) {
-			String aux = fileLine.substring(fileLine.indexOf("owner=\"") + 8);
+			String aux = fileLine.substring(fileLine.indexOf("owner=\"") + 7);
 			String owner = aux.substring(0, aux.indexOf("\""));
 
 			table.setOwner(owner);
@@ -54,6 +54,7 @@ public class TablesXML {
 			tableXML = getLastTable();
 
 			if (tableXML != null) {
+				
 				groupXML = tableXML.collectGroup(fileLine);
 			}
 
@@ -64,32 +65,26 @@ public class TablesXML {
 			tableXML = getLastTable();
 
 			if (tableXML != null) {
+				
 				groupXML = tableXML.getLastGroup();
 				columnXML = groupXML.collectColumn(fileLine);
 			}
 		}
 
-		if (fileLine.contains("<condition ")) {
+		if (fileLine.contains("<join ")) {
 
-			joinXML = columnXML.getLastJoin();
-
-			if (joinXML != null) {
-				joinXML.collectColumn(fileLine);
-			}
-		}
-
-		if (fileLine.contains("<join")) {
-
+			tableXML = getLastTable();
 			columnXML = tableXML.getLastGroup().getLastColumn();
+			
 
 			if (columnXML != null) {
 				joinXML = columnXML.collectJoinView(fileLine);
 			}
 		}
 
-		if (fileLine.contains("<decode")) {
+		if (fileLine.contains("<decode ")) {
 			if (columnXML != null) {
-				decodeXML = columnXML.collectDecode(fileLine);
+				columnXML.collectDecode(fileLine);
 			}
 		}
 
@@ -113,7 +108,7 @@ public class TablesXML {
 
 	public TableXML getLastTable() {
 		if (tables.size() == 0) {
-			System.out.println("Error in View");
+			System.out.println("Error in Tables");
 			throw new NullPointerException();
 		}
 
@@ -123,7 +118,7 @@ public class TablesXML {
 
 	@Override
 	public String toString() {
-		String tabl = "<tables";
+		String tabl = "      <tables";
 
 		if (repCol != null && !repCol.equals("")) {
 			tabl += " repcol=\"" + repCol + "\"";
@@ -135,7 +130,7 @@ public class TablesXML {
 			tabl += table + "\n";
 		}
 
-		tabl += "</tables>";
+		tabl += "      </tables>";
 
 		return tabl;
 	}

@@ -19,7 +19,7 @@ public class ConfigXML {
 			if (fileLine.contains("<version")) {
 				version = aux;
 			} else if (fileLine.contains("<prefix")) {
-				version = aux;
+				prefix = aux;
 			} else if (fileLine.contains("<database")) {
 				database = aux;
 			} else if (fileLine.contains("<origin")) {
@@ -29,8 +29,6 @@ public class ConfigXML {
 			} else if (fileLine.contains("<separator")) {
 				separator = aux;
 			}
-
-			System.out.println("Values: " + fileLine);
 
 		} else {
 			System.out.println("Something went wrong in ConfigXML.");
@@ -80,7 +78,32 @@ public class ConfigXML {
 
 	@Override
 	public String toString() {
-		return prefix + "/" + origin + "/" + separator + bnode + version;
+		
+		String config = "  <config>\n";
+		
+		if(version != null){
+			config += "    <version>" + version + "</version>\n";
+		}
+		
+		if(prefix != null){
+			config += "    <prefix>" + prefix + "</prefix>\n";
+		}
+		if(origin != null){
+			config += "    <origin>" + origin + "</origin>\n";
+		}
+		if(database != null){
+			config += "    <database>" + database + "</database>\n";
+		}
+		if(separator != null){
+			config += "    <separator>" + separator + "</separator>\n";
+		}
+		if(bnode != null){
+			config += "    <bnode>" + bnode + "</bnode>\n";
+		}
+		
+		config += "  </config>\n";
+		
+		return config;
 	}
 
 	public String getDatabase() {
