@@ -11,12 +11,13 @@ public class ColumnXML {
 	private Boolean untagged;
 	private List<JoinXML> joins;
 	private List<DecodeXML> decodes;
-	
-	private String domain;
 
-	public ColumnXML() {
+	private String viewName;
+
+	public ColumnXML(String viewName) {
 		setJoins(new ArrayList<>());
 		setDecodes(new ArrayList<>());
+		this.viewName = viewName;
 	}
 
 	public JoinXML collectJoinView(String fileLine) {
@@ -50,7 +51,7 @@ public class ColumnXML {
 		decode.setExpr(expr);
 
 		decodes.add(decode);
-		
+
 		return decode;
 	}
 
@@ -111,7 +112,7 @@ public class ColumnXML {
 		JoinXML join = joins.get(joins.size() - 1);
 		return join;
 	}
-	
+
 	public DecodeXML getLastDecode() {
 		if (decodes.size() == 0) {
 			System.out.println("Error in Decode");
@@ -172,19 +173,70 @@ public class ColumnXML {
 		return column;
 	}
 
-	
 	public String toStringTTL() {
-		
+
 		String ttl = "";
+
+		if (joins.size() == 0 && decodes.size() == 0) {
+			ttl += "map:" + viewName + "_" + name + "	a	d2rq:PropertyBridge ;\n";
+			ttl += "d2rq:belongsToClassMap		map:" + viewName + " ;\n";
+			ttl += "d2rq:column                   \"" + viewName + "." + name + "\" ;";
+			ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;";
+			ttl += "d2rq:propertyDefinitionLabel	\"" + label + "\".\n";
+		}
+
+		if (joins.size() > 0) {
+			/*
+			 * map:job_status_history_job_id__ref a d2rq:PropertyBridge ;
+			 * d2rq:belongsToClassMap map:job_status_history ; 
+			 * d2rq:join "job_status_history.job_id <= jobs.id" ;
+			 * d2rq:propertyDefinitionLabel "Job" ;
+			 * d2rq:property vocab:job_status_history_job ;
+			 * d2rq:refersToClassMap map:jobs .
+			 */
+			
+			/*
+			map:PaperConference a d2rq:PropertyBridge;
+		    d2rq:belongsToClassMap map:Paper;
+		    d2rq:property :journalIssue;
+		    d2rq:refersToClassMap map:JournalIssue;
+		    d2rq:join "Papers.Journal => Journal.JournalID";
+		    d2rq:join "Papers.Issue => Journal.IssueID";
+		    .
+		    */
+
+
+			for (JoinXML join : joins) {
+				ttl += "map:" + viewName + "_" + name + "__ref		a	d2rq:PropertyBridge ;\n";
+				ttl += "d2rq:belongsToClassMap		map:" + viewName + " ;\n";
+				//loop conditions
+				ttl += "d2rq:join                   \"" + viewName + "." + join.getColumnFrom() + "<=" + join.getView() + "."
+						+ join.getColumnTo() + "\" ;";
+				//end loop conditions
+				ttl += " d2rq:propertyDefinitionLabel \"" + label + "\" ;";
+				ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;";
+				ttl += "d2rq:refersToClassMap	map:" + join.getView() + ".\n";
+			}
+
+		}
 		
-		//( anp:BLOCO_OFERTADO#SETOR rdfs:domain   anp:BLOCO_OFERTADO )
-		// ( anp:BLOCO_OFERTADO#SETOR     rdfs:label      "Setor" )
-		// ( anp:BLOCO_OFERTADO#SETOR     :indexing       "true" )
-		
-		ttl += domain + ":" + "nomeDaView#" +  name  + " rdfs:domain " + domain + ":" + "nomedaView;\n";
-		ttl += domain + ":" + "nomeDaView#" + name + " rdfs:label \"" + label + "\";\n";
-		ttl += domain + ":" + "nomeDaView#" + name + " rdfs:indexing " + indexing + "\";\n";
+		/*
+			map:authorName a d2rq:PropertyBridge;
+		    d2rq:belongsToClassMap map:Papers;
+		    d2rq:property :authorName;
+		    d2rq:column "Persons.Name";
+		    d2rq:join "Papers.PaperID <= Rel_Person_Paper.PaperID";
+		    d2rq:join "Rel_Person_Paper.PersonID => Persons.PerID";
+		    d2rq:datatype xsd:string;
+		    d2rq:propertyDefinitionLabel "name"@en;
+		    d2rq:propertyDefinitionComment "Name of an author."@en;
+		    .
 				
+		*/
+		if(decodes.size() > 0) {
+			
+		}
+
 		return ttl;
 	}
 }

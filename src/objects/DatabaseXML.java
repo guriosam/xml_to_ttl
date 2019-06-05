@@ -8,12 +8,61 @@ public class DatabaseXML {
 	private String port;
 	private String sid;
 	private String dblink;
+	private String driver;
+	private String schema;
+	private String database;
 	
 	public void collectDatabase(String fileLine) {
-		// TODO Auto-generated method stub
-		
+
+		if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
+
+			String aux = fileLine.substring(fileLine.indexOf(">") + 1);
+			aux = aux.substring(0, aux.indexOf("<"));
+
+			if (fileLine.contains("<driver")) {
+				setDriver(aux);
+			} else if (fileLine.contains("<host")) {
+				host = aux;
+			} else if (fileLine.contains("<port")) {
+				port = aux;
+			} else if (fileLine.contains("<database")) {
+				setDatabase(aux);
+			} else if (fileLine.contains("<schema")) {
+				setSchema(aux);
+			} else if (fileLine.contains("<user")) {
+				username = aux;
+			} else if (fileLine.contains("password")) {
+				password = aux;
+			} else if (fileLine.contains("driver")) {
+				setDriver(aux);
+			}
+
+		} else {
+			System.out.println("Something went wrong in ConfigXML.");
+		}
+
 	}
 
+	public String toStringTTL() {
+		
+		String toString = "map:database a d2rq:Database ;\n";
+		toString += "d2rq:jdbcDSN	\"" + driver + "://" + host + "/" + database + "\n";
+		toString += "d2rq:jdbcDriver  \"org.postgresql.Driver\" ;\n";
+		toString += "d2rq:password    \"" + password + "\" ;\n";
+		toString += "d2rq:username    \"" + username + "\"\n";
+		toString += ".\n";
+		
+		/*
+		map:database  a          d2rq:Database ;
+        d2rq:jdbcDSN     "jdbc:postgresql://quiowpost.tecgraf.puc-rio.br/ERAS" ;
+        d2rq:jdbcDriver  "org.postgresql.Driver" ;
+        d2rq:password    "#Ink897$" ;
+        d2rq:username    "postgres" .
+		 */
+		
+		return toString;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
@@ -73,6 +122,30 @@ public class DatabaseXML {
 		print += "username\t\"" + username + "\" ;";
 
 		return print;
+	}
+
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
+
+	public String getSchema() {
+		return schema;
+	}
+
+	public void setSchema(String schema) {
+		this.schema = schema;
+	}
+
+	public String getDatabase() {
+		return database;
+	}
+
+	public void setDatabase(String database) {
+		this.database = database;
 	}
 
 

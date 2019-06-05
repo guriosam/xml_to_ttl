@@ -53,7 +53,7 @@
 			<column name="param_id" label="Param_Id" indexing="true"/>
 			<column name="job_algo_id" label="Algorithm" untagged="true">
 				<join view="job_algorithms">
-					<column from="job_algo_id" to= "id"/>
+					<condition from="job_algo_id" to= "id"/>
 				</join>
 			</column>
           </group>
@@ -77,7 +77,7 @@
 			<column name="algo_version" label="Version"/>
 			<column name="job_id" label="Job" untagged="true">
 				<join view="jobs">
-					<column from="job_id" to= "id"/>
+					<condition from="job_id" to= "id"/>
 				</join>
 			</column>
           </group>
@@ -110,7 +110,7 @@
 			<column name="status_timestamp" label="Timestamp"/>
 			<column name="job_id" label="Job" untagged="true">
 				<join view="jobs">
-					<column from="job_id" to= "id"/>
+					<condition from="job_id" to= "id"/>
 				</join>
 			</column>
           </group>

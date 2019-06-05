@@ -12,14 +12,17 @@ public class TableXML {
 	private String where;
 	private List<GroupXML> groups;
 
-	public TableXML() {
+	private String viewName;
+
+	public TableXML(String viewName) {
 		groups = new ArrayList<>();
+		this.viewName = viewName;
 	}
 
 	public GroupXML collectGroup(String fileLine) {
 		// <group name="Dados Gerais">
 
-		GroupXML group = new GroupXML();
+		GroupXML group = new GroupXML(viewName);
 
 		if (fileLine.contains("name=")) {
 			String aux = fileLine.substring(fileLine.indexOf("name=\"") + 6);
@@ -95,9 +98,6 @@ public class TableXML {
 
 	@Override
 	public String toString() {
-		// <table name="CAMPO" owner="RST">
-		// <pk>CAMP_CD_CAMPO</pk>
-
 		String table = "        <table";
 
 		if (name != null && !name.equals("")) {
@@ -129,6 +129,12 @@ public class TableXML {
 		table += "        </table>";
 
 		return table;
+	}
+
+	public String toStringTTL() {
+		String ttl = "";
+
+		return ttl;
 	}
 
 	public String getPseudoPk() {

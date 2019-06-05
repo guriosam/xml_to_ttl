@@ -105,7 +105,7 @@ public class ConfigXML {
 		
 		return config;
 	}
-
+	
 	public String getDatabase() {
 		return database;
 	}

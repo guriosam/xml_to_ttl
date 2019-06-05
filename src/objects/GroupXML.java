@@ -5,6 +5,7 @@ import java.util.List;
 
 public class GroupXML {
 
+	private String viewName;
 	private String name;
 	private List<ColumnXML> columns;
 
@@ -12,7 +13,7 @@ public class GroupXML {
 		// <column name="flow_name" label="Flow name" indexing="true"/>
 		// <column name="job_algo_id" label="Algorithm" untagged="true">
 
-		ColumnXML columnXML = new ColumnXML();
+		ColumnXML columnXML = new ColumnXML(viewName);
 
 		if (fileLine.contains("name=")) {
 			String aux = fileLine.substring(fileLine.indexOf("name=\"") + 6);
@@ -44,8 +45,9 @@ public class GroupXML {
 
 	}
 
-	public GroupXML() {
+	public GroupXML(String viewName) {
 		columns = new ArrayList<>();
+		this.viewName = viewName;
 	}
 
 	public String getName() {
@@ -95,4 +97,12 @@ public class GroupXML {
 		return group;
 	}
 
+	public String toStringTTL() {
+		
+		//TODO
+		//loop over columns
+		
+		return "";
+	}
+	
 }

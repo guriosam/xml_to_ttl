@@ -1,0 +1,381 @@
+@prefix d2rq:  <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix vocab: <http://eras.tecgraf.puc-rio.br/> .
+@prefix jdbc:  <http://d2rq.org/terms/jdbc/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix map:   <http://eras.tecgraf.puc-rio.br/map#> .
+
+map:database  a          d2rq:Database ;
+        d2rq:jdbcDSN     "jdbc:postgresql://quiowpost.tecgraf.puc-rio.br/ERAS" ;
+        d2rq:jdbcDriver  "org.postgresql.Driver" ;
+        d2rq:password    "#Ink897$" ;
+        d2rq:username    "postgres" .
+		
+#Class Definition jobs
+map:jobs  a                        d2rq:ClassMap ;
+        d2rq:class                 vocab:jobs ;
+        d2rq:classDefinitionLabel  "Jobs" ;
+        d2rq:dataStorage           map:database ;
+        d2rq:uriPattern            "http://eras.tecgraf.puc-rio.br/jobs/@@jobs.id@@" .
+
+map:jobs__label  a              d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap  map:jobs ;
+        d2rq:pattern            "@@jobs.id@@" ;
+        d2rq:property           rdfs:label .
+		
+map:jobs_auto_machine_selected
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.auto_machine_selected" ;
+        d2rq:datatype                 xsd:boolean ;
+        d2rq:property                 vocab:jobs_auto_machine_selected ;
+        d2rq:propertyDefinitionLabel  "Auto machine selected" .
+		
+map:jobs_cpu_time  a                  d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.cpu_time" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_cpu_time ;
+        d2rq:propertyDefinitionLabel  "CPU Time" ;
+#		d2rq:propertyDefinitionLabel  "Tempo CPU"  
+		.
+		
+map:jobs_description  a               d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.description" ;
+        d2rq:property                 vocab:jobs_description ;
+        d2rq:propertyDefinitionLabel  "Description" ;
+#		d2rq:propertyDefinitionLabel  "Descrição" 
+		.
+		
+map:jobs_end_time  a                  d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.end_time" ;
+        d2rq:datatype                 xsd:dateTime ;
+        d2rq:property                 vocab:jobs_end_time ;
+        d2rq:propertyDefinitionLabel  "End time";
+#		d2rq:propertyDefinitionLabel  "Tempo de término" 
+		.
+		
+map:jobs_execution_machine
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.execution_machine" ;
+        d2rq:property                 vocab:jobs_execution_machine ;
+        d2rq:propertyDefinitionLabel  "Execution machine" .
+		
+map:jobs_exit_code  a                 d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.exit_code" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_exit_code ;
+        d2rq:propertyDefinitionLabel  "Exit code" .
+
+map:jobs_exit_status  a               d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.exit_status" ;
+        d2rq:property                 vocab:jobs_exit_status ;
+        d2rq:propertyDefinitionLabel  "Exit status" .
+		
+map:jobs_flow_id  a                   d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.flow_id" ;
+		d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_flow_id ;
+		d2rq:propertyDefinitionLabel  "Flow ID".
+		
+map:jobs_flow_name  a                 d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.flow_name" ;
+		d2rq:datatype                 xsd:string ;
+        d2rq:property                 vocab:jobs_flow_name ;
+        d2rq:propertyDefinitionLabel  "Flow name" .
+		
+		
+map:jobs_flow_raw  a                  d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.flow_raw" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_flow_raw ;
+        d2rq:propertyDefinitionLabel  "Flow Raw" .
+		
+map:jobs_flow_version
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.flow_version" ;
+		d2rq:datatype                 xsd:string ;
+        d2rq:property                 vocab:jobs_flow_version ;
+        d2rq:propertyDefinitionLabel  "Flow version" .
+		
+map:jobs_group_id  a                  d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.group_id" ;
+        d2rq:property                 vocab:jobs_group_id ;
+        d2rq:propertyDefinitionLabel  "Group" ;
+#		d2rq:propertyDefinitionLabel  "Grupo" 
+		.
+		
+map:jobs_guilty_node_id
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.guilty_node_id" ;
+        d2rq:property                 vocab:jobs_guilty_node_id ;
+        d2rq:propertyDefinitionLabel  "Guilty node" .
+		
+
+map:jobs_job_id  a                    d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.job_id" ;
+        d2rq:property                 vocab:jobs_job_id ;
+        d2rq:propertyDefinitionLabel  "Job ID" .
+		
+map:jobs_user_id  a                   d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.user_id" ;
+        d2rq:property                 vocab:jobs_user_id ;
+        d2rq:propertyDefinitionLabel  "User" ;
+#		d2rq:propertyDefinitionLabel  "Usuário" 
+		.
+		
+map:jobs_job_type  a                  d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.job_type" ;
+        d2rq:property                 vocab:jobs_job_type ;
+        d2rq:propertyDefinitionLabel  "Type" ;
+#		d2rq:propertyDefinitionLabel  "Tipo" 
+		.		
+		
+map:jobs_last_modified_time
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.last_modified_time" ;
+        d2rq:datatype                 xsd:dateTime ;
+        d2rq:property                 vocab:jobs_last_modified_time ;
+        d2rq:propertyDefinitionLabel  "Last modified time" .		
+		
+map:jobs_multiple_execution
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.multiple_execution" ;
+        d2rq:datatype                 xsd:boolean ;
+        d2rq:property                 vocab:jobs_multiple_execution ;
+        d2rq:propertyDefinitionLabel  "Multiple execution" .
+		
+map:jobs_number_of_processes
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.number_of_processes" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_number_of_processes ;
+        d2rq:propertyDefinitionLabel  "Number of processes" .
+		
+map:jobs_number_of_processes_by_machine
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.number_of_processes_by_machine" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_number_of_processes_by_machine ;
+        d2rq:propertyDefinitionLabel  "Number of processes by machine" .
+		
+map:jobs_number_of_retries
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.number_of_retries" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_number_of_retries ;
+        d2rq:propertyDefinitionLabel  "Number of retries" .
+		
+
+map:jobs_priority  a                  d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.priority" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_priority ;
+#       d2rq:propertyDefinitionLabel  "Priority" ; 
+		d2rq:propertyDefinitionLabel  "Prioridade" 
+		.
+		 
+		
+map:jobs_project_id  a                d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.project_id" ;
+        d2rq:property                 vocab:jobs_project_id ;
+        d2rq:propertyDefinitionLabel  "Project" ;
+#     	d2rq:propertyDefinitionLabel  "Projeto"	
+		.	
+
+map:jobs_ram_mem  a                   d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.ram_mem" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_ram_mem ;
+        d2rq:propertyDefinitionLabel  "RAM memory" .	
+
+map:jobs_submission_time
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.submission_time" ;
+        d2rq:datatype                 xsd:dateTime ;
+        d2rq:property                 vocab:jobs_submission_time ;
+        d2rq:propertyDefinitionLabel  "Submission Time" .	
+
+map:jobs_wall_clock_time
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:jobs ;
+        d2rq:column                   "jobs.wall_clock_time" ;
+        d2rq:datatype                 xsd:decimal ;
+        d2rq:property                 vocab:jobs_wall_clock_time ;
+        d2rq:propertyDefinitionLabel  "Wall clock time" .
+		
+#Class Definition job_algorithms
+map:job_algorithms  a              d2rq:ClassMap ;
+        d2rq:class                 vocab:job_algorithms ;
+        d2rq:classDefinitionLabel  "Algorithms" ;
+#		d2rq:classDefinitionLabel  "Algoritmos" ;
+        d2rq:dataStorage           map:database ;
+        d2rq:uriPattern            "http://eras.tecgraf.puc-rio.br/job_algorithms/@@job_algorithms.id@@" .
+		
+map:job_algorithms__label
+        a                       d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap  map:job_algorithms ;
+        d2rq:pattern            "@@job_algorithms.algo_id@@" ;
+        d2rq:property           rdfs:label .
+
+map:job_algorithms_algo_version
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_algorithms ;
+        d2rq:column                   "job_algorithms.algo_version" ;
+        d2rq:property                 vocab:job_algorithms_version ;
+        d2rq:propertyDefinitionLabel  "Version" ;
+#       d2rq:propertyDefinitionLabel  "Versão" 
+		.
+		
+map:job_algorithms_algo_name
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_algorithms ;
+        d2rq:column                   "job_algorithms.algo_name" ;
+        d2rq:property                 vocab:job_algorithms_name ;
+        d2rq:propertyDefinitionLabel  "Name" ;
+#   	d2rq:propertyDefinitionLabel  "Nome"		
+		.		
+
+map:job_algorithms_job_id__ref
+        a                              d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap         map:job_algorithms ;
+        d2rq:join                      "job_algorithms.job_id => jobs.id" ;
+        d2rq:property                  vocab:job_algorithms_job ;
+		d2rq:propertyDefinitionLabel   "Job" ;
+        d2rq:refersToClassMap          map:jobs .
+		
+#Class Definition job_selected_machines
+map:job_selected_machines
+        a                             d2rq:ClassMap ;
+        d2rq:class                    vocab:job_selected_machines ;
+        d2rq:classDefinitionLabel     "Selected machine" ;
+#		d2rq:classDefinitionLabel     "Máquina escolhida" ;
+        d2rq:dataStorage              map:database ;
+        d2rq:uriPattern               "http://eras.tecgraf.puc-rio.br/job_selected_machines/@@job_selected_machines.job_id@@_@@job_selected_machines.machine_name@@" .		
+		
+map:job_selected_machines_machine_name
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_selected_machines ;
+        d2rq:column                   "job_selected_machines.machine_name" ;
+        d2rq:property                 vocab:job_selected_machines_machine_name ;
+#       d2rq:propertyDefinitionLabel  "Machine Name" ;
+		d2rq:propertyDefinitionLabel  "Nome da máquina" 
+		.
+		
+map:job_selected_machines_job_id__ref
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_selected_machines ;
+		d2rq:refersToClassMap         map:jobs ;
+        d2rq:join                     "jobs.id => job_selected_machines.job_id" ;
+        d2rq:property                 vocab:job_selected_machines_job;
+        d2rq:propertyDefinitionLabel  "Job"      
+          .
+
+#Class Definition job_algo_params
+map:job_algo_params  a             d2rq:ClassMap ;
+        d2rq:class                 vocab:job_algo_params ;
+        d2rq:classDefinitionLabel  "Params Algorithm" ;
+        d2rq:dataStorage           map:database ;
+        d2rq:uriPattern            "http://eras.tecgraf.puc-rio.br/job_algo_params/@@job_algo_params.id@@" .
+		
+map:job_algo_params__label
+        a                       d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap  map:job_algo_params ;
+        d2rq:pattern            "@@job_algo_params.param_label@@" ;
+        d2rq:property           rdfs:label .
+		
+map:job_param_values_value
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_algo_params ;
+        d2rq:column                   "job_param_values.value" ;
+        d2rq:property                 vocab:job_algo_params_value ;
+		d2rq:join                     "job_algo_params.id <= job_param_values.job_algo_param_id";
+        d2rq:propertyDefinitionLabel  "Values";
+#	    d2rq:propertyDefinitionLabel  "Valores do parâmetro" 
+		.
+
+map:job_algo_params_param_type
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_algo_params ;
+        d2rq:column                   "job_algo_params.param_type" ;
+        d2rq:property                 vocab:job_algo_params_type ;
+        d2rq:propertyDefinitionLabel  "Type" ;		
+#		d2rq:propertyDefinitionLabel  "Tipo" 
+        .
+
+
+map:job_algo_params_job_algo_id__ref
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_algo_params  ;
+        d2rq:join                     "job_algo_params.job_algo_id <= job_algorithms.id" ;
+        d2rq:property                 vocab:job_algo_params_job_algo ;
+		d2rq:propertyDefinitionLabel  "Algorithm" ;
+        d2rq:refersToClassMap         map:job_algorithms.
+		
+
+
+#Class Definition job_status_history
+map:job_status_history
+        a                          d2rq:ClassMap ;
+        d2rq:class                 vocab:job_status_history ;
+        d2rq:classDefinitionLabel  "Status history" ;
+#		d2rq:classDefinitionLabel  "Histórico de status" ;
+        d2rq:dataStorage           map:database ;
+        d2rq:uriPattern            "http://eras.tecgraf.puc-rio.br/job_status_history/@@job_status_history.id@@" .
+		
+map:job_status_history__label
+        a                       d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap  map:job_status_history ;
+        d2rq:pattern            "@@job_status_history.job_status@@ - @@job_status_history.status_timestamp@@" ;
+        d2rq:property           rdfs:label .		
+		
+map:job_status_history_status_timestamp
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_status_history ;
+        d2rq:column                   "job_status_history.status_timestamp" ;
+        d2rq:datatype                 xsd:dateTime ;
+        d2rq:property                 vocab:job_status_history_status_timestamp ;
+        d2rq:propertyDefinitionLabel  "Status Timestamp" ;
+		d2rq:propertyDefinitionLabel  "Timestamp de status" .
+
+map:job_status_history_job_status
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_status_history ;
+        d2rq:column                   "job_status_history.job_status" ;
+        d2rq:property                 vocab:job_status_history_status ;
+        d2rq:propertyDefinitionLabel  "Status" .	
+
+
+map:job_status_history_job_id__ref
+        a                             d2rq:PropertyBridge ;
+        d2rq:belongsToClassMap        map:job_status_history ;
+        d2rq:join                     "job_status_history.job_id <= jobs.id" ;
+		d2rq:propertyDefinitionLabel  "Job" ;
+        d2rq:property                 vocab:job_status_history_job ;
+        d2rq:refersToClassMap         map:jobs .
+
+	

@@ -10,6 +10,12 @@ public class ViewXML {
 	private Boolean identifier;
 	private TablesXML tables;
 
+	private String prefix;
+
+	public ViewXML(String prefix) {
+		this.prefix = prefix;
+	}
+
 	public void collectView(String viewLine) {
 		// <view origin="" name="" label="" identifier="" >
 
@@ -33,13 +39,12 @@ public class ViewXML {
 			String identifier = aux.substring(0, aux.indexOf("\""));
 			this.identifier = Boolean.valueOf(identifier);
 		}
-		
-		
+
 	}
 
 	public void collectTables(String fileLine) {
 
-		tables = new TablesXML();
+		tables = new TablesXML(name);
 		String repCol = "";
 
 		if (fileLine.contains("repcol=")) {
@@ -111,26 +116,23 @@ public class ViewXML {
 		view += ">\n";
 
 		view += tables + "\n";
-		
+
 		view += "    </view>";
-		
+
 		return view;
 	}
-	
+
 	public String toStringTTL() {
 		String ttl = "";
-		
-		//anp:BLOCO_OFERTADO rdfs:type rdfs:Class
-		//anp:BLOCO_OFERTADO rdfs:label “Bloco ofertado”
-		
-		ttl += ":" + name + " rdfs:type rdfs:Class;\n";
-		ttl += ":" + name + " rdfs:label \"" + label + "\";\n";
-		
-		//What about identifier? origin? 
-		//ttl += ":" + name + "";
 
-		
-		
+		ttl += "map:" + name + " rdfs:type d2rq:ClassMap ;\n";
+		ttl += "d2rq:class	vocab:" + name + " ;\n";
+		ttl += "d2rq:classDefinitionLabel	vocab:" + label + " ;\n";
+		ttl += "dataStorage		map:database ;\n";
+		ttl += "d2rq:uriPattern		\"" + prefix + "\" .\n";
+
+		ttl += tables.toStringTTL() + "\n";
+
 		return ttl;
 	}
 

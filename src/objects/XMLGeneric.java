@@ -10,20 +10,21 @@ public class XMLGeneric {
 	public void collectViews(String fileLine) {
 
 		TableXML tableXML;
+		ViewXML viewXML;
 
 		if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\\\"[\\S ]+)\\\"[\\s]*>")) {
 			// System.out.println("Namespace: " + fileLine);
 
 			if (fileLine.contains("<view ")) {
-				ViewXML viewXML = new ViewXML();
+				viewXML = new ViewXML(configXML.getPrefix());
 				viewXML.collectView(fileLine);
 				viewsXML.getViewsXML().add(viewXML);
 
 			} else if (fileLine.contains("<tables ")) {
-				ViewXML viewXML = getLastView();
+				viewXML = getLastView();
 				viewXML.collectTables(fileLine);
 			} else {
-				ViewXML viewXML = getLastView();
+				viewXML = getLastView();
 				viewXML.getTables().collect(fileLine);
 			}
 
@@ -32,7 +33,7 @@ public class XMLGeneric {
 			TablesXML tables = getLastView().getTables();
 
 			if (tables == null) {
-				tables = new TablesXML();
+				tables = new TablesXML(getLastView().getName());
 				tables.setRepCol("");
 				getLastView().setTables(tables);
 			}
@@ -40,7 +41,7 @@ public class XMLGeneric {
 			tableXML = tables.collectTable(fileLine);
 
 		} else if (fileLine.contains("<tables repcol=")) {
-			ViewXML viewXML = getLastView();
+			viewXML = getLastView();
 			viewXML.collectTables(fileLine);
 		} else if (fileLine.matches("<(\\w)*([\\s]*[\\S ]*=\"[\\S ]+)\"[\\s]*\\/>")) {
 			// System.out.println("Namespace closed: " + fileLine);
@@ -102,7 +103,7 @@ public class XMLGeneric {
 			}
 		} else if (fileLine.contains("view ")) {
 
-			ViewXML viewXML = new ViewXML();
+			viewXML = new ViewXML(configXML.getPrefix());
 			viewXML.collectView(fileLine);
 			viewsXML.getViewsXML().add(viewXML);
 
@@ -146,16 +147,16 @@ public class XMLGeneric {
 
 		String toString = "<mapping>\n";
 
-		if (configXML != null) {
-			toString += configXML + "\n";
-		}
-		if (databasesXML != null) {
-			toString += databasesXML + "\n";
-		}
+		//if (configXML != null) {
+		//	toString += configXML + "\n";
+		//}
+		//if (databasesXML != null) {
+		//	toString += databasesXML + "\n";
+		//}
 
-		if (viewsXML != null) {
-			toString += viewsXML + "\n";
-		}
+		//if (viewsXML != null) {
+		//	toString += viewsXML + "\n";
+		//}
 
 		toString += "</mapping>";
 
@@ -169,6 +170,13 @@ public class XMLGeneric {
 		prefix += "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .";
 		prefix += "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .";
 		prefix += "@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .";
+
+		/*
+		@prefix vocab: <http://eras.tecgraf.puc-rio.br/> .
+		@prefix jdbc:  <http://d2rq.org/terms/jdbc/> .
+		@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+		@prefix map:   <http://eras.tecgraf.puc-rio.br/map#> .
+		*/
 
 		return prefix;
 
