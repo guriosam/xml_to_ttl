@@ -147,16 +147,16 @@ public class XMLGeneric {
 
 		String toString = "<mapping>\n";
 
-		//if (configXML != null) {
-		//	toString += configXML + "\n";
-		//}
-		//if (databasesXML != null) {
-		//	toString += databasesXML + "\n";
-		//}
+		// if (configXML != null) {
+		// toString += configXML + "\n";
+		// }
+		// if (databasesXML != null) {
+		// toString += databasesXML + "\n";
+		// }
 
-		//if (viewsXML != null) {
-		//	toString += viewsXML + "\n";
-		//}
+		// if (viewsXML != null) {
+		// toString += viewsXML + "\n";
+		// }
 
 		toString += "</mapping>";
 
@@ -169,14 +169,24 @@ public class XMLGeneric {
 		prefix += "@prefix d2rq:  <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .";
 		prefix += "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .";
 		prefix += "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .";
-		prefix += "@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .";
+		prefix += "@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\n";
 
 		/*
-		@prefix vocab: <http://eras.tecgraf.puc-rio.br/> .
-		@prefix jdbc:  <http://d2rq.org/terms/jdbc/> .
-		@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
-		@prefix map:   <http://eras.tecgraf.puc-rio.br/map#> .
-		*/
+		 * @prefix vocab: <http://eras.tecgraf.puc-rio.br/> .
+		 * 
+		 * @prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+		 * 
+		 * @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+		 * 
+		 * @prefix map: <http://eras.tecgraf.puc-rio.br/map#> .
+		 */
+
+		//for (DatabaseXML d : databasesXML.getDatabases()) {
+		//	prefix += d;
+		//}
+		//prefix += "\n";
+
+		prefix += viewsXML.toStringTTL();
 
 		return prefix;
 

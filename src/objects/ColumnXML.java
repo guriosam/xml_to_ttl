@@ -180,9 +180,9 @@ public class ColumnXML {
 		if (joins.size() == 0 && decodes.size() == 0) {
 			ttl += "map:" + viewName + "_" + name + "	a	d2rq:PropertyBridge ;\n";
 			ttl += "d2rq:belongsToClassMap		map:" + viewName + " ;\n";
-			ttl += "d2rq:column                   \"" + viewName + "." + name + "\" ;";
-			ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;";
-			ttl += "d2rq:propertyDefinitionLabel	\"" + label + "\".\n";
+			ttl += "d2rq:column                   \"" + viewName + "." + name + "\" ;\n";
+			ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;\n";
+			ttl += "d2rq:propertyDefinitionLabel	\"" + label + "\".\n\n";
 		}
 
 		if (joins.size() > 0) {
@@ -211,11 +211,11 @@ public class ColumnXML {
 				ttl += "d2rq:belongsToClassMap		map:" + viewName + " ;\n";
 				//loop conditions
 				ttl += "d2rq:join                   \"" + viewName + "." + join.getColumnFrom() + "<=" + join.getView() + "."
-						+ join.getColumnTo() + "\" ;";
+						+ join.getColumnTo() + "\" ;\n";
 				//end loop conditions
-				ttl += " d2rq:propertyDefinitionLabel \"" + label + "\" ;";
-				ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;";
-				ttl += "d2rq:refersToClassMap	map:" + join.getView() + ".\n";
+				ttl += "d2rq:propertyDefinitionLabel \"" + label + "\" ;\n";
+				ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;\n";
+				ttl += "d2rq:refersToClassMap	map:" + join.getView() + ".\n\n";
 			}
 
 		}

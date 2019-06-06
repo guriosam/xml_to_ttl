@@ -54,7 +54,7 @@ public class Translator {
 				if (config) {
 					xmlObject.getConfigXML().collectConfig(fileLine);
 				} else if (databases) {
-					// xmlObject.getDatabaseXML().collectDatabase(fileLine);
+					xmlObject.getDatabasesXML().getLastDatabase().collectDatabase(fileLine);
 				} else if (views) {
 					xmlObject.collectViews(fileLine);
 				}
@@ -66,7 +66,7 @@ public class Translator {
 
 		}
 
-		//System.out.println(xmlObject);
+		System.out.println(xmlObject.printTTL());
 
 		return "";
 

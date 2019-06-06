@@ -93,7 +93,7 @@
             <column name="machine_name" label="Name" indexing="true"/>
 			<column name="job_id" label="Job" untagged="true">
 				<join view="jobs">
-					<column from="job_id" to= "id"/>
+					<condition from="job_id" to= "id"/>
 				</join>
 			</column>
           </group>

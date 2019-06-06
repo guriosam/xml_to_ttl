@@ -50,9 +50,6 @@ public class JoinXML {
 
 	@Override
 	public String toString() {
-		// <join view="BACIA">
-		// <condition from="BACI_CD_BACIA" to="BACI_CD_BACIA"/>
-		// </join>
 		String join = "              <join";
 		
 		if (view != null && !view.equals("")) {

@@ -7,7 +7,7 @@ public class GroupXML {
 
 	private String viewName;
 	private String name;
-	private List<ColumnXML> columns;
+	private List<ColumnXML> columnsXML;
 
 	public ColumnXML collectColumn(String fileLine) {
 		// <column name="flow_name" label="Flow name" indexing="true"/>
@@ -39,14 +39,14 @@ public class GroupXML {
 			columnXML.setUntagged(Boolean.valueOf(untagged));
 		}
 
-		columns.add(columnXML);
+		columnsXML.add(columnXML);
 
 		return columnXML;
 
 	}
 
 	public GroupXML(String viewName) {
-		columns = new ArrayList<>();
+		columnsXML = new ArrayList<>();
 		this.viewName = viewName;
 	}
 
@@ -59,20 +59,20 @@ public class GroupXML {
 	}
 
 	public List<ColumnXML> getColumns() {
-		return columns;
+		return columnsXML;
 	}
 
 	public void setColumns(List<ColumnXML> columns) {
-		this.columns = columns;
+		this.columnsXML = columns;
 	}
 
 	public ColumnXML getLastColumn() {
-		if (columns.size() == 0) {
+		if (columnsXML.size() == 0) {
 			System.out.println("Error in Column");
 			throw new NullPointerException();
 		}
 
-		ColumnXML columnXML = columns.get(columns.size() - 1);
+		ColumnXML columnXML = columnsXML.get(columnsXML.size() - 1);
 		return columnXML;
 	}
 
@@ -86,10 +86,8 @@ public class GroupXML {
 
 		group += ">\n";
 
-		for (ColumnXML c : columns) {
-
+		for (ColumnXML c : columnsXML) {
 			group += c + "\n";
-
 		}
 
 		group += "          </group>";
@@ -98,11 +96,14 @@ public class GroupXML {
 	}
 
 	public String toStringTTL() {
+		String ttl = "";
+
+		for(ColumnXML c : columnsXML) {
+			ttl += c.toStringTTL();
+		}
+	
 		
-		//TODO
-		//loop over columns
-		
-		return "";
+		return ttl;
 	}
 	
 }

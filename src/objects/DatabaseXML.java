@@ -32,7 +32,7 @@ public class DatabaseXML {
 			} else if (fileLine.contains("<user")) {
 				username = aux;
 			} else if (fileLine.contains("password")) {
-				password = aux;
+				setPassword(aux);
 			} else if (fileLine.contains("driver")) {
 				setDriver(aux);
 			}

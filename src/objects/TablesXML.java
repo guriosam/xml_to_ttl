@@ -5,11 +5,11 @@ import java.util.List;
 
 public class TablesXML {
 
-	private List<TableXML> tables;
+	private List<TableXML> tablesXML;
 	private String repCol;
 	private String viewName;
 
-	//Auxiliar fields
+	// Auxiliar fields
 	private TableXML tableXML;
 	private GroupXML groupXML;
 	private ColumnXML columnXML;
@@ -17,7 +17,7 @@ public class TablesXML {
 	private DecodeXML decodeXML;
 
 	public TablesXML(String viewName) {
-		tables = new ArrayList<>();
+		tablesXML = new ArrayList<>();
 		this.viewName = viewName;
 	}
 
@@ -40,7 +40,7 @@ public class TablesXML {
 			table.setOwner(owner);
 		}
 
-		tables.add(table);
+		tablesXML.add(table);
 
 		return table;
 
@@ -57,7 +57,7 @@ public class TablesXML {
 			tableXML = getLastTable();
 
 			if (tableXML != null) {
-				
+
 				groupXML = tableXML.collectGroup(fileLine);
 			}
 
@@ -68,7 +68,7 @@ public class TablesXML {
 			tableXML = getLastTable();
 
 			if (tableXML != null) {
-				
+
 				groupXML = tableXML.getLastGroup();
 				columnXML = groupXML.collectColumn(fileLine);
 			}
@@ -78,7 +78,6 @@ public class TablesXML {
 
 			tableXML = getLastTable();
 			columnXML = tableXML.getLastGroup().getLastColumn();
-			
 
 			if (columnXML != null) {
 				joinXML = columnXML.collectJoinView(fileLine);
@@ -94,11 +93,11 @@ public class TablesXML {
 	}
 
 	public List<TableXML> getTables() {
-		return tables;
+		return tablesXML;
 	}
 
 	public void setTables(List<TableXML> tables) {
-		this.tables = tables;
+		this.tablesXML = tables;
 	}
 
 	public String getRepCol() {
@@ -110,12 +109,12 @@ public class TablesXML {
 	}
 
 	public TableXML getLastTable() {
-		if (tables.size() == 0) {
+		if (tablesXML.size() == 0) {
 			System.out.println("Error in Tables");
 			throw new NullPointerException();
 		}
 
-		TableXML tableXML = tables.get(tables.size() - 1);
+		TableXML tableXML = tablesXML.get(tablesXML.size() - 1);
 		return tableXML;
 	}
 
@@ -124,12 +123,17 @@ public class TablesXML {
 		String tabl = "      <tables";
 
 		if (repCol != null && !repCol.equals("")) {
-			tabl += " repcol=\"" + repCol + "\"";
+
+			String[] reps = repCol.split("||");
+
+			String rep = reps[0];
+
+			tabl += " repcol=\"" + rep + "\"";
 		}
 
 		tabl += ">\n";
 
-		for (TableXML table : tables) {
+		for (TableXML table : tablesXML) {
 			tabl += table + "\n";
 		}
 
@@ -137,25 +141,29 @@ public class TablesXML {
 
 		return tabl;
 	}
-	
+
 	public String toStringTTL() {
-		
+
 		String ttl = "";
-		
+
 		/*
-		map:jobs__label  a              d2rq:PropertyBridge ;
-        d2rq:belongsToClassMap  map:jobs ;
-        d2rq:pattern            "jobs_@@jobs.id@@" ;
-        d2rq:property           rdfs:label .
-		*/
+		 * map:jobs__label a d2rq:PropertyBridge ; d2rq:belongsToClassMap map:jobs ;
+		 * d2rq:pattern "jobs_@@jobs.id@@" ; d2rq:property rdfs:label .
+		 */
+
+		String[] reps = repCol.split(" ");
+
+		String rep = reps[0];
 		
 		ttl += "map:" + viewName + "__label a 	d2rq:PropertyBridge ;\n";
 		ttl += "d2rq:belongsToClassMap 		map:" + viewName + " ;\n";
-		ttl += "d2rq:pattern		\"" + "@@" + viewName + "." + repCol + " ;\n";
-		ttl += "d2rq:property		rdfs:label .\n";
-		
-		
-		
+		ttl += "d2rq:pattern		\"" + "@@" + viewName + "." + rep + "@@ ;\n";
+		ttl += "d2rq:property		rdfs:label .\n\n";
+
+		for (TableXML t : tablesXML) {
+			ttl += t.toStringTTL();
+		}
+
 		return ttl;
 	}
 

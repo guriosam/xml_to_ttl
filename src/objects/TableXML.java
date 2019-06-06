@@ -10,12 +10,12 @@ public class TableXML {
 	private String pk;
 	private String pseudoPk;
 	private String where;
-	private List<GroupXML> groups;
+	private List<GroupXML> groupsXML;
 
 	private String viewName;
 
 	public TableXML(String viewName) {
-		groups = new ArrayList<>();
+		groupsXML = new ArrayList<>();
 		this.viewName = viewName;
 	}
 
@@ -30,7 +30,7 @@ public class TableXML {
 			group.setName(name);
 		}
 
-		groups.add(group);
+		groupsXML.add(group);
 
 		return group;
 
@@ -79,20 +79,20 @@ public class TableXML {
 	}
 
 	public List<GroupXML> getGroups() {
-		return groups;
+		return groupsXML;
 	}
 
 	public void setGroups(List<GroupXML> groups) {
-		this.groups = groups;
+		this.groupsXML = groups;
 	}
 
 	public GroupXML getLastGroup() {
-		if (groups.size() == 0) {
+		if (groupsXML.size() == 0) {
 			System.out.println("Error in Group");
 			throw new NullPointerException();
 		}
 
-		GroupXML groupXML = groups.get(groups.size() - 1);
+		GroupXML groupXML = groupsXML.get(groupsXML.size() - 1);
 		return groupXML;
 	}
 
@@ -122,7 +122,7 @@ public class TableXML {
 			table += "          <where>" + where + "</where>\n";
 		}
 
-		for (GroupXML g : groups) {
+		for (GroupXML g : groupsXML) {
 			table += g + "\n";
 		}
 
@@ -133,6 +133,10 @@ public class TableXML {
 
 	public String toStringTTL() {
 		String ttl = "";
+		
+		for(GroupXML g : groupsXML) {
+			ttl += g.toStringTTL();
+		}
 
 		return ttl;
 	}

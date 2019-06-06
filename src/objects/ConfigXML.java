@@ -11,27 +11,21 @@ public class ConfigXML {
 
 	public void collectConfig(String fileLine) {
 
-		if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
+		String aux = fileLine.substring(fileLine.indexOf(">") + 1);
+		aux = aux.substring(0, aux.indexOf("<"));
 
-			String aux = fileLine.substring(fileLine.indexOf(">") + 1);
-			aux = aux.substring(0, aux.indexOf("<"));
-
-			if (fileLine.contains("<version")) {
-				version = aux;
-			} else if (fileLine.contains("<prefix")) {
-				prefix = aux;
-			} else if (fileLine.contains("<database")) {
-				database = aux;
-			} else if (fileLine.contains("<origin")) {
-				origin = aux;
-			} else if (fileLine.contains("<bnode")) {
-				bnode = aux;
-			} else if (fileLine.contains("<separator")) {
-				separator = aux;
-			}
-
-		} else {
-			System.out.println("Something went wrong in ConfigXML.");
+		if (fileLine.contains("<version")) {
+			version = aux;
+		} else if (fileLine.contains("<prefix")) {
+			prefix = aux;
+		} else if (fileLine.contains("<database")) {
+			database = aux;
+		} else if (fileLine.contains("<origin")) {
+			origin = aux;
+		} else if (fileLine.contains("<bnode")) {
+			bnode = aux;
+		} else if (fileLine.contains("<separator")) {
+			separator = aux;
 		}
 
 	}
@@ -78,34 +72,34 @@ public class ConfigXML {
 
 	@Override
 	public String toString() {
-		
+
 		String config = "  <config>\n";
-		
-		if(version != null){
+
+		if (version != null) {
 			config += "    <version>" + version + "</version>\n";
 		}
-		
-		if(prefix != null){
+
+		if (prefix != null) {
 			config += "    <prefix>" + prefix + "</prefix>\n";
 		}
-		if(origin != null){
+		if (origin != null) {
 			config += "    <origin>" + origin + "</origin>\n";
 		}
-		if(database != null){
+		if (database != null) {
 			config += "    <database>" + database + "</database>\n";
 		}
-		if(separator != null){
+		if (separator != null) {
 			config += "    <separator>" + separator + "</separator>\n";
 		}
-		if(bnode != null){
+		if (bnode != null) {
 			config += "    <bnode>" + bnode + "</bnode>\n";
 		}
-		
+
 		config += "  </config>\n";
-		
+
 		return config;
 	}
-	
+
 	public String getDatabase() {
 		return database;
 	}

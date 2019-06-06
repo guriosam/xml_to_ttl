@@ -23,20 +23,25 @@ public class ViewsXML {
 	public String toString() {
 		String views = "  <views>\n";
 
-		//for (ViewXML view : viewsXML) {
-		//	views += view + "\n";
-		//}
+		// for (ViewXML view : viewsXML) {
+		// views += view + "\n";
+		// }
 
 		views += "  </views>\n";
 
 		return views;
 	}
-	
+
 	public String toStringTTL() {
-		
-		
-		
-		return "";
+
+		String ttl = "";
+
+		for (ViewXML v : viewsXML) {
+			ttl += v.toStringTTL();
+		}
+		ttl += "\n";
+
+		return ttl;
 	}
 
 }

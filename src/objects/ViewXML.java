@@ -8,7 +8,7 @@ public class ViewXML {
 	private String name;
 	private String label;
 	private Boolean identifier;
-	private TablesXML tables;
+	private TablesXML tablesXML;
 
 	private String prefix;
 
@@ -44,7 +44,7 @@ public class ViewXML {
 
 	public void collectTables(String fileLine) {
 
-		tables = new TablesXML(name);
+		tablesXML = new TablesXML(name);
 		String repCol = "";
 
 		if (fileLine.contains("repcol=")) {
@@ -52,7 +52,7 @@ public class ViewXML {
 			repCol = aux.substring(0, aux.indexOf("\""));
 		}
 
-		tables.setRepCol(repCol);
+		tablesXML.setRepCol(repCol);
 
 	}
 
@@ -81,11 +81,11 @@ public class ViewXML {
 	}
 
 	public TablesXML getTables() {
-		return tables;
+		return tablesXML;
 	}
 
 	public void setTables(TablesXML tables) {
-		this.tables = tables;
+		this.tablesXML = tables;
 	}
 
 	public String getOrigin() {
@@ -115,7 +115,7 @@ public class ViewXML {
 
 		view += ">\n";
 
-		view += tables + "\n";
+		view += tablesXML + "\n";
 
 		view += "    </view>";
 
@@ -129,9 +129,9 @@ public class ViewXML {
 		ttl += "d2rq:class	vocab:" + name + " ;\n";
 		ttl += "d2rq:classDefinitionLabel	vocab:" + label + " ;\n";
 		ttl += "dataStorage		map:database ;\n";
-		ttl += "d2rq:uriPattern		\"" + prefix + "\" .\n";
+		ttl += "d2rq:uriPattern		\"" + prefix + "\" .\n\n";
 
-		ttl += tables.toStringTTL() + "\n";
+		ttl += tablesXML.toStringTTL();
 
 		return ttl;
 	}
