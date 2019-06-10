@@ -124,12 +124,22 @@ public class ViewXML {
 
 	public String toStringTTL() {
 		String ttl = "";
+		
+		String pks = "";
+		boolean f = false;
+		for(TableXML t : tablesXML.getTables()) {
+			if(f) {
+				pks += "_";
+			}
+			pks += "@@" + name + "." + t.getPk() + "@@";
+			f = true;
+		}
 
 		ttl += "map:" + name + " rdfs:type d2rq:ClassMap ;\n";
 		ttl += "d2rq:class	vocab:" + name + " ;\n";
 		ttl += "d2rq:classDefinitionLabel	vocab:" + label + " ;\n";
 		ttl += "dataStorage		map:database ;\n";
-		ttl += "d2rq:uriPattern		\"" + prefix + "\" .\n\n";
+		ttl += "d2rq:uriPattern		\"" + prefix + "/" +  pks +  "\" .\n\n";
 
 		ttl += tablesXML.toStringTTL();
 

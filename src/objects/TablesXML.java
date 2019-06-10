@@ -96,6 +96,10 @@ public class TablesXML {
 		return tablesXML;
 	}
 
+	/**
+	 * 
+	 * @param tables
+	 */
 	public void setTables(List<TableXML> tables) {
 		this.tablesXML = tables;
 	}
@@ -154,7 +158,7 @@ public class TablesXML {
 		String[] reps = repCol.split(" ");
 
 		String rep = reps[0];
-		
+
 		ttl += "map:" + viewName + "__label a 	d2rq:PropertyBridge ;\n";
 		ttl += "d2rq:belongsToClassMap 		map:" + viewName + " ;\n";
 		ttl += "d2rq:pattern		\"" + "@@" + viewName + "." + rep + "@@ ;\n";
