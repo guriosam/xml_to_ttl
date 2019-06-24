@@ -3,6 +3,12 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Views tag in the XML File
+ *
+ */
 public class ViewsXML {
 
 	private List<ViewXML> viewsXML;
@@ -23,15 +29,19 @@ public class ViewsXML {
 	public String toString() {
 		String views = "  <views>\n";
 
-		// for (ViewXML view : viewsXML) {
-		// views += view + "\n";
-		// }
+		for (ViewXML view : viewsXML) {
+			views += view + "\n";
+		}
 
 		views += "  </views>\n";
 
 		return views;
 	}
 
+	/**
+	 * Converts Java Object to String TTL
+	 * @return TTL String representation of the Java Object
+	 */
 	public String toStringTTL() {
 
 		String ttl = "";
@@ -39,6 +49,7 @@ public class ViewsXML {
 		for (ViewXML v : viewsXML) {
 			ttl += v.toStringTTL();
 		}
+		
 		ttl += "\n";
 
 		return ttl;

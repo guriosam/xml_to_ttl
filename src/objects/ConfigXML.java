@@ -9,6 +9,12 @@ public class ConfigXML {
 	private String version;
 	private String database;
 
+	/**
+	 * Method responsible for receiving a line containing the values of the Config
+	 * tag and translating into a Java Object
+	 * 
+	 * @param fileLine of XML containing a Config value
+	 */
 	public void collectConfig(String fileLine) {
 
 		String aux = fileLine.substring(fileLine.indexOf(">") + 1);

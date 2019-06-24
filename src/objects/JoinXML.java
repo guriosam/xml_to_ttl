@@ -3,6 +3,12 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Join tag in the XML File
+ *
+ */
 public class JoinXML {
 
 	private String view;
@@ -21,7 +27,14 @@ public class JoinXML {
 		this.view = view;
 	}
 
-	public void collectColumn(String fileLine) {
+	/**
+	 * Method responsible for receiving a line containing a Condition And translating it
+	 * in a Java Object
+	 * 
+	 * @param fileLine of XML containing a condition
+	 * @return the ConditionXML object representation of the fileLine
+	 */
+	public void collectCondition(String fileLine) {
 
 		ConditionXML conditionXML = new ConditionXML();
 

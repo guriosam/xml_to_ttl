@@ -3,12 +3,25 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Group tag in the XML File
+ *
+ */
 public class GroupXML {
 
 	private String viewName;
 	private String name;
 	private List<ColumnXML> columnsXML;
 
+	/**
+	 * Method responsible for receiving a line containing a Column And translating
+	 * it in a Java Object
+	 * 
+	 * @param fileLine of XML containing a column
+	 * @return the JoinXML object representation of the fileLine
+	 */
 	public ColumnXML collectColumn(String fileLine) {
 		// <column name="flow_name" label="Flow name" indexing="true"/>
 		// <column name="job_algo_id" label="Algorithm" untagged="true">
@@ -66,6 +79,11 @@ public class GroupXML {
 		this.columnsXML = columns;
 	}
 
+	/**
+	 * This function collects the last element of the list columnsXML
+	 * 
+	 * @return the last ColumnXML of the list columnsXML
+	 */
 	public ColumnXML getLastColumn() {
 		if (columnsXML.size() == 0) {
 			System.out.println("Error in Column");
@@ -98,12 +116,11 @@ public class GroupXML {
 	public String toStringTTL() {
 		String ttl = "";
 
-		for(ColumnXML c : columnsXML) {
+		for (ColumnXML c : columnsXML) {
 			ttl += c.toStringTTL();
 		}
-	
-		
+
 		return ttl;
 	}
-	
+
 }

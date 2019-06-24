@@ -1,7 +1,10 @@
 package objects;
 
-import java.util.ArrayList;
-
+/**
+ * @author cbvs
+ * 
+ *         Representation of a View tag in the XML File
+ */
 public class ViewXML {
 
 	private String origin;
@@ -16,6 +19,13 @@ public class ViewXML {
 		this.prefix = prefix;
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a View
+	 * <view origin="" name="" label="" identifier="" > And translating it in a Java
+	 * Object
+	 * 
+	 * @param viewLine containing the view tag
+	 */
 	public void collectView(String viewLine) {
 		// <view origin="" name="" label="" identifier="" >
 
@@ -42,6 +52,12 @@ public class ViewXML {
 
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a View <tables repcol="">
+	 * And translating it in a Java Object
+	 * 
+	 * @param fileLine containing a tables tag
+	 */
 	public void collectTables(String fileLine) {
 
 		tablesXML = new TablesXML(name);
@@ -122,13 +138,18 @@ public class ViewXML {
 		return view;
 	}
 
+	/**
+	 * Converts Java Object to String TTL
+	 * 
+	 * @return TTL String representation of the Java Object
+	 */
 	public String toStringTTL() {
 		String ttl = "";
-		
+
 		String pks = "";
 		boolean f = false;
-		for(TableXML t : tablesXML.getTables()) {
-			if(f) {
+		for (TableXML t : tablesXML.getTables()) {
+			if (f) {
 				pks += "_";
 			}
 			pks += "@@" + name + "." + t.getPk() + "@@";
@@ -139,7 +160,7 @@ public class ViewXML {
 		ttl += "d2rq:class	vocab:" + name + " ;\n";
 		ttl += "d2rq:classDefinitionLabel	vocab:" + label + " ;\n";
 		ttl += "dataStorage		map:database ;\n";
-		ttl += "d2rq:uriPattern		\"" + prefix + "/" +  pks +  "\" .\n\n";
+		ttl += "d2rq:uriPattern		\"" + prefix + "/" + pks + "\" .\n\n";
 
 		ttl += tablesXML.toStringTTL();
 

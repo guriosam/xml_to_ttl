@@ -3,6 +3,12 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Table tag in the XML File
+ *
+ */
 public class TableXML {
 
 	private String name;
@@ -19,9 +25,14 @@ public class TableXML {
 		this.viewName = viewName;
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a Group <group name="">
+	 * And translating it in a Java Object
+	 * 
+	 * @param fileLine of XML containing a group
+	 * @return the GroupXML object representation of the fileLine
+	 */
 	public GroupXML collectGroup(String fileLine) {
-		// <group name="Dados Gerais">
-
 		GroupXML group = new GroupXML(viewName);
 
 		if (fileLine.contains("name=")) {
@@ -36,18 +47,36 @@ public class TableXML {
 
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a Pk And translating it in
+	 * a Java Object
+	 * 
+	 * @param fileLine of XML containing a pk
+	 */
 	public void collectPk(String fileLine) {
 		String aux = fileLine.substring(fileLine.indexOf(">") + 1);
 		String pk = aux.substring(0, aux.indexOf("<"));
 		setPk(pk);
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a PseudoPk And translating
+	 * it in a Java Object
+	 * 
+	 * @param fileLine of XML containing a pseudopk
+	 */
 	public void collectPseudoPk(String fileLine) {
 		String aux = fileLine.substring(fileLine.indexOf(">") + 1);
 		String pseudoPk = aux.substring(0, aux.indexOf("<"));
 		setPseudoPk(pseudoPk);
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a Where And translating it
+	 * in a Java Object
+	 * 
+	 * @param fileLine of XML containing a where
+	 */
 	public void collectWhere(String fileLine) {
 		String aux = fileLine.substring(fileLine.indexOf(">") + 1);
 		String where = aux.substring(0, aux.indexOf("<"));
@@ -131,10 +160,15 @@ public class TableXML {
 		return table;
 	}
 
+	/**
+	 * Converts Java Object to String TTL
+	 * 
+	 * @return TTL String representation of the Java Object
+	 */
 	public String toStringTTL() {
 		String ttl = "";
-		
-		for(GroupXML g : groupsXML) {
+
+		for (GroupXML g : groupsXML) {
 			ttl += g.toStringTTL();
 		}
 

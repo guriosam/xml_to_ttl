@@ -61,7 +61,7 @@ public class XMLGeneric {
 			if (fileLine.contains("<condition ")) {
 				JoinXML joinXML = tableXML.getLastGroup().getLastColumn().getLastJoin();
 				if (joinXML != null) {
-					joinXML.collectColumn(fileLine);
+					joinXML.collectCondition(fileLine);
 				}
 			}
 

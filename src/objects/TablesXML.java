@@ -3,6 +3,12 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Tables tag in the XML File
+ *
+ */
 public class TablesXML {
 
 	private List<TableXML> tablesXML;
@@ -21,9 +27,15 @@ public class TablesXML {
 		this.viewName = viewName;
 	}
 
+	/**
+	 * Method responsible for receiving a line containing a View
+	 * <table name="" owner="">
+	 * And translating it in a Java Object
+	 * 
+	 * @param fileLine
+	 */
 	public TableXML collectTable(String fileLine) {
-		// <table name="jobs" owner="public">
-
+		//
 		TableXML table = new TableXML(viewName);
 
 		if (fileLine.contains("name=")) {
@@ -46,6 +58,11 @@ public class TablesXML {
 
 	}
 
+	/**
+	 * Given a fileLine, this method analyzes it and collect the information, directing to the correct Java Object
+	 * 
+	 * @param the XML fileLine to be collected
+	 */
 	public void collect(String fileLine) {
 
 		if (fileLine.contains("<table ")) {
@@ -96,10 +113,6 @@ public class TablesXML {
 		return tablesXML;
 	}
 
-	/**
-	 * 
-	 * @param tables
-	 */
 	public void setTables(List<TableXML> tables) {
 		this.tablesXML = tables;
 	}
@@ -112,6 +125,11 @@ public class TablesXML {
 		this.repCol = repCol;
 	}
 
+	/**
+	 * This function collects the last element of the list tablesXML
+	 * 
+	 * @return the last tableXML of the list tablesXML
+	 */
 	public TableXML getLastTable() {
 		if (tablesXML.size() == 0) {
 			System.out.println("Error in Tables");
@@ -146,6 +164,11 @@ public class TablesXML {
 		return tabl;
 	}
 
+	/**
+	 * Converts Java Object to String TTL
+	 * 
+	 * @return TTL String representation of the Java Object
+	 */
 	public String toStringTTL() {
 
 		String ttl = "";

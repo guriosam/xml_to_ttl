@@ -11,7 +11,6 @@ import objects.XMLGeneric;
 
 public class Translator {
 
-	private TTLSchema xmlSchema;
 	private XMLGeneric xmlObject;
 
 	private boolean skip;
@@ -19,6 +18,13 @@ public class Translator {
 	private boolean databases;
 	private boolean config;
 
+	/**
+	 * Method responsible for converting the given XML (in a list of lines) to a
+	 * Java Object.
+	 * 
+	 * @param fileLines of the given XML file
+	 * @return toStringXML of the Java Object (for comparison)
+	 */
 	public String xmlToObject(List<String> fileLines) {
 
 		xmlObject = new XMLGeneric();
@@ -33,6 +39,7 @@ public class Translator {
 				fileLine = fileLine.replace(" =", "=");
 				fileLine = fileLine.replace("= ", "=");
 
+				// Checking if is a line valid for translation
 				if (!validation(fileLine)) {
 					continue;
 				}
@@ -47,15 +54,19 @@ public class Translator {
 				// Removing whitespaces at the beginning
 				fileLine = fileLine.substring(fileLine.indexOf("<"));
 
+				// Checking which namespace the translator is
 				if (checkLevel(fileLine)) {
 					continue;
 				}
 
+				// If is in the config namespace
 				if (config) {
 					xmlObject.getConfigXML().collectConfig(fileLine);
 				} else if (databases) {
+					// If is in the database namespace
 					xmlObject.getDatabasesXML().getLastDatabase().collectDatabase(fileLine);
 				} else if (views) {
+					// If is in the Views namespace
 					xmlObject.collectViews(fileLine);
 				}
 
@@ -72,52 +83,51 @@ public class Translator {
 
 	}
 
+	/**
+	 * Method responsible for checking the current level of the translator, if is at
+	 * view, table, column level Basically helps the translator to navigates in the
+	 * XML and construct the Java Object
+	 * 
+	 * @param fileLine
+	 * @return boolean if the current line shoud be skipped
+	 */
 	private boolean checkLevel(String fileLine) {
 
 		if (fileLine.matches("<config>")) {
-			// System.out.println("Opening Config: " + fileLine);
 			config = true;
 			xmlObject.setConfigXML(new ConfigXML());
 			return true;
 		} else if (fileLine.matches("<[/]config>")) {
-			// System.out.println("Closing Config: " + fileLine);
 			config = false;
 			return true;
 		}
 
 		if (fileLine.matches("<databases>")) {
-			// System.out.println("Opening Databases: " + fileLine);
 			databases = true;
 			xmlObject.setDatabasesXML(new DatabasesXML());
 			return true;
 		} else if (fileLine.matches("<[/]dabatases>")) {
-			// System.out.println("Closing Databases: " + fileLine);
 			databases = false;
 			return true;
 		}
 
 		if (fileLine.matches("<views>")) {
-			// System.out.println("Opening Views: " + fileLine);
 			xmlObject.setViewsXML(new ViewsXML());
 			views = true;
 			return true;
 		} else if (fileLine.matches("<[/]views>")) {
-			// System.out.println("Closing Views: " + fileLine);
 			views = false;
 			return true;
 		}
 
 		if (fileLine.matches("<group>")) {
-			// System.out.println("Opening Views: " + fileLine);
 			xmlObject.getLastView().getTables().getLastTable().collectGroup(fileLine);
 			return true;
 		} else if (fileLine.matches("<[/]group>")) {
-			// System.out.println("Closing Views: " + fileLine);
 			return true;
 		}
 
 		if (fileLine.matches("<decode>")) {
-			// System.out.println("Opening Views: " + fileLine);
 			ColumnXML columnXML = xmlObject.getLastView().getTables().getLastTable().getLastGroup().getLastColumn();
 
 			if (columnXML != null) {
@@ -125,7 +135,6 @@ public class Translator {
 			}
 			return true;
 		} else if (fileLine.matches("<[/]decode>")) {
-			// System.out.println("Closing Views: " + fileLine);
 			return true;
 		}
 
@@ -133,6 +142,14 @@ public class Translator {
 
 	}
 
+	/**
+	 * Method responsible for checking if the current line is a valid line for
+	 * translation Remove comments Remove documents namespace Remove columns with
+	 * exclude tag Remove empty lines
+	 * 
+	 * @param fileLine
+	 * @return a boolean representing if is a valid line or not
+	 */
 	private boolean validation(String fileLine) {
 
 		if (fileLine.contains("<!")) {
@@ -168,182 +185,15 @@ public class Translator {
 		return true;
 	}
 
-	public String xmlToTTL(List<String> fileLines) {
-
-		xmlSchema = new TTLSchema();
-
-		boolean first = false;
-		int level = -1;
-
-		String aux = "";
-
-		for (String fileLine : fileLines) {
-
-			if (fileLine.length() < 3) {
-				continue;
-			}
-
-			// Checking if is the line of the namespaces
-			if (fileLine.contains("xmlns")) {
-				first = true;
-			}
-
-			// Collecting the encoding for future needs
-			if (fileLine.contains("encoding")) {
-				String encoding = getEncoding(fileLine);
-				xmlSchema.setEncoding(encoding);
-				continue;
-			}
-
-			// The first line contains the namespaces for making the @prefix.
-			if (first) {
-				aux += fileLine;
-
-				// Checking if the namespaces ended or there is another line
-				// with them
-				if (fileLine.contains(">")) {
-					collectNamespaces(aux);
-					first = false;
-				}
-			} else {
-				// if isn't the first line or the encoding line
-				// there are three other options:
-				// 1. XML Attributes (resouces, about ..)
-				// 2. XML Values (identifiers, labels ..)
-				// 3. XML closing namespace
-
-				// Removing whitespaces at the beginning
-				fileLine = fileLine.substring(fileLine.indexOf("<"));
-
-				// checking if it's a closing namespace
-				if (fileLine.trim().startsWith("</")) {
-					level = -1;
-					xmlSchema.addLine("\t.\n");
-				}
-
-				// checking if it's a value
-				else if (fileLine.contains("</")) {
-					xmlSchema.addLine('\t' + collectValue(fileLine));
-				}
-
-				// checking if it's a attribute
-				else if (fileLine.contains("=")) {
-					String temp = collectResource(fileLine);
-					String[] parts = temp.split(" ");
-
-					if (fileLine.trim().endsWith("/>")) {
-						xmlSchema.addLine('\t' + temp);
-					} else if (fileLine.contains("about=")) {
-						level++;
-						if (level == 0) {
-							xmlSchema.addLine(parts[0] + " a " + parts[1]);
-						} else if (level > 0) {
-							xmlSchema.addLine("a " + parts[1]);
-						}
-					}
-				}
-			}
-
-		}
-
-		return xmlSchema.toString();
-
-	}
-
-	private String collectValue(String fileLine) {
-
-		fileLine = fileLine.substring(1);
-
-		try {
-			String namespace = fileLine.substring(0, fileLine.indexOf(">"));
-			String value = fileLine.substring(fileLine.indexOf(">") + 1, fileLine.indexOf("<"));
-
-			return namespace + " \"" + value + "\"";
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-		return "";
-	}
-
-	private String collectResource(String fileLine) {
-
-		String[] lineSplitted = fileLine.split(" ");
-
-		try {
-
-			if (lineSplitted.length == 2) {
-				String firstPart = lineSplitted[0];
-				String secondPart = lineSplitted[1];
-
-				// removing '<' character at begging
-				firstPart = firstPart.substring(1);
-
-				// removing > or /> at end
-				secondPart = secondPart.substring(0, secondPart.lastIndexOf("\"") + 1);
-
-				String object = "";
-				String namespace = "";
-				String resource = "";
-				String prefix = "";
-
-				namespace = secondPart.substring(0, secondPart.indexOf(":"));
-
-				if (secondPart.contains("#")) {
-					object = secondPart.substring(secondPart.indexOf("#") + 1, secondPart.length() - 1);
-					resource = secondPart.substring(secondPart.indexOf("=") + 2, secondPart.indexOf("#") + 1);
-
-					prefix = xmlSchema.getPrefix(resource);
-
-					if (prefix == null) {
-						prefix = "<" + resource + object + ">";
-					} else {
-						prefix = xmlSchema.getPrefix(resource) + ":" + object;
-					}
-
-				} else {
-					resource = secondPart.substring(secondPart.indexOf("=") + 1, secondPart.lastIndexOf("\"") + 1);
-					prefix = namespace + ":" + resource;
-				}
-
-				return firstPart + " " + prefix + ";";
-
-			} else {
-				System.out.println("Case that I did not see it:");
-				System.out.println(fileLine);
-				System.out.println("");
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(fileLine);// TODO: handle exception
-		}
-
-		return "";
-
-	}
-
-	private void collectNamespaces(String fileLine) {
-		String[] namespaces = fileLine.split(" ");
-
-		for (String namespace : namespaces) {
-			if (namespace.contains("xmlns")) {
-				String ns = namespace.substring(namespace.indexOf(":") + 1);
-				ns = ns.replace("\"", "");
-				ns = ns.replace(">", "");
-
-				String[] prefix = ns.split("=");
-				if (prefix.length == 2) {
-					xmlSchema.putPrefix(prefix[1], prefix[0]);
-				}
-			}
-		}
-	}
-
+	/**
+	 * Method responsible for collecting the encoding present in the XML line
+	 * 
+	 * @param line containing the encoding information
+	 * @return
+	 */
 	private String getEncoding(String line) {
-		//String encoding = line.substring(line.indexOf("encoding") + 10);
-		//encoding = encoding.substring(0, encoding.indexOf("\""));
-		//System.out.println(encoding);
+		String encoding = line.substring(line.indexOf("encoding") + 10);
+		encoding = encoding.substring(0, encoding.indexOf("\""));
 		return line;
 	}
 }

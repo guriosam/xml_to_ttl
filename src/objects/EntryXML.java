@@ -1,5 +1,11 @@
 package objects;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Entry tag in the XML File
+ *
+ */
 public class EntryXML {
 
 	private String search;

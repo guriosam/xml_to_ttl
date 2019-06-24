@@ -11,7 +11,13 @@ public class DatabaseXML {
 	private String driver;
 	private String schema;
 	private String database;
-	
+
+	/**
+	 * Method responsible for receiving a line containing the values of the Database
+	 * tag and translating into a Java Object
+	 * 
+	 * @param fileLine of XML containing a Database value
+	 */
 	public void collectDatabase(String fileLine) {
 
 		if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
@@ -42,27 +48,31 @@ public class DatabaseXML {
 		}
 
 	}
-
+	
+	/**
+	 * Converts Java Object to String TTL
+	 * 
+	 * @return TTL String representation of the Java Object
+	 */
 	public String toStringTTL() {
-		
+
 		String toString = "map:database a d2rq:Database ;\n";
 		toString += "d2rq:jdbcDSN	\"" + driver + "://" + host + "/" + database + "\n";
 		toString += "d2rq:jdbcDriver  \"org.postgresql.Driver\" ;\n";
 		toString += "d2rq:password    \"" + password + "\" ;\n";
 		toString += "d2rq:username    \"" + username + "\"\n";
 		toString += ".\n";
-		
+
 		/*
-		map:database  a          d2rq:Database ;
-        d2rq:jdbcDSN     "jdbc:postgresql://quiowpost.tecgraf.puc-rio.br/ERAS" ;
-        d2rq:jdbcDriver  "org.postgresql.Driver" ;
-        d2rq:password    "#Ink897$" ;
-        d2rq:username    "postgres" .
+		 * map:database a d2rq:Database ; d2rq:jdbcDSN
+		 * "jdbc:postgresql://quiowpost.tecgraf.puc-rio.br/ERAS" ; d2rq:jdbcDriver
+		 * "org.postgresql.Driver" ; d2rq:password "#Ink897$" ; d2rq:username "postgres"
+		 * .
 		 */
-		
+
 		return toString;
 	}
-	
+
 	public String getUsername() {
 		return username;
 	}
@@ -111,19 +121,6 @@ public class DatabaseXML {
 		this.dblink = dblink;
 	}
 
-	@Override
-	public String toString() {
-		String print = "";
-
-		print += "map:" + " a " + "d2rq:Database ;";
-		print += "d2rq:jdbcDSN\t" + "\"" + "\" ;";
-		print += "d2rq:jdbcDriver  \"org.postgresql.Driver\" ;";
-		print += "d2rq:password\t\"" + password + "\" ;";
-		print += "username\t\"" + username + "\" ;";
-
-		return print;
-	}
-
 	public String getDriver() {
 		return driver;
 	}
@@ -147,6 +144,5 @@ public class DatabaseXML {
 	public void setDatabase(String database) {
 		this.database = database;
 	}
-
 
 }

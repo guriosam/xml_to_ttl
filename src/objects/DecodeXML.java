@@ -3,6 +3,12 @@ package objects;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author cbvs
+ *
+ *         Representation of a Decode tag in the XML File
+ *
+ */
 public class DecodeXML {
 
 	private String expr;

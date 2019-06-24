@@ -22,10 +22,13 @@ public class Main {
 		for (String file : files) {
 
 			File f = new File(path + file);
-			if (!f.exists()) {
+			
+			//Checking if the file is still there and isn't a folder
+			if (!f.exists() || f.isDirectory()) {
 				throw new FileNotFoundException();
 			}
 
+			//Filtering for XMLs only
 			if (file.contains(".xml")) {
 				List<String> fileLines = IO.readAnyFile(path + file);
 
@@ -35,7 +38,7 @@ public class Main {
 
 				Translator t = new Translator();
 				String output = t.xmlToObject(fileLines);
-				// IO.writeAnyString(path + file.replace(".xml", ".ttl"), output);
+				//IO.writeAnyString(path + file.replace(".xml", ".ttl"), output);
 			}
 		}
 
