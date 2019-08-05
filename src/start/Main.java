@@ -7,17 +7,19 @@ import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.xml.sax.SAXException;
-
 import converter.Translator;
+import objects_xml.XMLGeneric;
 import utils.IO;
 
 public class Main {
 
-	public static void main(String args[]) throws IOException, SAXException, ParserConfigurationException {
+	public static void main(String args[]) throws IOException, ParserConfigurationException {
 
 		String path = "input/";
 		List<String> files = IO.filesOnFolder(path);
+		
+		XMLGeneric g = null;
+		Translator t = new Translator();
 
 		for (String file : files) {
 
@@ -31,16 +33,25 @@ public class Main {
 			//Filtering for XMLs only
 			if (file.contains(".xml")) {
 				List<String> fileLines = IO.readAnyFile(path + file);
+				
+				//System.out.println(path + file);
 
-				if (file.contains("database")) {
-					continue;
-				}
+				//if (file.contains("database")) {
+				//	continue;
+				//}
 
-				Translator t = new Translator();
-				String output = t.xmlToObject(fileLines);
-				//IO.writeAnyString(path + file.replace(".xml", ".ttl"), output);
+				
+				g = t.xmlToObject(path + file);
+				//System.out.println(g);
+				//System.out.println(g.printTTL());
+			
 			}
+			
 		}
+		
+		System.out.println(g.printTTL());
+		
+		//IO.writeAnyString(path + file.replace(".xml", ".ttl"), g.printTTL());
 
 	}
 

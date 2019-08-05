@@ -1,0 +1,1863 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+  <config>
+    <prefix>http://sws.ifi.uio.no/vocab/npd-v2</prefix>
+    <version>0.1</version>
+    <database>npd_oracle</database>
+  </config>
+  <views>
+    <!-- Non-connected class -->
+    <!-- <view origin="NPD" name="APAAREAGROSS" label="Apa Area Gross">
+      <tables repcol="apaMap_no">
+        <table name="apaAreaGross" owner="npd">
+          <pk>apaAreaGross_id</pk>
+          <group>
+            <column name="apaMap_no" label="Apa Map No"/>
+            <column name="apaAreaGeometryEWKT" label="Apa Area Geometryewkt"/>
+            <column name="apaAreaGeometry_KML_WGS84" label="Apa Area Geometry Kml Wgs84"/>
+            <column name="apaAreaGross_id" label="Apa Area Gross Id"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <!-- Non-connected class -->
+    <!-- <view origin="NPD" name="APAAREANET" label="Apa Area Net">
+      <tables repcol="blkId">
+        <table name="apaAreaNet" owner="npd">
+          <pk>blkName blkId prvName apaAreaNet_id qdrName</pk>
+          <group>
+            <column name="blkId" label="Blk Id"/>
+            <column name="blkLabel" label="Blk Label" indexing="true"/>
+            <column name="qdrName" label="Qdr Name" indexing="true"/>
+            <column name="blkName" label="Blk Name" indexing="true"/>
+            <column name="prvName" label="Prv Name" indexing="true"/>
+            <column name="apaAreaType" label="Apa Area Type" indexing="true"/>
+            <column name="urlNPD" label="Urlnpd" indexing="true"/>
+            <column name="apaAreaNetGeometryWKT" label="Apa Area Net Geometrywkt"/>
+            <column name="apaAreaNet_id" label="Apa Area Net Id"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    
+    <!-- WELLBORE -->
+    
+    <!-- LICENSE -->
+    
+    <!-- BAA -->
+    
+    <!-- FIELD -->
+    
+    <!-- DISCOVERY -->
+    
+    <!-- COMPANY -->
+    
+    <!-- SURVEY -->
+    
+    <!-- FACILITY -->
+    
+    <!-- TUF -->
+    
+    <!-- STRATIGRAPHY -->
+    
+    <view origin="NPD" name="BAAAREA" label="Baa Area">
+      <tables repcol="baaNpdidBsnsArrArea">
+        <table name="baaArea" owner="npd">
+          <pk>baaNpdidBsnsArrAreaPoly baaNpdidBsnsArrArea</pk>
+          <group>
+            <column name="baaNpdidBsnsArrArea" label="NPDID Bsns. Arr. Area" untagged="true">
+              <join view="BSNS_ARR_AREA">
+                <condition from="baaNpdidBsnsArrArea" to="baaNpdidBsnsArrArea"/>
+              </join>
+            </column>
+            <column name="baaNpdidBsnsArrAreaPoly" label="Baa Npdid Bsns Arr Area Poly"/>
+            <column name="baaName" label="Name" indexing="true"/>
+            <column name="baaKind" label="Kind" indexing="true"/>
+            <column name="baaAreaPolyDateValidFrom" label="Date valid from"/>
+            <column name="baaAreaPolyDateValidTo" label="Date valid to"/>
+            <column name="baaAreaPolyActive" label="Baa Area Poly Active" indexing="true"/>
+            <column name="baaDateApproved" label="Date approved"/>
+            <column name="baaDateValidFrom" label="Date valid from"/>
+            <column name="baaDateValidTo" label="Date valid to"/>
+            <column name="baaActive" label="Active" indexing="true"/>
+            <column name="baaFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="baaFactMapUrl" label="Fact map" indexing="true"/>
+            <!-- Unsupported geometry -->
+            <!-- <column name="baaAreaGeometryWKT" label="Baa Area Geometrywkt"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="BSNS_ARR_AREA" label="Bsns Arr Area">
+      <tables repcol="baaName">
+        <table name="bsns_arr_area" owner="npd">
+          <pk>baaNpdidBsnsArrArea</pk>
+          <group>
+            <column name="baaName" label="Name"/>
+            <column name="baaKind" label="Kind" indexing="true"/>
+            <column name="baaDateApproved" label="Date approved"/>
+            <column name="baaDateValidFrom" label="Date valid from"/>
+            <column name="baaDateValidTo" label="Date valid to"/>
+            <column name="baaFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="baaFactMapUrl" label="Fact map" indexing="true"/>
+            <column name="baaNpdidBsnsArrArea" label="NPDID Bsns. Arr. Area"/>
+            <column name="baaDateUpdated" label="Date main level updated"/>
+            <column name="baaDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="BSNS_ARR_AREA_AREA_POLY_HST" label="Bsns Arr Area Area Poly Hst">
+      <tables repcol="baaName">
+        <table name="bsns_arr_area_area_poly_hst" owner="npd">
+          <pk>baaAreaPolyDateValidFrom baaNpdidBsnsArrArea baaAreaPolyNo baaAreaPolyDateValidTo baaAreaPolyBlockName</pk>
+          <group>
+            <column name="baaName" label="Name"/>
+            <column name="baaAreaPolyDateValidFrom" label="Date valid from"/>
+            <column name="baaAreaPolyDateValidTo" label="Date valid to"/>
+            <column name="baaAreaPolyNationCode2" label="Nation code" indexing="true"/>
+            <column name="baaAreaPolyBlockName" label="Block name" indexing="true"/>
+            <column name="baaAreaPolyNo" label="Baa Area Poly No"/>
+            <column name="baaAreaPolyArea" label="Polygon area [km2]"/>
+            <column name="baaNpdidBsnsArrArea" label="NPDID Bsns. Arr. Area" untagged="true">
+              <join view="BSNS_ARR_AREA">
+                <condition from="baaNpdidBsnsArrArea" to="baaNpdidBsnsArrArea"/>
+              </join>
+            </column>
+            <column name="baaAreaPolyDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="BSNS_ARR_AREA_LICENSEE_HST" label="Bsns Arr Area Licensee Hst">
+      <tables repcol="baaName">
+        <table name="bsns_arr_area_licensee_hst" owner="npd">
+          <pk>baaLicenseeDateValidFrom baaLicenseeDateValidTo baaNpdidBsnsArrArea cmpNpdidCompany</pk>
+          <group>
+            <column name="baaName" label="Name"/>
+            <column name="baaLicenseeDateValidFrom" label="Date valid from"/>
+            <column name="baaLicenseeDateValidTo" label="Date valid to"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="baaLicenseeInterest" label="Interest [%]"/>
+            <column name="baaLicenseeSdfi" label="SDFI [%]"/>
+            <column name="baaNpdidBsnsArrArea" label="NPDID Bsns. Arr. Area" untagged="true">
+              <join view="BSNS_ARR_AREA">
+                <condition from="baaNpdidBsnsArrArea" to="baaNpdidBsnsArrArea"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="baaLicenseeDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="BSNS_ARR_AREA_OPERATOR" label="Bsns Arr Area Operator">
+      <tables repcol="baaName">
+        <table name="bsns_arr_area_operator" owner="npd">
+          <pk>baaNpdidBsnsArrArea</pk>
+          <group>
+            <column name="baaName" label="Name"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="baaNpdidBsnsArrArea" label="NPDID Bsns. Arr. Area" untagged="true">
+              <join view="BSNS_ARR_AREA">
+                <condition from="baaNpdidBsnsArrArea" to="baaNpdidBsnsArrArea"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="baaOperatorDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="BSNS_ARR_AREA_TRANSFER_HST" label="Bsns Arr Area Transfer Hst">
+      <tables repcol="baaName">
+        <table name="bsns_arr_area_transfer_hst" owner="npd">
+          <pk>baaTransferDirection cmpNpdidCompany baaNpdidBsnsArrArea baaTransferDateValidFrom</pk>
+          <group>
+            <column name="baaName" label="Name"/>
+            <column name="baaTransferDateValidFrom" label="Date valid from"/>
+            <column name="baaTransferDirection" label="Transfer direction" indexing="true"/>
+            <column name="baaTransferKind" label="Transfer kind" indexing="true"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="baaTransferredInterest" label="Transferred interest [%]"/>
+            <column name="baaTransferSdfi" label="SDFI [%]"/>
+            <column name="baaNpdidBsnsArrArea" label="NPDID Bsns. Arr. Area" untagged="true">
+              <join view="BSNS_ARR_AREA">
+                <condition from="baaNpdidBsnsArrArea" to="baaNpdidBsnsArrArea"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="baaTransferDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="COMPANY" label="Company">
+      <tables repcol="cmpLongName">
+        <table name="company" owner="npd">
+          <pk>cmpNpdidCompany</pk>
+          <group>
+            <column name="cmpLongName" label="Company name"/>
+            <column name="cmpOrgNumberBrReg" label="Organisation number" indexing="true"/>
+            <column name="cmpGroup" label="Group" indexing="true"/>
+            <column name="cmpShortName" label="Company shortname" indexing="true"/>
+            <column name="cmpNpdidCompany" label="NPDID company"/>
+            <column name="cmpLicenceOperCurrent" label="Currently licence operator" indexing="true"/>
+            <column name="cmpLicenceOperFormer" label="Former licence operator" indexing="true"/>
+            <column name="cmpLicenceLicenseeCurrent" label="Currently licence licensee" indexing="true"/>
+            <column name="cmpLicenceLicenseeFormer" label="Former licence licensee" indexing="true"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="COMPANY_RESERVES" label="Company Reserves">
+      <tables repcol="cmpLongName">
+        <table name="company_reserves" owner="npd">
+          <pk>fldNpdidField cmpNpdidCompany</pk>
+          <group>
+            <column name="cmpLongName" label="Company name"/>
+            <column name="fldName" label="Field name" indexing="true"/>
+            <column name="cmpRecoverableOil" label="Cmp Recoverable Oil"/>
+            <column name="cmpRecoverableGas" label="Cmp Recoverable Gas"/>
+            <column name="cmpRecoverableNGL" label="Cmp Recoverablengl"/>
+            <column name="cmpRecoverableCondensate" label="Cmp Recoverable Condensate"/>
+            <column name="cmpRecoverableOE" label="Cmp Recoverableoe"/>
+            <column name="cmpRemainingOil" label="Cmp Remaining Oil"/>
+            <column name="cmpRemainingGas" label="Cmp Remaining Gas"/>
+            <column name="cmpRemainingNGL" label="Cmp Remainingngl"/>
+            <column name="cmpRemainingCondensate" label="Cmp Remaining Condensate"/>
+            <column name="cmpRemainingOE" label="Cmp Remainingoe"/>
+            <column name="cmpDateOffResEstDisplay" label="Cmp Date Off Res Est Display"/>
+            <column name="cmpShare" label="Cmp Share"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="DISCOVERY" label="Discovery">
+      <tables repcol="dscName">
+        <table name="discovery" owner="npd">
+          <pk>dscNpdidDiscovery</pk>
+          <group>
+            <column name="dscName" label="Discovery name"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="dscCurrentActivityStatus" label="Current activity status" indexing="true"/>
+            <column name="dscHcType" label="HC type" indexing="true"/>
+            <column name="wlbName" label="Wellbore name" indexing="true"/>
+            <column name="nmaName" label="Main NCS area" indexing="true"/>
+            <column name="fldName" label="Field name" indexing="true"/>
+            <column name="dscDateFromInclInField" label="Included in field from date"/>
+            <column name="dscDiscoveryYear" label="Discovery year"/>
+            <column name="dscResInclInDiscoveryName" label="Resources incl. in" indexing="true"/>
+            <column name="dscOwnerKind" label="Owner kind" indexing="true"/>
+            <column name="dscOwnerName" label="Owner name" indexing="true"/>
+            <column name="dscNpdidDiscovery" label="NPDID discovery"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="dscFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="dscFactMapUrl" label="Fact map" indexing="true"/>
+            <column name="dscDateUpdated" label="Date main level updated"/>
+            <column name="dscDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="DISCOVERY_RESERVES" label="Discovery Reserves">
+      <tables repcol="dscName">
+        <table name="discovery_reserves" owner="npd">
+          <pk>dscReservesRC dscNpdidDiscovery</pk>
+          <group>
+            <column name="dscName" label="Discovery name"/>
+            <column name="dscReservesRC" label="Resource class" indexing="true"/>
+            <column name="dscRecoverableOil" label="Rec. oil [mill Sm3]"/>
+            <column name="dscRecoverableGas" label="Rec. gas [bill Sm3]"/>
+            <column name="dscRecoverableNGL" label="Rec. NGL [mill tonn]"/>
+            <column name="dscRecoverableCondensate" label="Rec. cond. [mill Sm3]"/>
+            <column name="dscDateOffResEstDisplay" label="Resource updated date"/>
+            <column name="dscNpdidDiscovery" label="NPDID discovery" untagged="true">
+              <join view="DISCOVERY">
+                <condition from="dscNpdidDiscovery" to="dscNpdidDiscovery"/>
+              </join>
+            </column>
+            <column name="dscReservesDateUpdated" label="Dsc Reserves Date Updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FACILITY_FIXED" label="Facility Fixed">
+      <tables repcol="fclName">
+        <table name="facility_fixed" owner="npd">
+          <pk>fclNpdidFacility</pk>
+          <group>
+            <column name="fclName" label="Name"/>
+            <column name="fclPhase" label="Phase" indexing="true"/>
+            <column name="fclSurface" label="Surface facility" indexing="true"/>
+            <column name="fclCurrentOperatorName" label="Current operator" indexing="true"/>
+            <column name="fclKind" label="Kind" indexing="true"/>
+            <column name="fclBelongsToName" label="Belongs to, name" indexing="true"/>
+            <column name="fclBelongsToKind" label="Belongs to, kind" indexing="true"/>
+            <column name="fclBelongsToS" label="Fcl Belongs Tos"/>
+            <column name="fclStartupDate" label="Startup date"/>
+            <column name="fclGeodeticDatum" label="Geodetic datum" indexing="true"/>
+            <column name="fclNsDeg" label="NS degrees"/>
+            <column name="fclNsMin" label="NS minutes"/>
+            <column name="fclNsSec" label="NS seconds"/>
+            <column name="fclNsCode" label="NS code" indexing="true"/>
+            <column name="fclEwDeg" label="EW degrees"/>
+            <column name="fclEwMin" label="EW minutes"/>
+            <column name="fclEwSec" label="EW seconds"/>
+            <column name="fclEwCode" label="EW code" indexing="true"/>
+            <column name="fclWaterDepth" label="Water depth [m]"/>
+            <column name="fclFunctions" label="Functions" indexing="true"/>
+            <column name="fclDesignLifetime" label="Design lifetime [year]"/>
+            <column name="fclFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="fclFactMapUrl" label="Fact map" indexing="true"/>
+            <column name="fclNpdidFacility" label="NPDID facility"/>
+            <column name="fclDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FACILITY_MOVEABLE" label="Facility Moveable">
+      <tables repcol="fclName">
+        <table name="facility_moveable" owner="npd">
+          <pk>fclNpdidFacility</pk>
+          <group>
+            <column name="fclName" label="Name"/>
+            <column name="fclCurrentRespCompanyName" label="Current responsible company" indexing="true"/>
+            <column name="fclKind" label="Kind" indexing="true"/>
+            <column name="fclFunctions" label="Functions" indexing="true"/>
+            <column name="fclNationName" label="Nation" indexing="true"/>
+            <column name="fclFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="fclNpdidFacility" label="NPDID facility"/>
+            <column name="fclNpdidCurrentRespCompany" label="NPDID responsible company" untagged="true">
+              <join view="COMPANY">
+                <condition from="fclNpdidCurrentRespCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="fclDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FCLPOINT" label="Fcl Point">
+      <tables repcol="fclNpdidFacility">
+        <table name="fclPoint" owner="npd">
+          <pk>fclNpdidFacility</pk>
+          <group>
+            <column name="fclNpdidFacility" label="NPDID facility" untagged="true">
+              <join view="FACILITY_FIXED">
+                <condition from="fclNpdidFacility" to="fclNpdidFacility"/>
+              </join>
+            </column>
+            <column name="fclSurface" label="Surface facility" indexing="true"/>
+            <column name="fclCurrentOperatorName" label="Current operator" indexing="true"/>
+            <column name="fclName" label="Name" indexing="true"/>
+            <column name="fclKind" label="Kind" indexing="true"/>
+            <column name="fclBelongsToName" label="Belongs to, name" indexing="true"/>
+            <column name="fclBelongsToKind" label="Belongs to, kind" indexing="true"/>
+            <column name="fclBelongsToS" label="Fcl Belongs Tos" untagged="true">
+              <join view="TUF_PETREG_LICENCE">
+                <condition from="fclBelongsToS" to="tufNpdidTuf"/>
+              </join>
+            </column>
+            <column name="fclStartupDate" label="Startup date"/>
+            <column name="fclWaterDepth" label="Water depth [m]"/>
+            <column name="fclFunctions" label="Functions" indexing="true"/>
+            <column name="fclDesignLifetime" label="Design lifetime [year]"/>
+            <column name="fclFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="fclFactMapUrl" label="Fact map" indexing="true"/>
+            <!-- Unsupported geometry -->
+            <!-- <column name="fclPointGeometryWKT" label="Fcl Point Geometrywkt"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD" label="Field">
+      <tables repcol="fldName">
+        <table name="field" owner="npd">
+          <pk>fldNpdidField</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="fldCurrentActivitySatus" label="Current activity status" indexing="true"/>
+            <column name="wlbName" label="Wellbore name" indexing="true"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="fldOwnerKind" label="Owner kind" indexing="true"/>
+            <column name="fldOwnerName" label="Owner name" indexing="true"/>
+            <column name="fldNpdidOwner" label="NPDID owner" untagged="true">
+              <join view="LICENCE">
+                <condition from="fldNpdidOwner" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="fldNpdidField" label="NPDID field"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="fldFactPageUrl" label="Field fact page" indexing="true"/>
+            <column name="fldFactMapUrl" label="Fld Fact Map Url" indexing="true"/>
+            <column name="fldDateUpdated" label="Date main level updated"/>
+            <column name="fldDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD_ACTIVITY_STATUS_HST" label="Field Activity Status Hst">
+      <tables repcol="fldName">
+        <table name="field_activity_status_hst" owner="npd">
+          <pk>fldStatus fldStatusToDate fldStatusFromDate fldNpdidField</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="fldStatusFromDate" label="Status from"/>
+            <column name="fldStatusToDate" label="Status to"/>
+            <column name="fldStatus" label="Status" indexing="true"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="fldStatusDateUpdated" label="Fld Status Date Updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD_DESCRIPTION" label="Field Description">
+      <tables repcol="fldName">
+        <table name="field_description" owner="npd">
+          <pk>fldNpdidField fldDescriptionHeading</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="fldDescriptionHeading" label="Heading" indexing="true"/>
+            <!-- Error reading longtext datatype from database link !!! http://stackoverflow.com/questions/20645105/mysql-and-oracle-issue-using-dblink -->
+            <!-- <column name="fldDescriptionText" label="Text"/> -->
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="fldDescriptionDateUpdated" label="Date updated"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD_INVESTMENT_YEARLY" label="Field Investment Yearly">
+      <tables repcol="prfInformationCarrier">
+        <table name="field_investment_yearly" owner="npd">
+          <pk>prfNpdidInformationCarrier prfYear</pk>
+          <group>
+            <column name="prfInformationCarrier" label="Field (Discovery)"/>
+            <column name="prfYear" label="Year"/>
+            <column name="prfInvestmentsMillNOK" label="Investments [mill NOK norminal values]"/>
+            <column name="prfNpdidInformationCarrier" label="NPDID information carrier" untagged="true">
+              <join view="FIELD">
+                <condition from="prfNpdidInformationCarrier" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD_LICENSEE_HST" label="Field Licensee Hst">
+      <tables repcol="fldName">
+        <table name="field_licensee_hst" owner="npd">
+          <pk>fldLicenseeTo fldNpdidField fldLicenseeFrom cmpNpdidCompany</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="fldOwnerName" label="Owner name" indexing="true"/>
+            <column name="fldOwnerKind" label="Owner kind" indexing="true"/>
+            <column name="fldOwnerFrom" label="Fld Owner From"/>
+            <column name="fldOwnerTo" label="Fld Owner To"/>
+            <column name="fldLicenseeFrom" label="Fld Licensee From"/>
+            <column name="fldLicenseeTo" label="Fld Licensee To"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="fldCompanyShare" label="Company share [%]"/>
+            <column name="fldSdfiShare" label="SDFI [%]"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="fldLicenseeDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD_OPERATOR_HST" label="Field Operator Hst">
+      <tables repcol="fldName">
+        <table name="field_operator_hst" owner="npd">
+          <pk>fldNpdidField fldOperatorFrom fldOperatorTo cmpNpdidCompany</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="fldOperatorFrom" label="Fld Operator From"/>
+            <column name="fldOperatorTo" label="Fld Operator To"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="fldOperatorDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="FIELD_OWNER_HST" label="Field Owner Hst">
+      <tables repcol="fldName">
+        <table name="field_owner_hst" owner="npd">
+          <pk>fldOwnershipToDate fldNpdidOwner fldOwnershipFromDate fldNpdidField</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="fldOwnerKind" label="Owner kind" indexing="true"/>
+            <column name="fldOwnerName" label="Owner name" indexing="true"/>
+            <column name="fldOwnershipFromDate" label="Fld Ownership From Date"/>
+            <column name="fldOwnershipToDate" label="Fld Ownership To Date"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="fldNpdidOwner" label="NPDID owner"/>
+            <column name="fldOwnerDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <!-- Non-connected class -->
+    <!-- <view origin="NPD" name="FIELD_PRODUCTION_MONTHLY" label="Field Production Monthly">
+      <tables repcol="prfInformationCarrier">
+        <table name="field_production_monthly" owner="npd">
+          <pk>prfNpdidInformationCarrier prfYear prfMonth</pk>
+          <group>
+            <column name="prfInformationCarrier" label="Field (Discovery)"/>
+            <column name="prfYear" label="Year"/>
+            <column name="prfMonth" label="Month"/>
+            <column name="prfPrdOilNetMillSm3" label="Net - oil [mill Sm3]"/>
+            <column name="prfPrdGasNetBillSm3" label="Net - gas [bill Sm3]"/>
+            <column name="prfPrdNGLNetMillSm3" label="Net - NGL [mill Sm3]"/>
+            <column name="prfPrdCondensateNetMillSm3" label="Net - condensate [mill Sm3]"/>
+            <column name="prfPrdOeNetMillSm3" label="Net - oil equivalents [mill Sm3]"/>
+            <column name="prfPrdProducedWaterInFieldMillSm3" as="prfPrdProdWaterInFieldMillSm3" label="Produced water in field [mill Sm3]"/>
+            <column name="prfNpdidInformationCarrier" label="NPDID information carrier"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <!-- Identifier field_production_totalt_NCS_month too long -->
+    <!-- <view origin="NPD" name="FIELD_PROD_TOTALT_NCS_MONTH" label="Field Prod Totalt Ncs Month">
+      <tables repcol="prfYear">
+        <table name="field_production_totalt_NCS_month" owner="npd">
+          <pk>prfMonth prfYear</pk>
+          <group>
+            <column name="prfYear" label="Year"/>
+            <column name="prfMonth" label="Month"/>
+            <column name="prfPrdOilNetMillSm3" label="Net - oil [mill Sm3]"/>
+            <column name="prfPrdGasNetBillSm3" label="Net - gas [bill Sm3]"/>
+            <column name="prfPrdNGLNetMillSm3" label="Net - NGL [mill Sm3]"/>
+            <column name="prfPrdCondensateNetMillSm3" label="Net - condensate [mill Sm3]"/>
+            <column name="prfPrdOeNetMillSm3" label="Net - oil equivalents [mill Sm3]"/>
+            <column name="prfPrdProducedWaterInFieldMillSm3" as="prfPrdProdWaterInFieldMillSm3" label="Produced water in field [mill Sm3]"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <!-- Identifier field_production_totalt_NCS_year too long -->
+    <!-- <view origin="NPD" name="FIELD_PROD_TOTALT_NCS_YEAR" label="Field Prod Totalt Ncs Year">
+      <tables repcol="prfYear">
+        <table name="field_production_totalt_NCS_year" owner="npd">
+          <pk>prfYear</pk>
+          <group>
+            <column name="prfYear" label="Year"/>
+            <column name="prfPrdOilNetMillSm" label="Prf Prd Oil Net Mill Sm"/>
+            <column name="prfPrdGasNetBillSm" label="Prf Prd Gas Net Bill Sm"/>
+            <column name="prfPrdCondensateNetMillSm3" label="Net - condensate [mill Sm3]"/>
+            <column name="prfPrdNGLNetMillSm3" label="Net - NGL [mill Sm3]"/>
+            <column name="prfPrdOeNetMillSm3" label="Net - oil equivalents [mill Sm3]"/>
+            <column name="prfPrdProducedWaterInFieldMillSm3" as="prfPrdProdWaterInFieldMillSm3" label="Produced water in field [mill Sm3]"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <!-- Non-connected class -->
+    <!-- <view origin="NPD" name="FIELD_PRODUCTION_YEARLY" label="Field Production Yearly">
+      <tables repcol="prfInformationCarrier">
+        <table name="field_production_yearly" owner="npd">
+          <pk>prfNpdidInformationCarrier prfYear</pk>
+          <group>
+            <column name="prfInformationCarrier" label="Field (Discovery)"/>
+            <column name="prfYear" label="Year"/>
+            <column name="prfPrdOilNetMillSm3" label="Net - oil [mill Sm3]"/>
+            <column name="prfPrdGasNetBillSm3" label="Net - gas [bill Sm3]"/>
+            <column name="prfPrdNGLNetMillSm3" label="Net - NGL [mill Sm3]"/>
+            <column name="prfPrdCondensateNetMillSm3" label="Net - condensate [mill Sm3]"/>
+            <column name="prfPrdOeNetMillSm3" label="Net - oil equivalents [mill Sm3]"/>
+            <column name="prfPrdProducedWaterInFieldMillSm3" as="prfPrdProdWaterInFieldMillSm3" label="Produced water in field [mill Sm3]"/>
+            <column name="prfNpdidInformationCarrier" label="NPDID information carrier"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <view origin="NPD" name="FIELD_RESERVES" label="Field Reserves">
+      <tables repcol="fldName">
+        <table name="field_reserves" owner="npd">
+          <pk>fldNpdidField</pk>
+          <group>
+            <column name="fldName" label="Field name"/>
+            <column name="fldRecoverableOil" label="Orig. recoverable oil [mill Sm3]"/>
+            <column name="fldRecoverableGas" label="Orig. recoverable gas [bill Sm3]"/>
+            <column name="fldRecoverableNGL" label="Orig. recoverable NGL [mill tonn]"/>
+            <column name="fldRecoverableCondensate" label="Orig. recoverable cond. [mill Sm3]"/>
+            <column name="fldRecoverableOE" label="Orig. recoverable oil eq. [mill Sm3 o.e]"/>
+            <column name="fldRemainingOil" label="Remaining oil [mill Sm3]"/>
+            <column name="fldRemainingGas" label="Remaining gas [bill Sm3]"/>
+            <column name="fldRemainingNGL" label="Remaining NGL [mill tonn]"/>
+            <column name="fldRemainingCondensate" label="Remaining cond. [mill Sm3]"/>
+            <column name="fldRemainingOE" label="Remaining oil eq. [mill Sm3 o.e]"/>
+            <column name="fldDateOffResEstDisplay" label="Reserves updated date"/>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE" label="Licence">
+      <tables repcol="prlName">
+        <table name="licence" owner="npd">
+          <pk>prlNpdidLicence</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlLicensingActivityName" label="Licensing activity" indexing="true"/>
+            <column name="prlMainArea" label="Main area" indexing="true"/>
+            <column name="prlStatus" label="Status" indexing="true"/>
+            <column name="prlDateGranted" label="Date granted"/>
+            <column name="prlDateValidTo" label="Date valid to"/>
+            <column name="prlOriginalArea" label="Original area [km2]"/>
+            <column name="prlCurrentArea" label="Current area" indexing="true"/>
+            <column name="prlPhaseCurrent" label="Phase - current" indexing="true"/>
+            <column name="prlNpdidLicence" label="NPDID production licence"/>
+            <column name="prlFactPageUrl" label="Fact page" indexing="true"/>
+            <column name="prlFactMapUrl" label="Fact map" indexing="true"/>
+            <column name="prlDateUpdated" label="Date main level updated"/>
+            <column name="prlDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_AREA_POLY_HST" label="Licence Area Poly Hst">
+      <tables repcol="prlName">
+        <table name="licence_area_poly_hst" owner="npd">
+          <pk>prlAreaPolyDateValidFrom prlAreaPolyPolyNo prlAreaPolyBlockName prlNpdidLicence prlAreaPolyDateValidTo</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlAreaPolyDateValidFrom" label="Date valid from"/>
+            <column name="prlAreaPolyDateValidTo" label="Date valid to"/>
+            <column name="prlAreaPolyNationCode" label="Prl Area Poly Nation Code" indexing="true"/>
+            <column name="prlAreaPolyBlockName" label="Block name" indexing="true"/>
+            <column name="prlAreaPolyStratigraphical" label="Stratigraphcal" indexing="true"/>
+            <column name="prlAreaPolyPolyNo" label="Prl Area Poly Poly No"/>
+            <column name="prlAreaPolyPolyArea" label="Polygon area [km2]"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="prlAreaDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_LICENSEE_HST" label="Licence Licensee Hst">
+      <tables repcol="prlName">
+        <table name="licence_licensee_hst" owner="npd">
+          <pk>cmpNpdidCompany prlLicenseeDateValidTo prlLicenseeDateValidFrom prlNpdidLicence</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlLicenseeDateValidFrom" label="Date valid from"/>
+            <column name="prlLicenseeDateValidTo" label="Date valid to"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="prlLicenseeInterest" label="Interest [%]"/>
+            <column name="prlLicenseeSdfi" label="SDFI [%]"/>
+            <column name="prlOperDateValidFrom" label="Date valid from"/>
+            <column name="prlOperDateValidTo" label="Date valid to"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="prlLicenseeDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_OPER_HST" label="Licence Oper Hst">
+      <tables repcol="prlName">
+        <table name="licence_oper_hst" owner="npd">
+          <pk>cmpNpdidCompany prlOperDateValidTo prlNpdidLicence prlOperDateValidFrom</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlOperDateValidFrom" label="Date valid from"/>
+            <column name="prlOperDateValidTo" label="Date valid to"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="prlOperDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_PETREG_LICENCE" label="Licence Petreg Licence">
+      <tables repcol="ptlName">
+        <table name="licence_petreg_licence" owner="npd">
+          <pk>prlNpdidLicence</pk>
+          <group>
+            <column name="ptlName" label="Tillatelse"/>
+            <column name="ptlDateAwarded" label="Ptl Date Awarded"/>
+            <column name="ptlDateValidFrom" label="Gyldig fra dato"/>
+            <column name="ptlDateValidTo" label="Gyldig til dato"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="ptlDateUpdated" label="Dato hovednivå oppdatert"/>
+            <column name="ptlDateUpdatedMax" label="Dato alle oppdatert"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <!-- Identifier licence_petreg_licence_licencee too long -->
+    <!-- <view origin="NPD" name="LICENCE_PETREG_LIC_LICENCEE" label="Licence Petreg Lic Licencee">
+      <tables repcol="ptlName">
+        <table name="licence_petreg_licence_licencee" owner="npd">
+          <pk>cmpNpdidCompany prlNpdidLicence</pk>
+          <group>
+            <column name="ptlName" label="Tillatelse"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="ptlLicenseeInterest" label="Andel [%]"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="ptlLicenseeDateUpdated" label="Dato oppdatert"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <view origin="NPD" name="LICENCE_PETREG_LIC_OPER" label="Licence Petreg Lic Oper">
+      <tables repcol="ptlName">
+        <table name="licence_petreg_licence_oper" owner="npd">
+          <pk>prlNpdidLicence</pk>
+          <group>
+            <column name="ptlName" label="Tillatelse"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="ptlOperDateUpdated" label="Dato oppdatert"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_PETREG_MESSAGE" label="Licence Petreg Message">
+      <tables repcol="prlName">
+        <table name="licence_petreg_message" owner="npd">
+          <pk>prlNpdidLicence ptlMessageDocumentNo</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="ptlMessageDocumentNo" label="Ptl Message Document No"/>
+            <!-- <column name="ptlMessage" label="Utdrag av dokument"/> -->
+            <column name="ptlMessageRegisteredDate" label="Registreringsdato"/>
+            <column name="ptlMessageKindDesc" label="Type" indexing="true"/>
+            <column name="ptlMessageDateUpdated" label="Dato oppdatert"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_PHASE_HST" label="Licence Phase Hst">
+      <tables repcol="prlName">
+        <table name="licence_phase_hst" owner="npd">
+          <pk>prlNpdidLicence prlPhase prlDatePhaseValidTo prlDatePhaseValidFrom</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlDatePhaseValidFrom" label="Date phase valid from"/>
+            <column name="prlDatePhaseValidTo" label="Date phase valid to"/>
+            <column name="prlPhase" label="Phase" indexing="true"/>
+            <column name="prlDateGranted" label="Date granted"/>
+            <column name="prlDateValidTo" label="Date valid to"/>
+            <column name="prlDateInitialPeriodExpires" label="Expiry date, initial period"/>
+            <column name="prlActiveStatusIndicator" label="Active" indexing="true"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="prlPhaseDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_TASK" label="Licence Task">
+      <tables repcol="prlName">
+        <table name="licence_task" owner="npd">
+          <pk>prlNpdidLicence prlTaskID</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlTaskName" label="Task name (norwegian)" indexing="true"/>
+            <column name="prlTaskTypeNo" label="Prl Task Type No" indexing="true"/>
+            <column name="prlTaskTypeEn" label="Type of task" indexing="true"/>
+            <column name="prlTaskStatusNo" label="Prl Task Status No" indexing="true"/>
+            <column name="prlTaskStatusEn" label="Task status" indexing="true"/>
+            <column name="prlTaskExpiryDate" label="Expiry date"/>
+            <column name="wlbName" label="Wellbore name" indexing="true"/>
+            <column name="prlDateValidTo" label="Date valid to"/>
+            <column name="prlLicensingActivityName" label="Licensing activity" indexing="true"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="prlTaskID" label="Task ID"/>
+            <column name="prlTaskRefID" label="Referred task ID" untagged="true">
+              <join view="LICENCE_TASK">
+                <condition from="prlTaskRefID" to="prlTaskID"/>
+              </join>
+            </column>
+            <column name="prlTaskDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="LICENCE_TRANSFER_HST" label="Licence Transfer Hst">
+      <tables repcol="prlName">
+        <table name="licence_transfer_hst" owner="npd">
+          <pk>prlTransferDirection prlTransferDateValidFrom prlNpdidLicence cmpNpdidCompany</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlTransferDateValidFrom" label="Date valid from"/>
+            <column name="prlTransferDirection" label="Transfer direction" indexing="true"/>
+            <column name="prlTransferKind" label="Transfer kind" indexing="true"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="prlTransferredInterest" label="Transferred interest [%]"/>
+            <column name="prlTransferSdfi" label="SDFI [%]"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="prlTransferDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="PRLAREASPLITBYBLOCK" label="Prl Area Split By Block">
+      <tables repcol="prlName">
+        <table name="prlAreaSplitByBlock" owner="npd">
+          <pk>prlAreaPolyDateValidTo prlNpdidLicence prlAreaPolyPolyNo prlAreaPolyDateValidFrom blcName</pk>
+          <group>
+            <column name="prlName" label="Production licence"/>
+            <column name="prlActive" label="Active" indexing="true"/>
+            <column name="prlCurrentArea" label="Current area" indexing="true"/>
+            <column name="prlDateGranted" label="Date granted"/>
+            <column name="prlDateValidTo" label="Date valid to"/>
+            <column name="prlAreaPolyDateValidFrom" label="Date valid from"/>
+            <column name="prlAreaPolyDateValidTo" label="Date valid to"/>
+            <column name="prlAreaPolyPolyNo" label="Prl Area Poly Poly No"/>
+            <column name="prlAreaPolyPolyArea" label="Polygon area [km2]"/>
+            <column name="blcName" label="Block name" indexing="true"/>
+            <column name="prlAreaPolyFromZvalue" label="Prl Area Poly From Zvalue"/>
+            <column name="prlAreaPolyToZvalue" label="Prl Area Poly To Zvalue"/>
+            <!-- Error reading text datatype from database link !!! http://stackoverflow.com/questions/20645105/mysql-and-oracle-issue-using-dblink -->
+            <!-- <column name="prlAreaPolyVertLimEn" label="Prl Area Poly Vert Lim En"/>
+            <column name="prlAreaPolyVertLimNo" label="Prl Area Poly Vert Lim No"/> -->
+            <column name="prlStratigraphical" label="Prl Stratigraphical" indexing="true"/>
+            <column name="prlLastOperatorNpdidCompany" label="Prl Last Operator Npdid Company" untagged="true">
+              <join view="COMPANY">
+                <condition from="prlLastOperatorNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="prlLastOperatorNameShort" label="Prl Last Operator Name Short" indexing="true"/>
+            <column name="prlLastOperatorNameLong" label="Prl Last Operator Name Long" indexing="true"/>
+            <column name="prlLicensingActivityName" label="Licensing activity" indexing="true"/>
+            <column name="prlFactUrl" label="Prl Fact Url" indexing="true"/>
+            <column name="prlAreaPolyStratigraphical" label="Stratigraphcal" indexing="true"/>
+            <column name="prlNpdidLicence" label="NPDID production licence" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <!-- Unsupported geometry -->
+            <!-- <column name="prlAreaGeometryWKT" label="Prl Area Geometrywkt"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="SEAAREA" label="Sea Area">
+      <tables repcol="seaSurveyName">
+        <table name="seaArea" owner="npd">
+          <pk>seaSurveyName seaArea_id</pk>
+          <group>
+            <column name="seaSurveyName" label="Survey name"/>
+            <column name="seaNpdidSurvey" label="NPDID for survey" untagged="true">
+              <join view="SEIS_ACQUISITION">
+                <condition from="seaNpdidSurvey" to="seaNpdidSurvey"/>
+              </join>
+            </column>
+            <column name="seaFactMapUrl" label="Fact Map" indexing="true"/>
+            <column name="seaFactPageUrl" label="Sea Fact Page Url" indexing="true"/>
+            <column name="seaStatus" label="Status" indexing="true"/>
+            <column name="seaGeographicalArea" label="Sea Geographical Area" indexing="true"/>
+            <column name="seaMarketAvailable" label="Marked available" indexing="true"/>
+            <column name="seaSurveyTypeMain" label="Main type" indexing="true"/>
+            <column name="seaSurveyTypePart" label="Sub type" indexing="true"/>
+            <column name="seaCompanyReported" label="Company - responsible" indexing="true"/>
+            <column name="seaSourceType" label="Source type" indexing="true"/>
+            <column name="seaSourceNumber" label="Number of sources" indexing="true"/>
+            <column name="seaSourceSize" label="Source size" indexing="true"/>
+            <column name="seaSourcePressure" label="Source pressure" indexing="true"/>
+            <column name="seaSensorType" label="Sensor type" indexing="true"/>
+            <column name="seaSensorNumbers" label="Numbers of sensors" indexing="true"/>
+            <column name="seaSensorLength" label="Sensor length [m]" indexing="true"/>
+            <column name="seaPlanFromDate" label="Start date - planned"/>
+            <column name="seaDateStarting" label="Start date - actual"/>
+            <column name="seaPlanToDate" label="Completed date - planned"/>
+            <column name="seaDateFinalized" label="Completed date - actual"/>
+            <column name="seaPlanCdpKm" label="Total length - planned [cdp km]"/>
+            <column name="seaCdpTotalKm" label="Total length - actual [cdp km]"/>
+            <column name="seaPlanBoatKm" label="Total length - planned [boat km]"/>
+            <column name="seaBoatTotalKm" label="Total length - actual [boat km]"/>
+            <column name="sea3DKm2" label="Total net area - planned 3D/4D [km2]"/>
+            <column name="seaPolygonKind" label="Kind of polygon" indexing="true"/>
+            <!-- Unsupported geometry -->
+            <!-- <column name="seaPolyGeometryWKT" label="Sea Poly Geometrywkt"/> -->
+            <column name="seaArea_id" label="Sea Area Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="SEIS_ACQUISITION" label="Seis Acquisition">
+      <tables repcol="seaName">
+        <table name="seis_acquisition" owner="npd">
+          <pk>seaName seaNpdidSurvey</pk>
+          <group>
+            <column name="seaName" label="Survey name"/>
+            <column name="seaPlanFromDate" label="Start date - planned"/>
+            <column name="seaNpdidSurvey" label="NPDID for survey"/>
+            <column name="seaStatus" label="Status" indexing="true"/>
+            <column name="seaGeographicalArea" label="Sea Geographical Area" indexing="true"/>
+            <column name="seaSurveyTypeMain" label="Main type" indexing="true"/>
+            <column name="seaSurveyTypePart" label="Sub type" indexing="true"/>
+            <column name="seaCompanyReported" label="Company - responsible" untagged="true">
+              <join view="COMPANY">
+                <condition from="seaCompanyReported" to="cmpLongName"/>
+              </join>
+            </column>
+            <column name="seaPlanToDate" label="Completed date - planned"/>
+            <column name="seaDateStarting" label="Start date - actual"/>
+            <column name="seaDateFinalized" label="Completed date - actual"/>
+            <column name="seaCdpTotalKm" label="Total length - actual [cdp km]"/>
+            <column name="seaBoatTotalKm" label="Total length - actual [boat km]"/>
+            <column name="sea3DKm2" label="Total net area - planned 3D/4D [km2]"/>
+            <column name="seaSampling" label="Sampling" indexing="true"/>
+            <column name="seaShallowDrilling" label="Shallow drilling" indexing="true"/>
+            <column name="seaGeotechnical" label="Geotechnical measurement" indexing="true"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <!-- Identifier seis_acquisition_coordinates_inc_turnarea too long -->
+    <!-- <view origin="NPD" name="SEIS_ACQUIS_COORD_INC_TURNAREA" label="Seis Acquis Coord Inc Turnarea"">
+      <tables repcol="seaSurveyName>
+        <table name="seis_acquisition_coordinates_inc_turnarea" owner="npd">
+          <pk>seaSurveyName seaPolygonPointNumber</pk>
+          <group>
+            <column name="seaSurveyName" label="Survey name"/>
+            <column name="seaNpdidSurvey" label="NPDID for survey" untagged="true">
+              <join view="SEIS_ACQUISITION">
+                <condition from="seaNpdidSurvey" to="seaNpdidSurvey"/>
+              </join>
+            </column>
+            <column name="seaPolygonPointNumber" label="Point number"/>
+            <column name="seaPolygonNSDeg" label="NS degrees"/>
+            <column name="seaPolygonNSMin" label="NS minutes"/>
+            <column name="seaPolygonNSSec" label="NS seconds"/>
+            <column name="seaPolygonEWDeg" label="EW degrees"/>
+            <column name="seaPolygonEWMin" label="EW minutes"/>
+            <column name="seaPolygonEWSec" label="EW seconds"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view> -->
+    <view origin="NPD" name="SEIS_ACQUISITION_PROGRESS" label="Seis Acquisition Progress">
+      <tables repcol="seaProgressDate">
+        <table name="seis_acquisition_progress" owner="npd">
+          <pk>seis_acquisition_progress_id seaProgressText2</pk>
+          <group>
+            <column name="seaProgressDate" label="Sea Progress Date"/>
+            <column name="seaProgressText2" label="Sea Progress Text2" indexing="true"/>
+            <!-- Error reading text datatype from database link !!! http://stackoverflow.com/questions/20645105/mysql-and-oracle-issue-using-dblink -->
+            <!-- <column name="seaProgressText" label="Sea Progress Text"/>
+            <column name="seaProgressDescription" label="Sea Progress Description"/> -->
+            <column name="seaNpdidSurvey" label="NPDID for survey" untagged="true">
+              <join view="SEIS_ACQUISITION">
+                <condition from="seaNpdidSurvey" to="seaNpdidSurvey"/>
+              </join>
+            </column>
+            <column name="seis_acquisition_progress_id" label="Seis Acquisition Progress Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="STRAT_LITHO_WELLBORE" label="Strat Litho Wellbore">
+      <tables repcol="wlbName">
+        <table name="strat_litho_wellbore" owner="npd">
+          <pk>lsuTopDepth wlbNpdidWellbore lsuNpdidLithoStrat lsuBottomDepth</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="lsuTopDepth" label="Top depth [m]"/>
+            <column name="lsuBottomDepth" label="Bottom depth [m]"/>
+            <column name="lsuName" label="Lithostrat. unit" indexing="true"/>
+            <column name="lsuLevel" label="Level" indexing="true"/>
+            <column name="lsuNpdidLithoStrat" label="NPDID lithostrat. unit"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="lsuWellboreUpdatedDate" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="STRAT_LITHO_WELLBORE_CORE" label="Strat Litho Wellbore Core">
+      <tables repcol="wlbName">
+        <table name="strat_litho_wellbore_core" owner="npd">
+          <pk>wlbNpdidWellbore lsuNpdidLithoStrat</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="lsuCoreLenght" label="Core length [m]"/>
+            <column name="lsuName" label="Lithostrat. unit" indexing="true"/>
+            <column name="lsuLevel" label="Level" indexing="true"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="lsuNpdidLithoStrat" label="NPDID lithostrat. unit"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="TUF_OPERATOR_HST" label="Tuf Operator Hst">
+      <tables repcol="tufName">
+        <table name="tuf_operator_hst" owner="npd">
+          <pk>tufOperDateValidFrom tufNpdidTuf cmpNpdidCompany tufOperDateValidTo</pk>
+          <group>
+            <column name="tufName" label="TUF"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="tufOperDateValidFrom" label="Date valid from"/>
+            <column name="tufOperDateValidTo" label="Date valid to"/>
+            <column name="tufNpdidTuf" label="NPDID tuf" untagged="true">
+              <join view="TUF_PETREG_LICENCE">
+                <condition from="tufNpdidTuf" to="tufNpdidTuf"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="TUF_OWNER_HST" label="Tuf Owner Hst">
+      <tables repcol="tufName">
+        <table name="tuf_owner_hst" owner="npd">
+          <pk>tufOwnerDateValidTo cmpNpdidCompany tufNpdidTuf tufOwnerDateValidFrom</pk>
+          <group>
+            <column name="tufName" label="TUF"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="tufOwnerDateValidFrom" label="Date valid from"/>
+            <column name="tufOwnerDateValidTo" label="Date valid to"/>
+            <column name="tufOwnerShare" label="Share [%]"/>
+            <column name="tufNpdidTuf" label="NPDID tuf" untagged="true">
+              <join view="TUF_PETREG_LICENCE">
+                <condition from="tufNpdidTuf" to="tufNpdidTuf"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="TUF_PETREG_LICENCE" label="Tuf Petreg Licence">
+      <tables repcol="ptlName">
+        <table name="tuf_petreg_licence" owner="npd">
+          <pk>tufNpdidTuf</pk>
+          <group>
+            <column name="ptlName" label="Tillatelse"/>
+            <column name="tufName" label="TUF" indexing="true"/>
+            <column name="ptlDateValidFrom" label="Gyldig fra dato"/>
+            <column name="ptlDateValidTo" label="Gyldig til dato"/>
+            <column name="tufNpdidTuf" label="NPDID tuf"/>
+            <column name="ptlDateUpdated" label="Dato hovednivå oppdatert"/>
+            <column name="ptlDateUpdatedMax" label="Dato alle oppdatert"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="TUF_PETREG_LICENCE_LICENCEE" label="Tuf Petreg Licence Licencee">
+      <tables repcol="ptlName">
+        <table name="tuf_petreg_licence_licencee" owner="npd">
+          <pk>cmpNpdidCompany tufNpdidTuf</pk>
+          <group>
+            <column name="ptlName" label="Tillatelse"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="ptlLicenseeInterest" label="Andel [%]"/>
+            <column name="tufName" label="TUF" indexing="true"/>
+            <column name="tufNpdidTuf" label="NPDID tuf" untagged="true">
+              <join view="TUF_PETREG_LICENCE">
+                <condition from="tufNpdidTuf" to="tufNpdidTuf"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="ptlLicenseeDateUpdated" label="Dato oppdatert"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="TUF_PETREG_LICENCE_OPER" label="Tuf Petreg Licence Oper">
+      <tables repcol="Textbox42">
+        <table name="tuf_petreg_licence_oper" owner="npd">
+          <pk>tufNpdidTuf</pk>
+          <group>
+            <column name="Textbox42" label="Textbox42"/>
+            <column name="Textbox2" label="Textbox2" indexing="true"/>
+            <column name="ptlName" label="Tillatelse" indexing="true"/>
+            <column name="cmpLongName" label="Company name" indexing="true"/>
+            <column name="tufName" label="TUF" indexing="true"/>
+            <column name="tufNpdidTuf" label="NPDID tuf" untagged="true">
+              <join view="TUF_PETREG_LICENCE">
+                <condition from="tufNpdidTuf" to="tufNpdidTuf"/>
+              </join>
+            </column>
+            <column name="cmpNpdidCompany" label="NPDID company" untagged="true">
+              <join view="COMPANY">
+                <condition from="cmpNpdidCompany" to="cmpNpdidCompany"/>
+              </join>
+            </column>
+            <column name="ptlOperDateUpdated" label="Dato oppdatert"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="TUF_PETREG_MESSAGE" label="Tuf Petreg Message">
+      <tables repcol="ptlName">
+        <table name="tuf_petreg_message" owner="npd">
+          <pk>tufNpdidTuf ptlMessageDocumentNo</pk>
+          <group>
+            <column name="ptlName" label="Tillatelse"/>
+            <column name="ptlMessageDocumentNo" label="Ptl Message Document No"/>
+            <!-- Error reading text datatype from database link !!! http://stackoverflow.com/questions/20645105/mysql-and-oracle-issue-using-dblink -->
+            <!-- <column name="ptlMessage" label="Utdrag av dokument"/> -->
+            <column name="ptlMessageRegisteredDate" label="Registreringsdato"/>
+            <column name="ptlMessageKindDesc" label="Type" indexing="true"/>
+            <column name="tufName" label="TUF" indexing="true"/>
+            <column name="ptlMessageDateUpdated" label="Dato oppdatert"/>
+            <column name="tufNpdidTuf" label="NPDID tuf" untagged="true">
+              <join view="TUF_PETREG_LICENCE">
+                <condition from="tufNpdidTuf" to="tufNpdidTuf"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_CASING_AND_LOT" label="Wellbore Casing And Lot">
+      <tables repcol="wlbName">
+        <table name="wellbore_casing_and_lot" owner="npd">
+          <pk>wlbNpdidWellbore wellbore_casing_and_lot_id</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbCasingType" label="Casing type" indexing="true"/>
+            <column name="wlbCasingDiameter" label="Casing diam. [inch]" indexing="true"/>
+            <column name="wlbCasingDepth" label="Casing depth [m]"/>
+            <column name="wlbHoleDiameter" label="Hole diam. [inch]" indexing="true"/>
+            <column name="wlbHoleDepth" label="Hole depth[m]"/>
+            <column name="wlbLotMudDencity" label="LOT mud eqv. [g/cm3]"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbCasingDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+            <column name="wellbore_casing_and_lot_id" label="Wellbore Casing And Lot Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_COORDINATES" label="Wellbore Coordinates">
+      <tables repcol="wlbWellboreName">
+        <table name="wellbore_coordinates" owner="npd">
+          <pk>wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbWellboreName" label="Wellbore name"/>
+            <column name="wlbDrillingOperator" label="Drilling operator" indexing="true"/>
+            <column name="wlbProductionLicence" label="Drilled in production licence" indexing="true"/>
+            <column name="wlbWellType" label="Type" indexing="true"/>
+            <column name="wlbPurposePlanned" label="Purpose - planned" indexing="true"/>
+            <column name="wlbContent" label="Content" indexing="true"/>
+            <column name="wlbEntryDate" label="Entry date"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="wlbField" label="Field" indexing="true"/>
+            <column name="wlbMainArea" label="Main area" indexing="true"/>
+            <column name="wlbGeodeticDatum" label="Geodetic datum" indexing="true"/>
+            <column name="wlbNsDeg" label="NS degrees"/>
+            <column name="wlbNsMin" label="NS minutes"/>
+            <column name="wlbNsSec" label="NS seconds"/>
+            <column name="wlbNsCode" label="NS code" indexing="true"/>
+            <column name="wlbEwDeg" label="EW degrees"/>
+            <column name="wlbEwMin" label="EW minutes"/>
+            <column name="wlbEwSec" label="EW seconds"/>
+            <column name="wlbEwCode" label="EW code" indexing="true"/>
+            <column name="wlbNsDecDeg" label="NS decimal degrees"/>
+            <column name="wlbEwDesDeg" label="EW decimal degrees"/>
+            <column name="wlbNsUtm" label="NS UTM [m]"/>
+            <column name="wlbEwUtm" label="EW UTM [m]"/>
+            <column name="wlbUtmZone" label="UTM zone"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_CORE" label="Wellbore Core">
+      <tables repcol="wlbName">
+        <table name="wellbore_core" owner="npd">
+          <pk>wlbNpdidWellbore wlbCoreNumber wellbore_core_id</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbCoreNumber" label="Core sample number"/>
+            <column name="wlbCoreIntervalTop" label="Core sample - top depth"/>
+            <column name="wlbCoreIntervalBottom" label="Core sample - bottom depth"/>
+            <column name="wlbCoreIntervalUom" label="Core sample depth - uom" indexing="true"/>
+            <column name="wlbTotalCoreLength" label="Total core sample length [m]"/>
+            <column name="wlbNumberOfCores" label="Number of cores samples"/>
+            <column name="wlbCoreSampleAvailable" label="Core samples available" indexing="true"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbCoreDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+            <column name="wellbore_core_id" label="Wellbore Core Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_CORE_PHOTO" label="Wellbore Core Photo">
+      <tables repcol="wlbName">
+        <table name="wellbore_core_photo" owner="npd">
+          <pk>wlbNpdidWellbore wellbore_core_photo_id wlbCoreNumber wlbCorePhotoTitle</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbCoreNumber" label="Core sample number"/>
+            <column name="wlbCorePhotoTitle" label="Core photo title" indexing="true"/>
+            <column name="wlbCorePhotoImgUrl" label="Core photo URL" indexing="true"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbCorePhotoDateUpdated" label="Date updated"/>
+            <column name="wellbore_core_photo_id" label="Wellbore Core Photo Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_DEVELOPMENT_ALL" label="Wellbore Development All">
+      <tables repcol="wlbWellboreName">
+        <table name="wellbore_development_all" owner="npd">
+          <pk>wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbWellboreName" label="Wellbore name"/>
+            <column name="wlbWell" label="Well name" indexing="true"/>
+            <column name="wlbDrillingOperator" label="Drilling operator" untagged="true">
+              <join view="COMPANY">
+                <condition from="wlbDrillingOperator" to="cmpLongName"/>
+              </join>
+            </column>
+            <column name="wlbDrillingOperatorGroup" label="Drilling operator group" indexing="true"/>
+            <column name="wlbProductionLicence" label="Drilled in production licence" indexing="true"/>
+            <column name="wlbPurposePlanned" label="Purpose - planned" indexing="true"/>
+            <column name="wlbContent" label="Content" indexing="true"/>
+            <column name="wlbWellType" label="Type" indexing="true"/>
+            <column name="wlbEntryDate" label="Entry date"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="wlbField" label="Field" indexing="true"/>
+            <column name="wlbDrillPermit" label="Drill permit" indexing="true"/>
+            <column name="wlbDiscovery" label="Discovery" indexing="true"/>
+            <column name="wlbDiscoveryWellbore" label="Discovery wellbore" indexing="true"/>
+            <column name="wlbKellyBushElevation" label="Kelly bushing elevation [m]"/>
+            <column name="wlbFinalVerticalDepth" label="Final vertical depth (TVD) [m RKB]"/>
+            <column name="wlbTotalDepth" label="Total depth (MD) [m RKB]"/>
+            <column name="wlbWaterDepth" label="Water depth [m]"/>
+            <column name="wlbMainArea" label="Main area" indexing="true"/>
+            <column name="wlbDrillingFacility" label="Drilling facility" indexing="true"/>
+            <column name="wlbFacilityTypeDrilling" label="Facility type, drilling" indexing="true"/>
+            <column name="wlbProductionFacility" label="Production facility" indexing="true"/>
+            <column name="wlbLicensingActivity" label="Licensing activity awarded in" indexing="true"/>
+            <column name="wlbMultilateral" label="Multilateral" indexing="true"/>
+            <column name="wlbContentPlanned" label="Content - planned" indexing="true"/>
+            <column name="wlbEntryYear" label="Entry year"/>
+            <column name="wlbCompletionYear" label="Completion year"/>
+            <column name="wlbReclassFromWellbore" label="Reclassified from wellbore" indexing="true"/>
+            <column name="wlbPlotSymbol" label="Plot symbol"/>
+            <column name="wlbGeodeticDatum" label="Geodetic datum" indexing="true"/>
+            <column name="wlbNsDeg" label="NS degrees"/>
+            <column name="wlbNsMin" label="NS minutes"/>
+            <column name="wlbNsSec" label="NS seconds"/>
+            <column name="wlbNsCode" label="NS code" indexing="true"/>
+            <column name="wlbEwDeg" label="EW degrees"/>
+            <column name="wlbEwMin" label="EW minutes"/>
+            <column name="wlbEwSec" label="EW seconds"/>
+            <column name="wlbEwCode" label="EW code" indexing="true"/>
+            <column name="wlbNsDecDeg" label="NS decimal degrees"/>
+            <column name="wlbEwDesDeg" label="EW decimal degrees"/>
+            <column name="wlbNsUtm" label="NS UTM [m]"/>
+            <column name="wlbEwUtm" label="EW UTM [m]"/>
+            <column name="wlbUtmZone" label="UTM zone"/>
+            <column name="wlbNamePart1" label="Wellbore name, part 1"/>
+            <column name="wlbNamePart2" label="Wellbore name, part 2"/>
+            <column name="wlbNamePart3" label="Wellbore name, part 3" indexing="true"/>
+            <column name="wlbNamePart4" label="Wellbore name, part 4"/>
+            <column name="wlbNamePart5" label="Wellbore name, part 5" indexing="true"/>
+            <column name="wlbNamePart6" label="Wellbore name, part 6" indexing="true"/>
+            <column name="wlbFactPageUrl" label="FactPage url" indexing="true"/>
+            <column name="wlbFactMapUrl" label="FactMap url" indexing="true"/>
+            <column name="wlbDiskosWellboreType" label="DISKOS Well Type" indexing="true"/>
+            <column name="wlbDiskosWellboreParent" label="DISKOS Wellbore Parent" indexing="true"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="dscNpdidDiscovery" label="NPDID discovery" untagged="true">
+              <join view="DISCOVERY">
+                <condition from="dscNpdidDiscovery" to="dscNpdidDiscovery"/>
+              </join>
+            </column>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="wlbWdssQcdate" label="Wlb Wdss Qcdate"/>
+            <column name="prlNpdidProductionLicence" label="NPDID production licence drilled in" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidProductionLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="fclNpdidFacilityDrilling" label="NPDID drilling facility"/>
+            <column name="fclNpdidFacilityProducing" label="NPDID production facility"/>
+            <column name="wlbNpdidWellboreReclass" label="NPDID wellbore reclassified from" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellboreReclass" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbDiskosWellOperator" label="DISKOS well operator" untagged="true">
+              <join view="COMPANY">
+                <condition from="wlbDiskosWellOperator" to="cmpShortName"/>
+              </join>
+            </column>
+            <column name="wlbDateUpdated" label="Date main level updated"/>
+            <column name="wlbDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_DOCUMENT" label="Wellbore Document">
+      <tables repcol="wlbName">
+        <table name="wellbore_document" owner="npd">
+          <pk>wlbDocumentName wellbore_document_id wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbDocumentType" label="Document type" indexing="true"/>
+            <column name="wlbDocumentName" label="Document name" indexing="true"/>
+            <column name="wlbDocumentUrl" label="Document URL" indexing="true"/>
+            <column name="wlbDocumentFormat" label="Document format" indexing="true"/>
+            <column name="wlbDocumentSize" label="Document size [MB]"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbDocumentDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+            <column name="wellbore_document_id" label="Wellbore Document Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_DST" label="Wellbore Dst">
+      <tables repcol="wlbName">
+        <table name="wellbore_dst" owner="npd">
+          <pk>wlbNpdidWellbore wlbDstTestNumber</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbDstTestNumber" label="Test number"/>
+            <column name="wlbDstFromDepth" label="From depth MD [m]"/>
+            <column name="wlbDstToDepth" label="To depth MD [m]"/>
+            <column name="wlbDstChokeSize" label="Choke size [mm]"/>
+            <column name="wlbDstFinShutInPress" label="Final shut-in pressure [MPa]"/>
+            <column name="wlbDstFinFlowPress" label="Final flow pressure [MPa]"/>
+            <column name="wlbDstBottomHolePress" label="Bottom hole pressure [MPa]"/>
+            <column name="wlbDstOilProd" label="Oil [Sm3/day]"/>
+            <column name="wlbDstGasProd" label="Gas [Sm3/day]"/>
+            <column name="wlbDstOilDensity" label="Oil density [g/cm3]"/>
+            <column name="wlbDstGasDensity" label="Gas grav. rel.air"/>
+            <column name="wlbDstGasOilRelation" label="GOR [m3/m3]"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbDstDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_EXPLORATION_ALL" label="Wellbore Exploration All">
+      <tables repcol="wlbWellboreName">
+        <table name="wellbore_exploration_all" owner="npd">
+          <pk>wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbWellboreName" label="Wellbore name"/>
+            <column name="wlbWell" label="Well name" indexing="true"/>
+            <column name="wlbDrillingOperator" label="Drilling operator" untagged="true">
+              <join view="COMPANY">
+                <condition from="wlbDrillingOperator" to="cmpLongName"/>
+              </join>
+            </column>
+            <column name="wlbDrillingOperatorGroup" label="Drilling operator group" indexing="true"/>
+            <column name="wlbProductionLicence" label="Drilled in production licence" indexing="true"/>
+            <column name="wlbPurpose" label="Purpose" indexing="true"/>
+            <column name="wlbStatus" label="Status" indexing="true"/>
+            <column name="wlbContent" label="Content" indexing="true"/>
+            <column name="wlbWellType" label="Type" indexing="true"/>
+            <column name="wlbEntryDate" label="Entry date"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="wlbField" label="Field" indexing="true"/>
+            <column name="wlbDrillPermit" label="Drill permit" indexing="true"/>
+            <column name="wlbDiscovery" label="Discovery" indexing="true"/>
+            <column name="wlbDiscoveryWellbore" label="Discovery wellbore" indexing="true"/>
+            <column name="wlbBottomHoleTemperature" label="Bottom hole temperature [°C]"/>
+            <column name="wlbSeismicLocation" label="Seismic location" indexing="true"/>
+            <column name="wlbMaxInclation" label="Maximum inclination [°]"/>
+            <column name="wlbKellyBushElevation" label="Kelly bushing elevation [m]"/>
+            <column name="wlbFinalVerticalDepth" label="Final vertical depth (TVD) [m RKB]"/>
+            <column name="wlbTotalDepth" label="Total depth (MD) [m RKB]"/>
+            <column name="wlbWaterDepth" label="Water depth [m]"/>
+            <column name="wlbAgeAtTd" label="Oldest penetrated age" indexing="true"/>
+            <column name="wlbFormationAtTd" label="Oldest penetrated formation" indexing="true"/>
+            <column name="wlbMainArea" label="Main area" indexing="true"/>
+            <column name="wlbDrillingFacility" label="Drilling facility" indexing="true"/>
+            <column name="wlbFacilityTypeDrilling" label="Facility type, drilling" indexing="true"/>
+            <column name="wlbLicensingActivity" label="Licensing activity awarded in" indexing="true"/>
+            <column name="wlbMultilateral" label="Multilateral" indexing="true"/>
+            <column name="wlbPurposePlanned" label="Purpose - planned" indexing="true"/>
+            <column name="wlbEntryYear" label="Entry year"/>
+            <column name="wlbCompletionYear" label="Completion year"/>
+            <column name="wlbReclassFromWellbore" label="Reclassified from wellbore" indexing="true"/>
+            <column name="wlbReentryExplorationActivity" label="Reentry activity" indexing="true"/>
+            <column name="wlbPlotSymbol" label="Plot symbol"/>
+            <column name="wlbFormationWithHc1" label="1st level with HC, formation" indexing="true"/>
+            <column name="wlbAgeWithHc1" label="1st level with HC, age" indexing="true"/>
+            <column name="wlbFormationWithHc2" label="2nd level with HC, formation" indexing="true"/>
+            <column name="wlbAgeWithHc2" label="2nd level with HC, age" indexing="true"/>
+            <column name="wlbFormationWithHc3" label="3rd level with HC, formation" indexing="true"/>
+            <column name="wlbAgeWithHc3" label="3rd level with HC, age"/>
+            <column name="wlbDrillingDays" label="Drilling days"/>
+            <column name="wlbReentry" label="Reentry" indexing="true"/>
+            <column name="wlbGeodeticDatum" label="Geodetic datum" indexing="true"/>
+            <column name="wlbNsDeg" label="NS degrees"/>
+            <column name="wlbNsMin" label="NS minutes"/>
+            <column name="wlbNsSec" label="NS seconds"/>
+            <column name="wlbNsCode" label="NS code" indexing="true"/>
+            <column name="wlbEwDeg" label="EW degrees"/>
+            <column name="wlbEwMin" label="EW minutes"/>
+            <column name="wlbEwSec" label="EW seconds"/>
+            <column name="wlbEwCode" label="EW code" indexing="true"/>
+            <column name="wlbNsDecDeg" label="NS decimal degrees"/>
+            <column name="wlbEwDesDeg" label="EW decimal degrees"/>
+            <column name="wlbNsUtm" label="NS UTM [m]"/>
+            <column name="wlbEwUtm" label="EW UTM [m]"/>
+            <column name="wlbUtmZone" label="UTM zone"/>
+            <column name="wlbNamePart1" label="Wellbore name, part 1"/>
+            <column name="wlbNamePart2" label="Wellbore name, part 2"/>
+            <column name="wlbNamePart3" label="Wellbore name, part 3" indexing="true"/>
+            <column name="wlbNamePart4" label="Wellbore name, part 4"/>
+            <column name="wlbNamePart5" label="Wellbore name, part 5" indexing="true"/>
+            <column name="wlbNamePart6" label="Wellbore name, part 6" indexing="true"/>
+            <column name="wlbPressReleaseUrl" label="Wlb Press Release Url" indexing="true"/>
+            <column name="wlbFactPageUrl" label="FactPage url" indexing="true"/>
+            <column name="wlbFactMapUrl" label="FactMap url" indexing="true"/>
+            <column name="wlbDiskosWellboreType" label="DISKOS Well Type" indexing="true"/>
+            <column name="wlbDiskosWellboreParent" label="DISKOS Wellbore Parent" indexing="true"/>
+            <column name="wlbWdssQcDate" label="WDSS QC date"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="dscNpdidDiscovery" label="NPDID discovery" untagged="true">
+              <join view="DISCOVERY">
+                <condition from="dscNpdidDiscovery" to="dscNpdidDiscovery"/>
+              </join>
+            </column>
+            <column name="fldNpdidField" label="NPDID field" untagged="true">
+              <join view="FIELD">
+                <condition from="fldNpdidField" to="fldNpdidField"/>
+              </join>
+            </column>
+            <column name="fclNpdidFacilityDrilling" label="NPDID drilling facility"/>
+            <column name="wlbNpdidWellboreReclass" label="NPDID wellbore reclassified from" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellboreReclass" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="prlNpdidProductionLicence" label="NPDID production licence drilled in" untagged="true">
+              <join view="LICENCE">
+                <condition from="prlNpdidProductionLicence" to="prlNpdidLicence"/>
+              </join>
+            </column>
+            <column name="wlbDiskosWellOperator" label="DISKOS well operator" indexing="true"/>
+            <column name="wlbDateUpdated" label="Date main level updated"/>
+            <column name="wlbDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_FORMATION_TOP" label="Wellbore Formation Top">
+      <tables repcol="wlbName">
+        <table name="wellbore_formation_top" owner="npd">
+          <pk>wlbNpdidWellbore lsuTopDepth lsuNpdidLithoStrat lsuBottomDepth</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="lsuTopDepth" label="Top depth [m]"/>
+            <column name="lsuBottomDepth" label="Bottom depth [m]"/>
+            <column name="lsuName" label="Lithostrat. unit" indexing="true"/>
+            <column name="lsuLevel" label="Level" indexing="true"/>
+            <column name="lsuNameParent" label="Lithostrat. unit, parent" indexing="true"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="lsuNpdidLithoStrat" label="NPDID lithostrat. unit"/>
+            <column name="lsuNpdidLithoStratParent" label="NPDID parent lithostrat. unit"/>
+            <column name="lsuWellboreUpdatedDate" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_MUD" label="Wellbore Mud">
+      <tables repcol="wlbName">
+        <table name="wellbore_mud" owner="npd">
+          <pk>wlbNpdidWellbore wellbore_mud_id</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbMD" label="Depth MD [m]"/>
+            <column name="wlbMudWeightAtMD" label="Mud weight [g/cm3]"/>
+            <column name="wlbMudViscosityAtMD" label="Visc. [mPa.s]"/>
+            <column name="wlbYieldPointAtMD" label="Yield point [Pa]"/>
+            <column name="wlbMudType" label="Mud type" indexing="true"/>
+            <column name="wlbMudDateMeasured" label="Date measured"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbMudDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+            <column name="wellbore_mud_id" label="Wellbore Mud Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_NPDID_OVERVIEW" label="Wellbore Npdid Overview">
+      <tables repcol="wlbWellboreName">
+        <table name="wellbore_npdid_overview" owner="npd">
+          <pk>wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbWellboreName" label="Wellbore name"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore"/>
+            <column name="wlbWell" label="Well name" indexing="true"/>
+            <column name="wlbWellType" label="Type" indexing="true"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_OIL_SAMPLE" label="Wellbore Oil Sample">
+      <tables repcol="wlbName">
+        <table name="wellbore_oil_sample" owner="npd">
+          <pk>wlbNpdidWellbore wellbore_oil_sample_id</pk>
+          <group>
+            <column name="wlbName" label="Wellbore name"/>
+            <column name="wlbOilSampleTestType" label="Test type" indexing="true"/>
+            <column name="wlbOilSampleTestNumber" label="Bottle test number" indexing="true"/>
+            <column name="wlbOilSampleTopDepth" label="Top depth MD [m]"/>
+            <column name="wlbOilSampleBottomDepth" label="Bottom depth MD [m]"/>
+            <column name="wlbOilSampleFluidType" label="Fluid type" indexing="true"/>
+            <column name="wlbOilSampleTestDate" label="Test date and time of day"/>
+            <column name="wlbOilSampledateReceivedDate" label="Received date"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbOilSampleDateUpdated" label="Date updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+            <column name="wellbore_oil_sample_id" label="Wellbore Oil Sample Id"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WELLBORE_SHALLOW_ALL" label="Wellbore Shallow All">
+      <tables repcol="wlbWellboreName">
+        <table name="wellbore_shallow_all" owner="npd">
+          <pk>wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbWellboreName" label="Wellbore name"/>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbWell" label="Well name" indexing="true"/>
+            <column name="wlbDrillingOperator" label="Drilling operator" indexing="true"/>
+            <column name="wlbProductionLicence" label="Drilled in production licence" indexing="true"/>
+            <column name="wlbDrillingFacility" label="Drilling facility" indexing="true"/>
+            <column name="wlbEntryDate" label="Entry date"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="wlbDrillPermit" label="Drill permit" indexing="true"/>
+            <column name="wlbTotalDepth" label="Total depth (MD) [m RKB]"/>
+            <column name="wlbWaterDepth" label="Water depth [m]"/>
+            <column name="wlbMainArea" label="Main area" indexing="true"/>
+            <column name="wlbEntryYear" label="Entry year"/>
+            <column name="wlbCompletionYear" label="Completion year"/>
+            <column name="wlbSeismicLocation" label="Seismic location" indexing="true"/>
+            <column name="wlbGeodeticDatum" label="Geodetic datum" indexing="true"/>
+            <column name="wlbNsDeg" label="NS degrees"/>
+            <column name="wlbNsMin" label="NS minutes"/>
+            <column name="wlbNsSec" label="NS seconds"/>
+            <column name="wlbNsCode" label="NS code" indexing="true"/>
+            <column name="wlbEwDeg" label="EW degrees"/>
+            <column name="wlbEwMin" label="EW minutes"/>
+            <column name="wlbEwSec" label="EW seconds"/>
+            <column name="wlbEwCode" label="EW code" indexing="true"/>
+            <column name="wlbNsDecDeg" label="NS decimal degrees"/>
+            <column name="wlbEwDesDeg" label="EW decimal degrees"/>
+            <column name="wlbNsUtm" label="NS UTM [m]"/>
+            <column name="wlbEwUtm" label="EW UTM [m]"/>
+            <column name="wlbUtmZone" label="UTM zone"/>
+            <column name="wlbNamePart1" label="Wellbore name, part 1"/>
+            <column name="wlbNamePart2" label="Wellbore name, part 2"/>
+            <column name="wlbNamePart3" label="Wellbore name, part 3" indexing="true"/>
+            <column name="wlbNamePart4" label="Wellbore name, part 4"/>
+            <column name="wlbNamePart5" label="Wellbore name, part 5" indexing="true"/>
+            <column name="wlbNamePart6" label="Wellbore name, part 6" indexing="true"/>
+            <column name="wlbDateUpdated" label="Date main level updated"/>
+            <column name="wlbDateUpdatedMax" label="Date all updated"/>
+            <column name="dateSyncNPD" label="Date Syncnpd"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view origin="NPD" name="WLBPOINT" label="Wlb Point">
+      <tables repcol="wlbNpdidWellbore">
+        <table name="wlbPoint" owner="npd">
+          <pk>wlbNpdidWellbore</pk>
+          <group>
+            <column name="wlbNpdidWellbore" label="NPDID wellbore" untagged="true">
+              <join view="WELLBORE_NPDID_OVERVIEW">
+                <condition from="wlbNpdidWellbore" to="wlbNpdidWellbore"/>
+              </join>
+            </column>
+            <column name="wlbWellName" label="Wlb Well Name" indexing="true"/>
+            <column name="wlbWellboreName" label="Wellbore name" indexing="true"/>
+            <column name="wlbField" label="Field" indexing="true"/>
+            <column name="wlbProductionLicence" label="Drilled in production licence" indexing="true"/>
+            <column name="wlbWellType" label="Type" indexing="true"/>
+            <column name="wlbDrillingOperator" label="Drilling operator" indexing="true"/>
+            <column name="wlbMultilateral" label="Multilateral" indexing="true"/>
+            <column name="wlbDrillingFacility" label="Drilling facility" indexing="true"/>
+            <column name="wlbProductionFacility" label="Production facility" indexing="true"/>
+            <column name="wlbEntryDate" label="Entry date"/>
+            <column name="wlbCompletionDate" label="Completion date"/>
+            <column name="wlbContent" label="Content" indexing="true"/>
+            <column name="wlbStatus" label="Status" indexing="true"/>
+            <column name="wlbSymbol" label="Wlb Symbol"/>
+            <column name="wlbPurpose" label="Purpose" indexing="true"/>
+            <column name="wlbWaterDepth" label="Water depth [m]"/>
+            <column name="wlbFactPageUrl" label="FactPage url" indexing="true"/>
+            <column name="wlbFactMapUrl" label="FactMap url" indexing="true"/>
+            <column name="wlbDiscoveryWellbore" label="Discovery wellbore" indexing="true"/>
+            <!-- Unsupported geometry -->
+            <!-- <column name="wlbPointGeometryWKT" label="Wlb Point Geometrywkt"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+  </views>
+</mapping>

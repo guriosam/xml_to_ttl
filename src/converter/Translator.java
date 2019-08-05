@@ -1,13 +1,17 @@
 package converter;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
-import objects.ColumnXML;
-import objects.ConfigXML;
-import objects.DatabasesXML;
-import objects.TTLSchema;
-import objects.ViewsXML;
-import objects.XMLGeneric;
+import objects_xml.ColumnXML;
+import objects_xml.ConfigXML;
+import objects_xml.DatabaseXML;
+import objects_xml.DatabasesXML;
+import objects_xml.ViewsXML;
+import objects_xml.XMLGeneric;
+import utils.IO;
 
 public class Translator {
 
@@ -18,16 +22,48 @@ public class Translator {
 	private boolean databases;
 	private boolean config;
 
+	public Translator() {
+		xmlObject = new XMLGeneric();
+	}
+
+	/**
+	 * Method responsible for converting the given XML (in a list of lines) to a
+	 * String (in TTL) representation.
+	 * 
+	 * @param path to XML file
+	 * @return toStringTTL of the XML file.
+	 * @throws FileNotFoundException
+	 */
+	public String xmlToTTL(String xmlPath) throws FileNotFoundException {
+
+		if (xmlObject != null) {
+			return xmlObject.printTTL();
+		}
+
+		return xmlToObject(xmlPath).printTTL();
+	}
+
 	/**
 	 * Method responsible for converting the given XML (in a list of lines) to a
 	 * Java Object.
 	 * 
-	 * @param fileLines of the given XML file
-	 * @return toStringXML of the Java Object (for comparison)
+	 * @param path to XML file
+	 * @return a Java Object representation of the XML file
+	 * @throws FileNotFoundException
 	 */
-	public String xmlToObject(List<String> fileLines) {
+	public XMLGeneric xmlToObject(String xmlPath) throws FileNotFoundException {
 
-		xmlObject = new XMLGeneric();
+		File f = new File(xmlPath);
+		List<String> fileLines = new ArrayList<>();
+
+		// Checking if the file is still there and isn't a folder
+		if (!f.exists() || f.isDirectory()) {
+			throw new FileNotFoundException();
+		}
+
+		// collecting the fileLines
+		System.out.println(xmlPath);
+		fileLines = IO.readAnyFile(xmlPath);
 
 		skip = false;
 
@@ -63,8 +99,15 @@ public class Translator {
 				if (config) {
 					xmlObject.getConfigXML().collectConfig(fileLine);
 				} else if (databases) {
-					// If is in the database namespace
-					xmlObject.getDatabasesXML().getLastDatabase().collectDatabase(fileLine);
+
+					if (fileLine.matches("<(\\w)*>")) {
+						xmlObject.getDatabasesXML().getDatabases().add(new DatabaseXML(fileLine));
+						System.out.println(fileLine);
+					} else if (fileLine.matches("<[/](\\w)*>(\\s)*")) {
+						continue;
+					} else {
+						xmlObject.getDatabasesXML().getLastDatabase().collectDatabase(fileLine);
+					}
 				} else if (views) {
 					// If is in the Views namespace
 					xmlObject.collectViews(fileLine);
@@ -77,9 +120,7 @@ public class Translator {
 
 		}
 
-		System.out.println(xmlObject.printTTL());
-
-		return "";
+		return xmlObject;
 
 	}
 
@@ -106,7 +147,7 @@ public class Translator {
 			databases = true;
 			xmlObject.setDatabasesXML(new DatabasesXML());
 			return true;
-		} else if (fileLine.matches("<[/]dabatases>")) {
+		} else if (fileLine.matches("<[/]databases>")) {
 			databases = false;
 			return true;
 		}
@@ -167,6 +208,15 @@ public class Translator {
 
 		if (fileLine.contains("<documents")) {
 			skip = true;
+		}
+
+		if (fileLine.contains("<file")) {
+			skip = true;
+		}
+
+		if (fileLine.contains("</file")) {
+			skip = false;
+			return false;
 		}
 
 		if (fileLine.contains("</documents")) {

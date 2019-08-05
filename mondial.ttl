@@ -1,0 +1,1292 @@
+@prefix d2rq:  <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+map:AIRPORT rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:AIRPORT ;
+d2rq:classDefinitionLabel	vocab:Airport ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@AIRPORT.IATACODE@@" .
+
+map:AIRPORT__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:AIRPORT ;
+d2rq:pattern		"@@AIRPORT.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:AIRPORT_IATACODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.IATACODE" ;
+d2rq:property                 vocab:AIRPORT_IATACODE ;
+d2rq:propertyDefinitionLabel	"Airport Code" .
+
+map:AIRPORT_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.NAME" ;
+d2rq:property                 vocab:AIRPORT_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:AIRPORT_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:join                   "AIRPORT.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:AIRPORT_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:AIRPORT_CITY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:join                   "AIRPORT.CITY<=CITY.NAME" ;
+d2rq:propertyDefinitionLabel "City" ;
+d2rq:property                 vocab:AIRPORT_CITY ;
+d2rq:refersToClassMap	map:CITY .
+
+map:AIRPORT_PROVINCE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.PROVINCE" ;
+d2rq:property                 vocab:AIRPORT_PROVINCE ;
+d2rq:propertyDefinitionLabel	"Province" .
+
+map:AIRPORT_ISLAND	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.ISLAND" ;
+d2rq:property                 vocab:AIRPORT_ISLAND ;
+d2rq:propertyDefinitionLabel	"Island" .
+
+map:AIRPORT_LATITUDE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.LATITUDE" ;
+d2rq:property                 vocab:AIRPORT_LATITUDE ;
+d2rq:propertyDefinitionLabel	"Latitude" .
+
+map:AIRPORT_LONGITUDE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.LONGITUDE" ;
+d2rq:property                 vocab:AIRPORT_LONGITUDE ;
+d2rq:propertyDefinitionLabel	"Longitude" .
+
+map:AIRPORT_ELEVATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.ELEVATION" ;
+d2rq:property                 vocab:AIRPORT_ELEVATION ;
+d2rq:propertyDefinitionLabel	"Elevation" .
+
+map:AIRPORT_GMTOFFSET	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:AIRPORT ;
+d2rq:column                   "AIRPORT.GMTOFFSET" ;
+d2rq:property                 vocab:AIRPORT_GMTOFFSET ;
+d2rq:propertyDefinitionLabel	"GMT Offset" .
+
+map:BORDERS rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:BORDERS ;
+d2rq:classDefinitionLabel	vocab:Borders ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@BORDERS.COUNTRY1 COUNTRY2@@_@@BORDERS.COUNTRY1@@_@@BORDERS.COUNTRY2@@" .
+
+map:BORDERS__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:BORDERS ;
+d2rq:pattern		"@@BORDERS.C1@@" ;
+d2rq:property		rdfs:label .
+
+map:BORDERS_COUNTRY1__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BORDERS ;
+d2rq:join                   "BORDERS.COUNTRY1<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country1" ;
+d2rq:property                 vocab:BORDERS_COUNTRY1 ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:BORDERS_COUNTRY2__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BORDERS ;
+d2rq:join                   "BORDERS.COUNTRY2<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country2" ;
+d2rq:property                 vocab:BORDERS_COUNTRY2 ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:BORDERS_LENGTH	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BORDERS ;
+d2rq:column                   "BORDERS.LENGTH" ;
+d2rq:property                 vocab:BORDERS_LENGTH ;
+d2rq:propertyDefinitionLabel	"Length" .
+
+map:BORDERS_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BORDERS ;
+d2rq:column                   "BORDERS.CODE" ;
+d2rq:property                 vocab:BORDERS_CODE ;
+d2rq:propertyDefinitionLabel	"Code" .
+
+map:BORDERS_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BORDERS ;
+d2rq:column                   "BORDERS.CODE" ;
+d2rq:property                 vocab:BORDERS_CODE ;
+d2rq:propertyDefinitionLabel	"Code" .
+
+map:CITY rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:CITY ;
+d2rq:classDefinitionLabel	vocab:City ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@CITY.NAME PROVINCE COUNTRY@@" .
+
+map:CITY__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:CITY ;
+d2rq:pattern		"@@CITY.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:CITY_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:column                   "CITY.NAME" ;
+d2rq:property                 vocab:CITY_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:CITY_COUNTRY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:column                   "CITY.COUNTRY" ;
+d2rq:property                 vocab:CITY_COUNTRY ;
+d2rq:propertyDefinitionLabel	"Country" .
+
+map:CITY_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:join                   "CITY.PROVINCE<=PROVINCE.NAME" ;
+d2rq:join                   "CITY.COUNTRY<=PROVINCE.COUNTRY" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:CITY_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:CITY_POPULATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:column                   "CITY.POPULATION" ;
+d2rq:property                 vocab:CITY_POPULATION ;
+d2rq:propertyDefinitionLabel	"Population" .
+
+map:CITY_LATITUDE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:column                   "CITY.LATITUDE" ;
+d2rq:property                 vocab:CITY_LATITUDE ;
+d2rq:propertyDefinitionLabel	"Latitude" .
+
+map:CITY_LONGITUDE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:column                   "CITY.LONGITUDE" ;
+d2rq:property                 vocab:CITY_LONGITUDE ;
+d2rq:propertyDefinitionLabel	"Longitude" .
+
+map:CITY_ELEVATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITY ;
+d2rq:column                   "CITY.ELEVATION" ;
+d2rq:property                 vocab:CITY_ELEVATION ;
+d2rq:propertyDefinitionLabel	"Elevation" .
+
+map:CITYOTHERNAME rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:CITYOTHERNAME ;
+d2rq:classDefinitionLabel	vocab:Other Name (City) ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@CITYOTHERNAME.OTHERNAME CITY PROVINCE COUNTRY@@" .
+
+map:CITYOTHERNAME__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:CITYOTHERNAME ;
+d2rq:pattern		"@@CITYOTHERNAME.OTHERNAME@@" ;
+d2rq:property		rdfs:label .
+
+map:CITYOTHERNAME_CITY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYOTHERNAME ;
+d2rq:join                   "CITYOTHERNAME.COUNTRY<=CITY.COUNTRY" ;
+d2rq:join                   "CITYOTHERNAME.CITY<=CITY.NAME" ;
+d2rq:join                   "CITYOTHERNAME.PROVINCE<=CITY.PROVINCE" ;
+d2rq:propertyDefinitionLabel "Main City Name" ;
+d2rq:property                 vocab:CITYOTHERNAME_CITY ;
+d2rq:refersToClassMap	map:CITY .
+
+map:CITYOTHERNAME_COUNTRY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYOTHERNAME ;
+d2rq:column                   "CITYOTHERNAME.COUNTRY" ;
+d2rq:property                 vocab:CITYOTHERNAME_COUNTRY ;
+d2rq:propertyDefinitionLabel	"Country" .
+
+map:CITYOTHERNAME_PROVINCE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYOTHERNAME ;
+d2rq:column                   "CITYOTHERNAME.PROVINCE" ;
+d2rq:property                 vocab:CITYOTHERNAME_PROVINCE ;
+d2rq:propertyDefinitionLabel	"Province" .
+
+map:CITYOTHERNAME_OTHERNAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYOTHERNAME ;
+d2rq:column                   "CITYOTHERNAME.OTHERNAME" ;
+d2rq:property                 vocab:CITYOTHERNAME_OTHERNAME ;
+d2rq:propertyDefinitionLabel	"Other Name" .
+
+map:CITYPOPS rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:CITYPOPS ;
+d2rq:classDefinitionLabel	vocab:Population (City) ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@CITYPOPS.CITY PROVINCE COUNTRY YEAR@@" .
+
+map:CITYPOPS__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:CITYPOPS ;
+d2rq:pattern		"@@CITYPOPS.CITY@@" ;
+d2rq:property		rdfs:label .
+
+map:CITYPOPS_CITY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYPOPS ;
+d2rq:join                   "CITYPOPS.COUNTRY<=CITY.COUNTRY" ;
+d2rq:join                   "CITYPOPS.CITY<=CITY.NAME" ;
+d2rq:join                   "CITYPOPS.PROVINCE<=CITY.PROVINCE" ;
+d2rq:propertyDefinitionLabel "City" ;
+d2rq:property                 vocab:CITYPOPS_CITY ;
+d2rq:refersToClassMap	map:CITY .
+
+map:CITYPOPS_PROVINCE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYPOPS ;
+d2rq:column                   "CITYPOPS.PROVINCE" ;
+d2rq:property                 vocab:CITYPOPS_PROVINCE ;
+d2rq:propertyDefinitionLabel	"Province" .
+
+map:CITYPOPS_YEAR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYPOPS ;
+d2rq:column                   "CITYPOPS.YEAR" ;
+d2rq:property                 vocab:CITYPOPS_YEAR ;
+d2rq:propertyDefinitionLabel	"Year" .
+
+map:CITYPOPS_POPULATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CITYPOPS ;
+d2rq:column                   "CITYPOPS.POPULATION" ;
+d2rq:property                 vocab:CITYPOPS_POPULATION ;
+d2rq:propertyDefinitionLabel	"Population" .
+
+map:CONTINENT rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:CONTINENT ;
+d2rq:classDefinitionLabel	vocab:Continent ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@CONTINENT.NAME@@" .
+
+map:CONTINENT__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:CONTINENT ;
+d2rq:pattern		"@@CONTINENT.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:CONTINENT_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CONTINENT ;
+d2rq:column                   "CONTINENT.NAME" ;
+d2rq:property                 vocab:CONTINENT_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:CONTINENT_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CONTINENT ;
+d2rq:column                   "CONTINENT.AREA" ;
+d2rq:property                 vocab:CONTINENT_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:COUNTRY rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:COUNTRY ;
+d2rq:classDefinitionLabel	vocab:Country ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@COUNTRY.CODE@@_@@COUNTRY.CODE@@" .
+
+map:COUNTRY__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:COUNTRY ;
+d2rq:pattern		"@@COUNTRY.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:COUNTRY_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.NAME" ;
+d2rq:property                 vocab:COUNTRY_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:COUNTRY_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.CODE" ;
+d2rq:property                 vocab:COUNTRY_CODE ;
+d2rq:propertyDefinitionLabel	"Code" .
+
+map:COUNTRY_CAPITAL	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.CAPITAL" ;
+d2rq:property                 vocab:COUNTRY_CAPITAL ;
+d2rq:propertyDefinitionLabel	"Capital" .
+
+map:COUNTRY_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.AREA" ;
+d2rq:property                 vocab:COUNTRY_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:COUNTRY_POPULATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.POPULATION" ;
+d2rq:property                 vocab:COUNTRY_POPULATION ;
+d2rq:propertyDefinitionLabel	"Population" .
+
+map:COUNTRY_COUNTRY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.COUNTRY" ;
+d2rq:property                 vocab:COUNTRY_COUNTRY ;
+d2rq:propertyDefinitionLabel	"Country" .
+
+map:COUNTRY_POPULATION_GROWTH	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.POPULATION_GROWTH" ;
+d2rq:property                 vocab:COUNTRY_POPULATION_GROWTH ;
+d2rq:propertyDefinitionLabel	"Population Growth" .
+
+map:COUNTRY_INFANT_MORTALITY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRY ;
+d2rq:column                   "COUNTRY.INFANT_MORTALITY" ;
+d2rq:property                 vocab:COUNTRY_INFANT_MORTALITY ;
+d2rq:propertyDefinitionLabel	"Infant Mortality" .
+
+map:COUNTRYPOPS rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:COUNTRYPOPS ;
+d2rq:classDefinitionLabel	vocab:Population (Country) ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@COUNTRYPOPS.YEAR COUNTRY@@_@@COUNTRYPOPS.COUNTRY@@" .
+
+map:COUNTRYPOPS__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:COUNTRYPOPS ;
+d2rq:pattern		"@@COUNTRYPOPS.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:COUNTRYPOPS_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRYPOPS ;
+d2rq:join                   "COUNTRYPOPS.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:COUNTRYPOPS_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:COUNTRYPOPS_YEAR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRYPOPS ;
+d2rq:column                   "COUNTRYPOPS.YEAR" ;
+d2rq:property                 vocab:COUNTRYPOPS_YEAR ;
+d2rq:propertyDefinitionLabel	"Year" .
+
+map:COUNTRYPOPS_POPULATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRYPOPS ;
+d2rq:column                   "COUNTRYPOPS.POPULATION" ;
+d2rq:property                 vocab:COUNTRYPOPS_POPULATION ;
+d2rq:propertyDefinitionLabel	"Population" .
+
+map:COUNTRYPOPS_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:COUNTRYPOPS ;
+d2rq:column                   "COUNTRYPOPS.CODE" ;
+d2rq:property                 vocab:COUNTRYPOPS_CODE ;
+d2rq:propertyDefinitionLabel	"Code" .
+
+map:DESERT rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:DESERT ;
+d2rq:classDefinitionLabel	vocab:Desert ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@DESERT.NAME @@" .
+
+map:DESERT__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:DESERT ;
+d2rq:pattern		"@@DESERT.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:DESERT_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:DESERT ;
+d2rq:column                   "DESERT.NAME" ;
+d2rq:property                 vocab:DESERT_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:DESERT_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:DESERT ;
+d2rq:column                   "DESERT.AREA" ;
+d2rq:property                 vocab:DESERT_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:ECONOMY rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ECONOMY ;
+d2rq:classDefinitionLabel	vocab:Economy ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ECONOMY.COUNTRY@@_@@ECONOMY.COUNTRY@@" .
+
+map:ECONOMY__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ECONOMY ;
+d2rq:pattern		"@@ECONOMY.'Economy@@" ;
+d2rq:property		rdfs:label .
+
+map:ECONOMY_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:join                   "ECONOMY.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:ECONOMY_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:ECONOMY_GDP	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.GDP" ;
+d2rq:property                 vocab:ECONOMY_GDP ;
+d2rq:propertyDefinitionLabel	"GDP" .
+
+map:ECONOMY_AGRICULTURE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.AGRICULTURE" ;
+d2rq:property                 vocab:ECONOMY_AGRICULTURE ;
+d2rq:propertyDefinitionLabel	"Agriculture" .
+
+map:ECONOMY_SERVICE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.SERVICE" ;
+d2rq:property                 vocab:ECONOMY_SERVICE ;
+d2rq:propertyDefinitionLabel	"Service" .
+
+map:ECONOMY_INDUSTRY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.INDUSTRY" ;
+d2rq:property                 vocab:ECONOMY_INDUSTRY ;
+d2rq:propertyDefinitionLabel	"Industry" .
+
+map:ECONOMY_INFLATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.INFLATION" ;
+d2rq:property                 vocab:ECONOMY_INFLATION ;
+d2rq:propertyDefinitionLabel	"Inflation" .
+
+map:ECONOMY_UNEMPLOYMENT	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.UNEMPLOYMENT" ;
+d2rq:property                 vocab:ECONOMY_UNEMPLOYMENT ;
+d2rq:propertyDefinitionLabel	"Unemployment" .
+
+map:ECONOMY_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ECONOMY ;
+d2rq:column                   "ECONOMY.CODE" ;
+d2rq:property                 vocab:ECONOMY_CODE ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:ENCOMPASSES rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ENCOMPASSES ;
+d2rq:classDefinitionLabel	vocab:Encompasses ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ENCOMPASSES.CONTINENT COUNTRY@@" .
+
+map:ENCOMPASSES__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ENCOMPASSES ;
+d2rq:pattern		"@@ENCOMPASSES.COUNTRY@@" ;
+d2rq:property		rdfs:label .
+
+map:ENCOMPASSES_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ENCOMPASSES ;
+d2rq:join                   "ENCOMPASSES.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:ENCOMPASSES_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:ENCOMPASSES_CONTINENT__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ENCOMPASSES ;
+d2rq:join                   "ENCOMPASSES.CONTINENT<=CONTINENT.NAME" ;
+d2rq:propertyDefinitionLabel "Continent" ;
+d2rq:property                 vocab:ENCOMPASSES_CONTINENT ;
+d2rq:refersToClassMap	map:CONTINENT .
+
+map:ENCOMPASSES_PERCENTAGE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ENCOMPASSES ;
+d2rq:column                   "ENCOMPASSES.PERCENTAGE" ;
+d2rq:property                 vocab:ENCOMPASSES_PERCENTAGE ;
+d2rq:propertyDefinitionLabel	"Percentage" .
+
+map:ETHNICGROUP rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ETHNICGROUP ;
+d2rq:classDefinitionLabel	vocab:Ethnic Group ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ETHNICGROUP.NAME COUNTRY@@" .
+
+map:ETHNICGROUP__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ETHNICGROUP ;
+d2rq:pattern		"@@ETHNICGROUP.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:ETHNICGROUP_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ETHNICGROUP ;
+d2rq:join                   "ETHNICGROUP.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:ETHNICGROUP_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:ETHNICGROUP_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ETHNICGROUP ;
+d2rq:column                   "ETHNICGROUP.NAME" ;
+d2rq:property                 vocab:ETHNICGROUP_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:ETHNICGROUP_PERCENTAGE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ETHNICGROUP ;
+d2rq:column                   "ETHNICGROUP.PERCENTAGE" ;
+d2rq:property                 vocab:ETHNICGROUP_PERCENTAGE ;
+d2rq:propertyDefinitionLabel	"Percentage" .
+
+map:GEO_DESERT rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:GEO_DESERT ;
+d2rq:classDefinitionLabel	vocab:Geo Desert ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@GEO_DESERT.DESERT PROVINCE COUNTRY@@" .
+
+map:GEO_DESERT__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:GEO_DESERT ;
+d2rq:pattern		"@@GEO_DESERT.DESERT@@" ;
+d2rq:property		rdfs:label .
+
+map:GEO_DESERT_DESERT__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:GEO_DESERT ;
+d2rq:join                   "GEO_DESERT.DESERT<=DESERT.NAME" ;
+d2rq:propertyDefinitionLabel "Desert" ;
+d2rq:property                 vocab:GEO_DESERT_DESERT ;
+d2rq:refersToClassMap	map:DESERT .
+
+map:GEO_DESERT_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:GEO_DESERT ;
+d2rq:join                   "GEO_DESERT.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:GEO_DESERT_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:GEO_DESERT_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:GEO_DESERT ;
+d2rq:join                   "GEO_DESERT.PROVINCE<=PROVINCE.NAME" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:GEO_DESERT_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:GEO_MOUNTAIN rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:GEO_MOUNTAIN ;
+d2rq:classDefinitionLabel	vocab:Geo Mountain ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@GEO_MOUNTAIN.MOUNTAIN COUNTRY PROVINCE@@" .
+
+map:GEO_MOUNTAIN__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:GEO_MOUNTAIN ;
+d2rq:pattern		"@@GEO_MOUNTAIN.MOUNTAIN@@" ;
+d2rq:property		rdfs:label .
+
+map:GEO_MOUNTAIN_MOUNTAIN__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:GEO_MOUNTAIN ;
+d2rq:join                   "GEO_MOUNTAIN.MOUNTAIN<=MOUNTAIN.NAME" ;
+d2rq:propertyDefinitionLabel "Mountain" ;
+d2rq:property                 vocab:GEO_MOUNTAIN_MOUNTAIN ;
+d2rq:refersToClassMap	map:MOUNTAIN .
+
+map:GEO_MOUNTAIN_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:GEO_MOUNTAIN ;
+d2rq:join                   "GEO_MOUNTAIN.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:GEO_MOUNTAIN_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:GEO_MOUNTAIN_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:GEO_MOUNTAIN ;
+d2rq:join                   "GEO_MOUNTAIN.PROVINCE<=PROVINCE.NAME" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:GEO_MOUNTAIN_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:ISLAND rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ISLAND ;
+d2rq:classDefinitionLabel	vocab:Island ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ISLAND.NAME@@" .
+
+map:ISLAND__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ISLAND ;
+d2rq:pattern		"@@ISLAND.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:ISLAND_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLAND ;
+d2rq:column                   "ISLAND.NAME" ;
+d2rq:property                 vocab:ISLAND_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:ISLAND_ISLANDS	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLAND ;
+d2rq:column                   "ISLAND.ISLANDS" ;
+d2rq:property                 vocab:ISLAND_ISLANDS ;
+d2rq:propertyDefinitionLabel	"Islands" .
+
+map:ISLAND_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLAND ;
+d2rq:column                   "ISLAND.AREA" ;
+d2rq:property                 vocab:ISLAND_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:ISLAND_ELEVATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLAND ;
+d2rq:column                   "ISLAND.ELEVATION" ;
+d2rq:property                 vocab:ISLAND_ELEVATION ;
+d2rq:propertyDefinitionLabel	"Elevation" .
+
+map:ISLAND_TYPE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLAND ;
+d2rq:column                   "ISLAND.TYPE" ;
+d2rq:property                 vocab:ISLAND_TYPE ;
+d2rq:propertyDefinitionLabel	"Type" .
+
+map:ISLANDIN rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ISLANDIN ;
+d2rq:classDefinitionLabel	vocab:Island In ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ISLANDIN.ISLAND@@" .
+
+map:ISLANDIN__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ISLANDIN ;
+d2rq:pattern		"@@ISLANDIN.ISLAND@@" ;
+d2rq:property		rdfs:label .
+
+map:ISLANDIN_ISLAND__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLANDIN ;
+d2rq:join                   "ISLANDIN.ISLAND<=ISLAND.NAME" ;
+d2rq:propertyDefinitionLabel "Island" ;
+d2rq:property                 vocab:ISLANDIN_ISLAND ;
+d2rq:refersToClassMap	map:ISLAND .
+
+map:ISLANDIN_SEA__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLANDIN ;
+d2rq:join                   "ISLANDIN.SEA<=SEA.NAME" ;
+d2rq:propertyDefinitionLabel "Sea" ;
+d2rq:property                 vocab:ISLANDIN_SEA ;
+d2rq:refersToClassMap	map:SEA .
+
+map:ISLANDIN_LAKE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLANDIN ;
+d2rq:join                   "ISLANDIN.LAKE<=LAKE.NAME" ;
+d2rq:propertyDefinitionLabel "Lake" ;
+d2rq:property                 vocab:ISLANDIN_LAKE ;
+d2rq:refersToClassMap	map:LAKE .
+
+map:ISLANDIN_RIVER__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISLANDIN ;
+d2rq:join                   "ISLANDIN.RIVER<=RIVER.NAME" ;
+d2rq:propertyDefinitionLabel "River" ;
+d2rq:property                 vocab:ISLANDIN_RIVER ;
+d2rq:refersToClassMap	map:RIVER .
+
+map:ISMEMBER rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ISMEMBER ;
+d2rq:classDefinitionLabel	vocab:Is Member ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ISMEMBER.COUNTRY ORGANIZATION@@_@@ISMEMBER.COUNTRY@@" .
+
+map:ISMEMBER__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ISMEMBER ;
+d2rq:pattern		"@@ISMEMBER.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:ISMEMBER_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISMEMBER ;
+d2rq:join                   "ISMEMBER.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:ISMEMBER_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:ISMEMBER_ORGANIZATION__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISMEMBER ;
+d2rq:join                   "ISMEMBER.ORGANIZATION<=ORGANIZATION.ABBREVIATION" ;
+d2rq:propertyDefinitionLabel "Organization" ;
+d2rq:property                 vocab:ISMEMBER_ORGANIZATION ;
+d2rq:refersToClassMap	map:ORGANIZATION .
+
+map:ISMEMBER_TYPE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISMEMBER ;
+d2rq:column                   "ISMEMBER.TYPE" ;
+d2rq:property                 vocab:ISMEMBER_TYPE ;
+d2rq:propertyDefinitionLabel	"Type" .
+
+map:ISMEMBER_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ISMEMBER ;
+d2rq:column                   "ISMEMBER.CODE" ;
+d2rq:property                 vocab:ISMEMBER_CODE ;
+d2rq:propertyDefinitionLabel	"Code" .
+
+map:LAKE rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:LAKE ;
+d2rq:classDefinitionLabel	vocab:Lake ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@LAKE.NAME@@" .
+
+map:LAKE__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:LAKE ;
+d2rq:pattern		"@@LAKE.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:LAKE_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LAKE ;
+d2rq:column                   "LAKE.NAME" ;
+d2rq:property                 vocab:LAKE_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:LAKE_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LAKE ;
+d2rq:column                   "LAKE.AREA" ;
+d2rq:property                 vocab:LAKE_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:LAKE_DEPTH	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LAKE ;
+d2rq:column                   "LAKE.DEPTH" ;
+d2rq:property                 vocab:LAKE_DEPTH ;
+d2rq:propertyDefinitionLabel	"Depth" .
+
+map:LAKE_ELEVATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LAKE ;
+d2rq:column                   "LAKE.ELEVATION" ;
+d2rq:property                 vocab:LAKE_ELEVATION ;
+d2rq:propertyDefinitionLabel	"Elevation" .
+
+map:LAKE_TYPE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LAKE ;
+d2rq:column                   "LAKE.TYPE" ;
+d2rq:property                 vocab:LAKE_TYPE ;
+d2rq:propertyDefinitionLabel	"Type" .
+
+map:LAKE_RIVER__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LAKE ;
+d2rq:join                   "LAKE.RIVER<=RIVER.NAME" ;
+d2rq:propertyDefinitionLabel "River" ;
+d2rq:property                 vocab:LAKE_RIVER ;
+d2rq:refersToClassMap	map:RIVER .
+
+map:LANGUAGE rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:LANGUAGE ;
+d2rq:classDefinitionLabel	vocab:Language ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@LANGUAGE.COUNTRY NAME@@" .
+
+map:LANGUAGE__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:LANGUAGE ;
+d2rq:pattern		"@@LANGUAGE.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:LANGUAGE_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LANGUAGE ;
+d2rq:join                   "LANGUAGE.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:LANGUAGE_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:LANGUAGE_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LANGUAGE ;
+d2rq:column                   "LANGUAGE.NAME" ;
+d2rq:property                 vocab:LANGUAGE_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:LANGUAGE_PERCENTAGE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LANGUAGE ;
+d2rq:column                   "LANGUAGE.PERCENTAGE" ;
+d2rq:property                 vocab:LANGUAGE_PERCENTAGE ;
+d2rq:propertyDefinitionLabel	"Percentage" .
+
+map:LOCATED rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:LOCATED ;
+d2rq:classDefinitionLabel	vocab:Located ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@LOCATED.PROVINCE COUNTRY@@" .
+
+map:LOCATED__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:LOCATED ;
+d2rq:pattern		"@@LOCATED.CITY@@" ;
+d2rq:property		rdfs:label .
+
+map:LOCATED_CITY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATED ;
+d2rq:join                   "LOCATED.CITY<=CITY.NAME" ;
+d2rq:join                   "LOCATED.PROVINCE<=CITY.PROVINCE" ;
+d2rq:join                   "LOCATED.COUNTRY<=CITY.COUNTRY" ;
+d2rq:propertyDefinitionLabel "City" ;
+d2rq:property                 vocab:LOCATED_CITY ;
+d2rq:refersToClassMap	map:CITY .
+
+map:LOCATED_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATED ;
+d2rq:join                   "LOCATED.PROVINCE<=PROVINCE.NAME" ;
+d2rq:join                   "LOCATED.COUNTRY<=PROVINCE.COUNTRY" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:LOCATED_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:LOCATED_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATED ;
+d2rq:join                   "LOCATED.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:LOCATED_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:LOCATED_RIVER__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATED ;
+d2rq:join                   "LOCATED.RIVER<=RIVER.NAME" ;
+d2rq:propertyDefinitionLabel "River" ;
+d2rq:property                 vocab:LOCATED_RIVER ;
+d2rq:refersToClassMap	map:RIVER .
+
+map:LOCATED_LAKE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATED ;
+d2rq:join                   "LOCATED.LAKE<=LAKE.NAME" ;
+d2rq:propertyDefinitionLabel "Lake" ;
+d2rq:property                 vocab:LOCATED_LAKE ;
+d2rq:refersToClassMap	map:LAKE .
+
+map:LOCATED_SEA__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATED ;
+d2rq:join                   "LOCATED.SEA<=SEA.NAME" ;
+d2rq:propertyDefinitionLabel "Sea" ;
+d2rq:property                 vocab:LOCATED_SEA ;
+d2rq:refersToClassMap	map:SEA .
+
+map:LOCATEDON rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:LOCATEDON ;
+d2rq:classDefinitionLabel	vocab:Located on ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@LOCATEDON.CITY ISLAND PROVINCE COUNTRY@@" .
+
+map:LOCATEDON__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:LOCATEDON ;
+d2rq:pattern		"@@LOCATEDON.CITY@@" ;
+d2rq:property		rdfs:label .
+
+map:LOCATEDON_CITY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATEDON ;
+d2rq:join                   "LOCATEDON.CITY<=CITY.NAME" ;
+d2rq:propertyDefinitionLabel "City" ;
+d2rq:property                 vocab:LOCATEDON_CITY ;
+d2rq:refersToClassMap	map:CITY .
+
+map:LOCATEDON_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATEDON ;
+d2rq:join                   "LOCATEDON.PROVINCE<=PROVINCE.NAME" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:LOCATEDON_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:LOCATEDON_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATEDON ;
+d2rq:join                   "LOCATEDON.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:LOCATEDON_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:LOCATEDON_ISLAND__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:LOCATEDON ;
+d2rq:join                   "LOCATEDON.ISLAND<=ISLAND.NAME" ;
+d2rq:propertyDefinitionLabel "Island" ;
+d2rq:property                 vocab:LOCATEDON_ISLAND ;
+d2rq:refersToClassMap	map:ISLAND .
+
+map:MERGESWITH rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:MERGESWITH ;
+d2rq:classDefinitionLabel	vocab:Merges With ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@MERGESWITH.SEA1 SEA2@@" .
+
+map:MERGESWITH__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:MERGESWITH ;
+d2rq:pattern		"@@MERGESWITH.SEA1@@" ;
+d2rq:property		rdfs:label .
+
+map:MERGESWITH_SEA1__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MERGESWITH ;
+d2rq:join                   "MERGESWITH.SEA1<=SEA.NAME" ;
+d2rq:propertyDefinitionLabel "Sea1" ;
+d2rq:property                 vocab:MERGESWITH_SEA1 ;
+d2rq:refersToClassMap	map:SEA .
+
+map:MERGESWITH_SEA2__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MERGESWITH ;
+d2rq:join                   "MERGESWITH.SEA2<=SEA.NAME" ;
+d2rq:propertyDefinitionLabel "Sea2" ;
+d2rq:property                 vocab:MERGESWITH_SEA2 ;
+d2rq:refersToClassMap	map:SEA .
+
+map:MOUNTAIN rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:MOUNTAIN ;
+d2rq:classDefinitionLabel	vocab:Mountain ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@MOUNTAIN.NAME@@" .
+
+map:MOUNTAIN__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:MOUNTAIN ;
+d2rq:pattern		"@@MOUNTAIN.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:MOUNTAIN_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MOUNTAIN ;
+d2rq:column                   "MOUNTAIN.NAME" ;
+d2rq:property                 vocab:MOUNTAIN_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:MOUNTAIN_MOUNTAINS	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MOUNTAIN ;
+d2rq:column                   "MOUNTAIN.MOUNTAINS" ;
+d2rq:property                 vocab:MOUNTAIN_MOUNTAINS ;
+d2rq:propertyDefinitionLabel	"Mountains" .
+
+map:MOUNTAIN_ELEVATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MOUNTAIN ;
+d2rq:column                   "MOUNTAIN.ELEVATION" ;
+d2rq:property                 vocab:MOUNTAIN_ELEVATION ;
+d2rq:propertyDefinitionLabel	"Elevation" .
+
+map:MOUNTAIN_TYPE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MOUNTAIN ;
+d2rq:column                   "MOUNTAIN.TYPE" ;
+d2rq:property                 vocab:MOUNTAIN_TYPE ;
+d2rq:propertyDefinitionLabel	"Type" .
+
+map:MOUNTAINONISLAND rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:MOUNTAINONISLAND ;
+d2rq:classDefinitionLabel	vocab:Mountain on Island ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@MOUNTAINONISLAND.MOUNTAIN ISLAND@@" .
+
+map:MOUNTAINONISLAND__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:MOUNTAINONISLAND ;
+d2rq:pattern		"@@MOUNTAINONISLAND.MOUNTAIN@@" ;
+d2rq:property		rdfs:label .
+
+map:MOUNTAINONISLAND_MOUNTAIN__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MOUNTAINONISLAND ;
+d2rq:join                   "MOUNTAINONISLAND.MOUNTAIN<=MOUNTAIN.NAME" ;
+d2rq:propertyDefinitionLabel "Mountain" ;
+d2rq:property                 vocab:MOUNTAINONISLAND_MOUNTAIN ;
+d2rq:refersToClassMap	map:MOUNTAIN .
+
+map:MOUNTAINONISLAND_ISLAND__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:MOUNTAINONISLAND ;
+d2rq:join                   "MOUNTAINONISLAND.ISLAND<=ISLAND.NAME" ;
+d2rq:propertyDefinitionLabel "Island" ;
+d2rq:property                 vocab:MOUNTAINONISLAND_ISLAND ;
+d2rq:refersToClassMap	map:ISLAND .
+
+map:ORGANIZATION rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:ORGANIZATION ;
+d2rq:classDefinitionLabel	vocab:Organization ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@ORGANIZATION.ABBREVIATION@@" .
+
+map:ORGANIZATION__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:ORGANIZATION ;
+d2rq:pattern		"@@ORGANIZATION.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:ORGANIZATION_ABBREVIATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ORGANIZATION ;
+d2rq:column                   "ORGANIZATION.ABBREVIATION" ;
+d2rq:property                 vocab:ORGANIZATION_ABBREVIATION ;
+d2rq:propertyDefinitionLabel	"Abbreviation" .
+
+map:ORGANIZATION_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ORGANIZATION ;
+d2rq:column                   "ORGANIZATION.NAME" ;
+d2rq:property                 vocab:ORGANIZATION_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:ORGANIZATION_CITY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ORGANIZATION ;
+d2rq:column                   "ORGANIZATION.CITY" ;
+d2rq:property                 vocab:ORGANIZATION_CITY ;
+d2rq:propertyDefinitionLabel	"City" .
+
+map:ORGANIZATION_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ORGANIZATION ;
+d2rq:join                   "ORGANIZATION.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:ORGANIZATION_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:ORGANIZATION_PROVINCE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ORGANIZATION ;
+d2rq:column                   "ORGANIZATION.PROVINCE" ;
+d2rq:property                 vocab:ORGANIZATION_PROVINCE ;
+d2rq:propertyDefinitionLabel	"Province" .
+
+map:ORGANIZATION_ESTABLISHED	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:ORGANIZATION ;
+d2rq:column                   "ORGANIZATION.ESTABLISHED" ;
+d2rq:property                 vocab:ORGANIZATION_ESTABLISHED ;
+d2rq:propertyDefinitionLabel	"Established" .
+
+map:POLITICS rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:POLITICS ;
+d2rq:classDefinitionLabel	vocab:Politics ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@POLITICS.CODE@@_@@POLITICS.CODE@@_@@POLITICS.CODEWASDEPENDENT@@_@@POLITICS.CODEDEPENDENT@@" .
+
+map:POLITICS__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:POLITICS ;
+d2rq:pattern		"@@POLITICS.'Politics@@" ;
+d2rq:property		rdfs:label .
+
+map:POLITICS_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POLITICS ;
+d2rq:join                   "POLITICS.CODE<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:POLITICS_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:POLITICS_INDEPENDENCE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POLITICS ;
+d2rq:column                   "POLITICS.INDEPENDENCE" ;
+d2rq:property                 vocab:POLITICS_INDEPENDENCE ;
+d2rq:propertyDefinitionLabel	"Independence" .
+
+map:POLITICS_GOVERNMENT	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POLITICS ;
+d2rq:column                   "POLITICS.GOVERNMENT" ;
+d2rq:property                 vocab:POLITICS_GOVERNMENT ;
+d2rq:propertyDefinitionLabel	"Government" .
+
+map:POLITICS_CODE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POLITICS ;
+d2rq:column                   "POLITICS.CODE" ;
+d2rq:property                 vocab:POLITICS_CODE ;
+d2rq:propertyDefinitionLabel	"Code" .
+
+map:POLITICS_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POLITICS ;
+d2rq:column                   "POLITICS.NAME" ;
+d2rq:property                 vocab:POLITICS_NAME ;
+d2rq:propertyDefinitionLabel	"Was Dependent" .
+
+map:POLITICS_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POLITICS ;
+d2rq:column                   "POLITICS.NAME" ;
+d2rq:property                 vocab:POLITICS_NAME ;
+d2rq:propertyDefinitionLabel	"Dependent" .
+
+map:PROVINCE rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:PROVINCE ;
+d2rq:classDefinitionLabel	vocab:Province ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@PROVINCE.NAME COUNTRY@@" .
+
+map:PROVINCE__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:PROVINCE ;
+d2rq:pattern		"@@PROVINCE.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:PROVINCE_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCE ;
+d2rq:column                   "PROVINCE.NAME" ;
+d2rq:property                 vocab:PROVINCE_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:PROVINCE_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCE ;
+d2rq:join                   "PROVINCE.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:PROVINCE_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:PROVINCE_CAPITAL	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCE ;
+d2rq:column                   "PROVINCE.CAPITAL" ;
+d2rq:property                 vocab:PROVINCE_CAPITAL ;
+d2rq:propertyDefinitionLabel	"Capital" .
+
+map:PROVINCE_CAPPROV	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCE ;
+d2rq:column                   "PROVINCE.CAPPROV" ;
+d2rq:property                 vocab:PROVINCE_CAPPROV ;
+d2rq:propertyDefinitionLabel	"Province Capital" .
+
+map:PROVINCE_POPULATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCE ;
+d2rq:column                   "PROVINCE.POPULATION" ;
+d2rq:property                 vocab:PROVINCE_POPULATION ;
+d2rq:propertyDefinitionLabel	"Population" .
+
+map:PROVINCE_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCE ;
+d2rq:column                   "PROVINCE.AREA" ;
+d2rq:property                 vocab:PROVINCE_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:PROVINCEOTHERNAME rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:PROVINCEOTHERNAME ;
+d2rq:classDefinitionLabel	vocab:Other Name (Province) ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@PROVINCEOTHERNAME.OTHERNAME PROVINCE COUNTRY@@" .
+
+map:PROVINCEOTHERNAME__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:PROVINCEOTHERNAME ;
+d2rq:pattern		"@@PROVINCEOTHERNAME.OTHERNAME@@" ;
+d2rq:property		rdfs:label .
+
+map:PROVINCEOTHERNAME_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCEOTHERNAME ;
+d2rq:join                   "PROVINCEOTHERNAME.COUNTRY<=PROVINCE.COUNTRY" ;
+d2rq:join                   "PROVINCEOTHERNAME.PROVINCE<=PROVINCE.NAME" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:PROVINCEOTHERNAME_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:PROVINCEOTHERNAME_COUNTRY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCEOTHERNAME ;
+d2rq:column                   "PROVINCEOTHERNAME.COUNTRY" ;
+d2rq:property                 vocab:PROVINCEOTHERNAME_COUNTRY ;
+d2rq:propertyDefinitionLabel	"Country" .
+
+map:PROVINCEOTHERNAME_OTHERNAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVINCEOTHERNAME ;
+d2rq:column                   "PROVINCEOTHERNAME.OTHERNAME" ;
+d2rq:property                 vocab:PROVINCEOTHERNAME_OTHERNAME ;
+d2rq:propertyDefinitionLabel	"Other Name" .
+
+map:PROVPOPS rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:PROVPOPS ;
+d2rq:classDefinitionLabel	vocab:Population (Province) ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@PROVPOPS.PROVINCE COUNTRY YEAR@@" .
+
+map:PROVPOPS__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:PROVPOPS ;
+d2rq:pattern		"@@PROVPOPS.PROVINCE@@" ;
+d2rq:property		rdfs:label .
+
+map:PROVPOPS_PROVINCE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVPOPS ;
+d2rq:join                   "PROVPOPS.COUNTRY<=PROVINCE.COUNTRY" ;
+d2rq:join                   "PROVPOPS.PROVINCE<=PROVINCE.NAME" ;
+d2rq:propertyDefinitionLabel "Province" ;
+d2rq:property                 vocab:PROVPOPS_PROVINCE ;
+d2rq:refersToClassMap	map:PROVINCE .
+
+map:PROVPOPS_COUNTRY	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVPOPS ;
+d2rq:column                   "PROVPOPS.COUNTRY" ;
+d2rq:property                 vocab:PROVPOPS_COUNTRY ;
+d2rq:propertyDefinitionLabel	"Country" .
+
+map:PROVPOPS_YEAR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVPOPS ;
+d2rq:column                   "PROVPOPS.YEAR" ;
+d2rq:property                 vocab:PROVPOPS_YEAR ;
+d2rq:propertyDefinitionLabel	"Year" .
+
+map:PROVPOPS_POPULATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROVPOPS ;
+d2rq:column                   "PROVPOPS.POPULATION" ;
+d2rq:property                 vocab:PROVPOPS_POPULATION ;
+d2rq:propertyDefinitionLabel	"Population" .
+
+map:RELIGION rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:RELIGION ;
+d2rq:classDefinitionLabel	vocab:Religion ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@RELIGION.NAME COUNTRY@@" .
+
+map:RELIGION__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:RELIGION ;
+d2rq:pattern		"@@RELIGION.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:RELIGION_COUNTRY__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RELIGION ;
+d2rq:join                   "RELIGION.COUNTRY<=COUNTRY.CODE" ;
+d2rq:propertyDefinitionLabel "Country" ;
+d2rq:property                 vocab:RELIGION_COUNTRY ;
+d2rq:refersToClassMap	map:COUNTRY .
+
+map:RELIGION_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RELIGION ;
+d2rq:column                   "RELIGION.NAME" ;
+d2rq:property                 vocab:RELIGION_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:RELIGION_PERCENTAGE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RELIGION ;
+d2rq:column                   "RELIGION.PERCENTAGE" ;
+d2rq:property                 vocab:RELIGION_PERCENTAGE ;
+d2rq:propertyDefinitionLabel	"Percentage" .
+
+map:RIVER rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:RIVER ;
+d2rq:classDefinitionLabel	vocab:River ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@RIVER.NAME@@" .
+
+map:RIVER__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:RIVER ;
+d2rq:pattern		"@@RIVER.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:RIVER_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVER ;
+d2rq:column                   "RIVER.NAME" ;
+d2rq:property                 vocab:RIVER_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:RIVER_RIVER	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVER ;
+d2rq:column                   "RIVER.RIVER" ;
+d2rq:property                 vocab:RIVER_RIVER ;
+d2rq:propertyDefinitionLabel	"Main stem" .
+
+map:RIVER_LAKE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVER ;
+d2rq:join                   "RIVER.LAKE<=LAKE.NAME" ;
+d2rq:propertyDefinitionLabel "Lake" ;
+d2rq:property                 vocab:RIVER_LAKE ;
+d2rq:refersToClassMap	map:LAKE .
+
+map:RIVER_LENGTH	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVER ;
+d2rq:column                   "RIVER.LENGTH" ;
+d2rq:property                 vocab:RIVER_LENGTH ;
+d2rq:propertyDefinitionLabel	"Length" .
+
+map:RIVER_AREA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVER ;
+d2rq:column                   "RIVER.AREA" ;
+d2rq:property                 vocab:RIVER_AREA ;
+d2rq:propertyDefinitionLabel	"Area" .
+
+map:RIVER_SOURCEELEVATION	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVER ;
+d2rq:column                   "RIVER.SOURCEELEVATION" ;
+d2rq:property                 vocab:RIVER_SOURCEELEVATION ;
+d2rq:propertyDefinitionLabel	"Source Elevation" .
+
+map:RIVERTHROUGH rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:RIVERTHROUGH ;
+d2rq:classDefinitionLabel	vocab:River through ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@RIVERTHROUGH.RIVER LAKE@@" .
+
+map:RIVERTHROUGH__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:RIVERTHROUGH ;
+d2rq:pattern		"@@RIVERTHROUGH.RIVER@@" ;
+d2rq:property		rdfs:label .
+
+map:RIVERTHROUGH_RIVER__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVERTHROUGH ;
+d2rq:join                   "RIVERTHROUGH.RIVER<=RIVER.NAME" ;
+d2rq:propertyDefinitionLabel "River" ;
+d2rq:property                 vocab:RIVERTHROUGH_RIVER ;
+d2rq:refersToClassMap	map:RIVER .
+
+map:RIVERTHROUGH_LAKE__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:RIVERTHROUGH ;
+d2rq:join                   "RIVERTHROUGH.LAKE<=LAKE.NAME" ;
+d2rq:propertyDefinitionLabel "Lake" ;
+d2rq:property                 vocab:RIVERTHROUGH_LAKE ;
+d2rq:refersToClassMap	map:LAKE .
+
+map:SEA rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:SEA ;
+d2rq:classDefinitionLabel	vocab:Sea ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://www.semwebtech.org/mondial/@@SEA.NAME@@" .
+
+map:SEA__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:SEA ;
+d2rq:pattern		"@@SEA.NAME@@" ;
+d2rq:property		rdfs:label .
+
+map:SEA_NAME	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:SEA ;
+d2rq:column                   "SEA.NAME" ;
+d2rq:property                 vocab:SEA_NAME ;
+d2rq:propertyDefinitionLabel	"Name" .
+
+map:SEA_DEPTH	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:SEA ;
+d2rq:column                   "SEA.DEPTH" ;
+d2rq:property                 vocab:SEA_DEPTH ;
+d2rq:propertyDefinitionLabel	"Depth" .
+
+

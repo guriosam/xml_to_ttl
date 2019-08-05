@@ -1,0 +1,645 @@
+@prefix d2rq:  <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+
+map:CONTRATO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:CONTRATO ;
+d2rq:classDefinitionLabel	vocab:Contrato ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@CONTRATO.CODCONTRATO@@_@@CONTRATO.CODRODADA@@" .
+
+map:CONTRATO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:CONTRATO ;
+d2rq:pattern		"@@CONTRATO.NUMERO_CONTRATO@@" ;
+d2rq:property		rdfs:label .
+
+map:CONTRATO_OPERADOR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CONTRATO ;
+d2rq:column                   "CONTRATO.OPERADOR" ;
+d2rq:property                 vocab:CONTRATO_OPERADOR ;
+d2rq:propertyDefinitionLabel	"Operador" .
+
+map:CONTRATO_CONSORCIO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CONTRATO ;
+d2rq:column                   "CONTRATO.CONSORCIO" ;
+d2rq:property                 vocab:CONTRATO_CONSORCIO ;
+d2rq:propertyDefinitionLabel	"Consórcio" .
+
+map:CONTRATO_NOME_FANTASIA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CONTRATO ;
+d2rq:column                   "CONTRATO.NOME_FANTASIA" ;
+d2rq:property                 vocab:CONTRATO_NOME_FANTASIA ;
+d2rq:propertyDefinitionLabel	"Nome Fantasia" .
+
+map:CONTRATO_RODADA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CONTRATO ;
+d2rq:column                   "CONTRATO.RODADA" ;
+d2rq:property                 vocab:CONTRATO_RODADA ;
+d2rq:propertyDefinitionLabel	"Rodada" .
+
+map:CAMPO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:CAMPO ;
+d2rq:classDefinitionLabel	vocab:Campo ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@CAMPO.CODCAMPO@@_@@CAMPO.CODCAMPO@@_@@CAMPO.CODGRUPO@@" .
+
+map:CAMPO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:CAMPO ;
+d2rq:pattern		"@@CAMPO.CAMPO@@" ;
+d2rq:property		rdfs:label .
+
+map:CAMPO_CAMPO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.CAMPO" ;
+d2rq:property                 vocab:CAMPO_CAMPO ;
+d2rq:propertyDefinitionLabel	"Campo" .
+
+map:CAMPO_FASE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.FASE" ;
+d2rq:property                 vocab:CAMPO_FASE ;
+d2rq:propertyDefinitionLabel	"Fase" .
+
+map:CAMPO_ESTADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.ESTADO" ;
+d2rq:property                 vocab:CAMPO_ESTADO ;
+d2rq:propertyDefinitionLabel	"Estado" .
+
+map:CAMPO_CODCONTRATO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:join                   "CAMPO.CODCONTRATO<=CONTRATO.CODCONTRATO" ;
+d2rq:propertyDefinitionLabel "Contrato" ;
+d2rq:property                 vocab:CAMPO_CODCONTRATO ;
+d2rq:refersToClassMap	map:CONTRATO .
+
+map:CAMPO_LOCALIZACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.LOCALIZACAO" ;
+d2rq:property                 vocab:CAMPO_LOCALIZACAO ;
+d2rq:propertyDefinitionLabel	"Localização" .
+
+map:CAMPO_CONSORCIO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.CONSORCIO" ;
+d2rq:property                 vocab:CAMPO_CONSORCIO ;
+d2rq:propertyDefinitionLabel	"Consórcio" .
+
+map:CAMPO_MES	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.MES" ;
+d2rq:property                 vocab:CAMPO_MES ;
+d2rq:propertyDefinitionLabel	"Mês (Timestamp)" .
+
+map:CAMPO_ANO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.ANO" ;
+d2rq:property                 vocab:CAMPO_ANO ;
+d2rq:propertyDefinitionLabel	"Ano (Timestamp)" .
+
+map:CAMPO_STATUS	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.STATUS" ;
+d2rq:property                 vocab:CAMPO_STATUS ;
+d2rq:propertyDefinitionLabel	"Status" .
+
+map:CAMPO_CARACTERISTICA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.CARACTERISTICA" ;
+d2rq:property                 vocab:CAMPO_CARACTERISTICA ;
+d2rq:propertyDefinitionLabel	"Característica" .
+
+map:CAMPO_COM_CESSAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.COM_CESSAO" ;
+d2rq:property                 vocab:CAMPO_COM_CESSAO ;
+d2rq:propertyDefinitionLabel	"Tipo de Contrato" .
+
+map:CAMPO_GRUPO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:CAMPO ;
+d2rq:column                   "CAMPO.GRUPO" ;
+d2rq:property                 vocab:CAMPO_GRUPO ;
+d2rq:propertyDefinitionLabel	"Operador" .
+
+map:BLOCO_EXPLORATORIO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:BLOCO_EXPLORATORIO ;
+d2rq:classDefinitionLabel	vocab:Bloco Exploratório ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@BLOCO_EXPLORATORIO.CODBLOCO@@_@@BLOCO_EXPLORATORIO.CODGRUPO@@_@@BLOCO_EXPLORATORIO.CODRODADA@@" .
+
+map:BLOCO_EXPLORATORIO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:BLOCO_EXPLORATORIO ;
+d2rq:pattern		"@@BLOCO_EXPLORATORIO.BLOCO@@" ;
+d2rq:property		rdfs:label .
+
+map:BLOCO_EXPLORATORIO_BACIA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.BACIA" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_BACIA ;
+d2rq:propertyDefinitionLabel	"Bacia" .
+
+map:BLOCO_EXPLORATORIO_CODCONTRATO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:join                   "BLOCO_EXPLORATORIO.CODCONTRATO<=CONTRATO.CODCONTRATO" ;
+d2rq:propertyDefinitionLabel "Contrato" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_CODCONTRATO ;
+d2rq:refersToClassMap	map:CONTRATO .
+
+map:BLOCO_EXPLORATORIO_BLOCO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.BLOCO" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_BLOCO ;
+d2rq:propertyDefinitionLabel	"Bloco" .
+
+map:BLOCO_EXPLORATORIO_VENCIMENTO_1_PERIODO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.VENCIMENTO_1_PERIODO" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_VENCIMENTO_1_PERIODO ;
+d2rq:propertyDefinitionLabel	"Vencimento 1 Período" .
+
+map:BLOCO_EXPLORATORIO_VENCIMENTO_2_PERIODO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.VENCIMENTO_2_PERIODO" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_VENCIMENTO_2_PERIODO ;
+d2rq:propertyDefinitionLabel	"Vencimento 2 Período" .
+
+map:BLOCO_EXPLORATORIO_VENCIMENTO_3_PERIODO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.VENCIMENTO_3_PERIODO" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_VENCIMENTO_3_PERIODO ;
+d2rq:propertyDefinitionLabel	"Vencimento 3 Período" .
+
+map:BLOCO_EXPLORATORIO_VENCIMENTO_PAD	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.VENCIMENTO_PAD" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_VENCIMENTO_PAD ;
+d2rq:propertyDefinitionLabel	"Vencimento PAD" .
+
+map:BLOCO_EXPLORATORIO_OBSERVACOES	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.OBSERVACOES" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_OBSERVACOES ;
+d2rq:propertyDefinitionLabel	"Observações" .
+
+map:BLOCO_EXPLORATORIO_BLOCO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:join                   "BLOCO_EXPLORATORIO.CODBLOCO<=BLOCO_OFERTADO.CODBLOCO" ;
+d2rq:join                   "BLOCO_EXPLORATORIO.CODRODADA<=BLOCO_OFERTADO.CODRODADA" ;
+d2rq:propertyDefinitionLabel "Bloco Ofertado" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_BLOCO ;
+d2rq:refersToClassMap	map:BLOCO_OFERTADO .
+
+map:BLOCO_EXPLORATORIO_TIMESTAMP	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.TIMESTAMP" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_TIMESTAMP ;
+d2rq:propertyDefinitionLabel	"Timestamp" .
+
+map:BLOCO_EXPLORATORIO_GRUPO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.GRUPO" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_GRUPO ;
+d2rq:propertyDefinitionLabel	"Operador" .
+
+map:BLOCO_EXPLORATORIO_RODADA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_EXPLORATORIO ;
+d2rq:column                   "BLOCO_EXPLORATORIO.RODADA" ;
+d2rq:property                 vocab:BLOCO_EXPLORATORIO_RODADA ;
+d2rq:propertyDefinitionLabel	"Rodada" .
+
+map:PROPOSTA rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:PROPOSTA ;
+d2rq:classDefinitionLabel	vocab:Proposta ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@PROPOSTA.CODPROPOSTA@@_@@PROPOSTA.CODRODADA@@" .
+
+map:PROPOSTA__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:PROPOSTA ;
+d2rq:pattern		"@@PROPOSTA.RODADA@@" ;
+d2rq:property		rdfs:label .
+
+map:PROPOSTA_BLOCO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.BLOCO" ;
+d2rq:property                 vocab:PROPOSTA_BLOCO ;
+d2rq:propertyDefinitionLabel	"Bloco" .
+
+map:PROPOSTA_CODBLOCOOFERTADO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:join                   "PROPOSTA.CODBLOCO<=BLOCO_OFERTADO.CODBLOCO" ;
+d2rq:join                   "PROPOSTA.CODRODADA<=BLOCO_OFERTADO.CODRODADA" ;
+d2rq:propertyDefinitionLabel "Bloco Ofertado" ;
+d2rq:property                 vocab:PROPOSTA_CODBLOCOOFERTADO ;
+d2rq:refersToClassMap	map:BLOCO_OFERTADO .
+
+map:PROPOSTA_BACIA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.BACIA" ;
+d2rq:property                 vocab:PROPOSTA_BACIA ;
+d2rq:propertyDefinitionLabel	"Bacia" .
+
+map:PROPOSTA_SETOR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.SETOR" ;
+d2rq:property                 vocab:PROPOSTA_SETOR ;
+d2rq:propertyDefinitionLabel	"Setor" .
+
+map:PROPOSTA_CONSORCIO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.CONSORCIO" ;
+d2rq:property                 vocab:PROPOSTA_CONSORCIO ;
+d2rq:propertyDefinitionLabel	"Consórcio" .
+
+map:PROPOSTA_RESULTADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.RESULTADO" ;
+d2rq:property                 vocab:PROPOSTA_RESULTADO ;
+d2rq:propertyDefinitionLabel	"Resultado" .
+
+map:PROPOSTA_OFERTA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.OFERTA" ;
+d2rq:property                 vocab:PROPOSTA_OFERTA ;
+d2rq:propertyDefinitionLabel	"Oferta" .
+
+map:PROPOSTA_PEM	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.PEM" ;
+d2rq:property                 vocab:PROPOSTA_PEM ;
+d2rq:propertyDefinitionLabel	"PEM" .
+
+map:PROPOSTA_EXPLORACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.EXPLORACAO" ;
+d2rq:property                 vocab:PROPOSTA_EXPLORACAO ;
+d2rq:propertyDefinitionLabel	"Exploração" .
+
+map:PROPOSTA_DESENVOLVIMENTO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.DESENVOLVIMENTO" ;
+d2rq:property                 vocab:PROPOSTA_DESENVOLVIMENTO ;
+d2rq:propertyDefinitionLabel	"Desenvolvimento" .
+
+map:PROPOSTA_RODADA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PROPOSTA ;
+d2rq:column                   "PROPOSTA.RODADA" ;
+d2rq:property                 vocab:PROPOSTA_RODADA ;
+d2rq:propertyDefinitionLabel	"Rodada" .
+
+map:BLOCO_OFERTADO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:BLOCO_OFERTADO ;
+d2rq:classDefinitionLabel	vocab:Bloco Ofertado ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@BLOCO_OFERTADO.CODBLOCO CODRODADA@@_@@BLOCO_OFERTADO.CODRODADA@@_@@BLOCO_OFERTADO.CODBLOCO@@" .
+
+map:BLOCO_OFERTADO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:BLOCO_OFERTADO ;
+d2rq:pattern		"@@BLOCO_OFERTADO.BLOCO@@" ;
+d2rq:property		rdfs:label .
+
+map:BLOCO_OFERTADO_BACIA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.BACIA" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_BACIA ;
+d2rq:propertyDefinitionLabel	"Bacia" .
+
+map:BLOCO_OFERTADO_SETOR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.SETOR" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_SETOR ;
+d2rq:propertyDefinitionLabel	"Setor" .
+
+map:BLOCO_OFERTADO_HABILITACAO_MINIMA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.HABILITACAO_MINIMA" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_HABILITACAO_MINIMA ;
+d2rq:propertyDefinitionLabel	"Habilitação Mínima" .
+
+map:BLOCO_OFERTADO_BONUS	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.BONUS" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_BONUS ;
+d2rq:propertyDefinitionLabel	"Bônus" .
+
+map:BLOCO_OFERTADO_LOCALIZACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.LOCALIZACAO" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_LOCALIZACAO ;
+d2rq:propertyDefinitionLabel	"Localização" .
+
+map:BLOCO_OFERTADO_RODADA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.RODADA" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_RODADA ;
+d2rq:propertyDefinitionLabel	"Rodada" .
+
+map:BLOCO_OFERTADO_BLOCO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:BLOCO_OFERTADO ;
+d2rq:column                   "BLOCO_OFERTADO.BLOCO" ;
+d2rq:property                 vocab:BLOCO_OFERTADO_BLOCO ;
+d2rq:propertyDefinitionLabel	"Bloco" .
+
+map:PRODUCAO_CAMPO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:PRODUCAO_CAMPO ;
+d2rq:classDefinitionLabel	vocab:Produção de Campo ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@PRODUCAO_CAMPO.CODPRODUCAOCAMPO@@" .
+
+map:PRODUCAO_CAMPO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:PRODUCAO_CAMPO ;
+d2rq:pattern		"@@PRODUCAO_CAMPO.CAMPO@@" ;
+d2rq:property		rdfs:label .
+
+map:PRODUCAO_CAMPO_CODCAMPO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:join                   "PRODUCAO_CAMPO.CODCAMPO<=CAMPO.CODCAMPO" ;
+d2rq:propertyDefinitionLabel "Campo" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_CODCAMPO ;
+d2rq:refersToClassMap	map:CAMPO .
+
+map:PRODUCAO_CAMPO_ESTADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:column                   "PRODUCAO_CAMPO.ESTADO" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_ESTADO ;
+d2rq:propertyDefinitionLabel	"Estado" .
+
+map:PRODUCAO_CAMPO_PERIODO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:column                   "PRODUCAO_CAMPO.PERIODO" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_PERIODO ;
+d2rq:propertyDefinitionLabel	"Período" .
+
+map:PRODUCAO_CAMPO_PETROLEO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:column                   "PRODUCAO_CAMPO.PETROLEO" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_PETROLEO ;
+d2rq:propertyDefinitionLabel	"Produção de Petróleo" .
+
+map:PRODUCAO_CAMPO_GAS	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:column                   "PRODUCAO_CAMPO.GAS" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_GAS ;
+d2rq:propertyDefinitionLabel	"Produção de Gás" .
+
+map:PRODUCAO_CAMPO_MES	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:column                   "PRODUCAO_CAMPO.MES" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_MES ;
+d2rq:propertyDefinitionLabel	"Mês" .
+
+map:PRODUCAO_CAMPO_ANO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_CAMPO ;
+d2rq:column                   "PRODUCAO_CAMPO.ANO" ;
+d2rq:property                 vocab:PRODUCAO_CAMPO_ANO ;
+d2rq:propertyDefinitionLabel	"Ano" .
+
+map:POCO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:POCO ;
+d2rq:classDefinitionLabel	vocab:Poço ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@POCO.CODPOCO@@_@@POCO.CODPOCO@@_@@POCO.CODPOCO@@_@@POCO.CODGRUPO@@_@@POCO.CODBACIA@@" .
+
+map:POCO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:POCO ;
+d2rq:pattern		"@@POCO.POCO@@" ;
+d2rq:property		rdfs:label .
+
+map:POCO_POCO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.POCO" ;
+d2rq:property                 vocab:POCO_POCO ;
+d2rq:propertyDefinitionLabel	"Poço" .
+
+map:POCO_NOMEPOCOANP	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.NOMEPOCOANP" ;
+d2rq:property                 vocab:POCO_NOMEPOCOANP ;
+d2rq:propertyDefinitionLabel	"Nome ANP" .
+
+map:POCO_NOME_OPERADOR	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.NOME_OPERADOR" ;
+d2rq:property                 vocab:POCO_NOME_OPERADOR ;
+d2rq:propertyDefinitionLabel	"Nome dado pelo Operador" .
+
+map:POCO_CATEGORIA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.CATEGORIA" ;
+d2rq:property                 vocab:POCO_CATEGORIA ;
+d2rq:propertyDefinitionLabel	"Categoria" .
+
+map:POCO_LOCALIZACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.LOCALIZACAO" ;
+d2rq:property                 vocab:POCO_LOCALIZACAO ;
+d2rq:propertyDefinitionLabel	"Localização" .
+
+map:POCO_CODBLOCO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:join                   "POCO.CODBLOCO<=BLOCO_EXPLORATORIO.CODBLOCO" ;
+d2rq:propertyDefinitionLabel "Bloco" ;
+d2rq:property                 vocab:POCO_CODBLOCO ;
+d2rq:refersToClassMap	map:BLOCO_EXPLORATORIO .
+
+map:POCO_CODCAMPO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:join                   "POCO.CODCAMPO<=CAMPO.CODCAMPO" ;
+d2rq:propertyDefinitionLabel "Campo" ;
+d2rq:property                 vocab:POCO_CODCAMPO ;
+d2rq:refersToClassMap	map:CAMPO .
+
+map:POCO_ESTADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.ESTADO" ;
+d2rq:property                 vocab:POCO_ESTADO ;
+d2rq:propertyDefinitionLabel	"Estado" .
+
+map:POCO_PROFUNDIDADE_FINAL_MEDIDA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.PROFUNDIDADE_FINAL_MEDIDA" ;
+d2rq:property                 vocab:POCO_PROFUNDIDADE_FINAL_MEDIDA ;
+d2rq:propertyDefinitionLabel	"Profundidade Final Medida" .
+
+map:POCO_LAMINA_DAGUA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.LAMINA_DAGUA" ;
+d2rq:property                 vocab:POCO_LAMINA_DAGUA ;
+d2rq:propertyDefinitionLabel	"Lâmina D’água" .
+
+map:POCO_STATUS	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.STATUS" ;
+d2rq:property                 vocab:POCO_STATUS ;
+d2rq:propertyDefinitionLabel	"Status" .
+
+map:POCO_LATITUDE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.LATITUDE" ;
+d2rq:property                 vocab:POCO_LATITUDE ;
+d2rq:propertyDefinitionLabel	"Latitude" .
+
+map:POCO_LONGITUDE	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.LONGITUDE" ;
+d2rq:property                 vocab:POCO_LONGITUDE ;
+d2rq:propertyDefinitionLabel	"Longitude" .
+
+map:POCO_OBJETIVO_INTERVENCAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.OBJETIVO_INTERVENCAO" ;
+d2rq:property                 vocab:POCO_OBJETIVO_INTERVENCAO ;
+d2rq:propertyDefinitionLabel	"Objetivo Intervenção" .
+
+map:POCO_SONDA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.SONDA" ;
+d2rq:property                 vocab:POCO_SONDA ;
+d2rq:propertyDefinitionLabel	"Sonda" .
+
+map:POCO_DATA_INICIO_PERFURACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.DATA_INICIO_PERFURACAO" ;
+d2rq:property                 vocab:POCO_DATA_INICIO_PERFURACAO ;
+d2rq:propertyDefinitionLabel	"Início Perfuração" .
+
+map:POCO_DATA_TERMINO_PERFURACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.DATA_TERMINO_PERFURACAO" ;
+d2rq:property                 vocab:POCO_DATA_TERMINO_PERFURACAO ;
+d2rq:propertyDefinitionLabel	"Término Perfuração" .
+
+map:POCO_DATA_CONCLUSAO_PERFURACAO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.DATA_CONCLUSAO_PERFURACAO" ;
+d2rq:property                 vocab:POCO_DATA_CONCLUSAO_PERFURACAO ;
+d2rq:propertyDefinitionLabel	"Conclusão Perfuração" .
+
+map:POCO_DESCOBERTA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.DESCOBERTA" ;
+d2rq:property                 vocab:POCO_DESCOBERTA ;
+d2rq:propertyDefinitionLabel	"Descoberta" .
+
+map:POCO_FLUIDO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.FLUIDO" ;
+d2rq:property                 vocab:POCO_FLUIDO ;
+d2rq:propertyDefinitionLabel	"Fluído" .
+
+map:POCO_DATADESCOBERTA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.DATADESCOBERTA" ;
+d2rq:property                 vocab:POCO_DATADESCOBERTA ;
+d2rq:propertyDefinitionLabel	"Data Descoberta" .
+
+map:POCO_GRUPO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.GRUPO" ;
+d2rq:property                 vocab:POCO_GRUPO ;
+d2rq:propertyDefinitionLabel	"Operador" .
+
+map:POCO_BACIA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:POCO ;
+d2rq:column                   "POCO.BACIA" ;
+d2rq:property                 vocab:POCO_BACIA ;
+d2rq:propertyDefinitionLabel	"Bacia" .
+
+map:PRODUCAO_POCO rdfs:type d2rq:ClassMap ;
+d2rq:class	vocab:PRODUCAO_POCO ;
+d2rq:classDefinitionLabel	vocab:Produção de Poço ;
+dataStorage		map:database ;
+d2rq:uriPattern		"http://anp.gov.br/@@PRODUCAO_POCO.CODPRODUCAOPOCO@@" .
+
+map:PRODUCAO_POCO__label a 	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap 		map:PRODUCAO_POCO ;
+d2rq:pattern		"@@PRODUCAO_POCO.'Poço:@@" ;
+d2rq:property		rdfs:label .
+
+map:PRODUCAO_POCO_CODPOCO__ref		a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:join                   "PRODUCAO_POCO.CODPOCO<=POCO.CODPOCO" ;
+d2rq:propertyDefinitionLabel "Poço" ;
+d2rq:property                 vocab:PRODUCAO_POCO_CODPOCO ;
+d2rq:refersToClassMap	map:POCO .
+
+map:PRODUCAO_POCO_POCO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.POCO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_POCO ;
+d2rq:propertyDefinitionLabel	"Poço ANP" .
+
+map:PRODUCAO_POCO_ESTADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.ESTADO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_ESTADO ;
+d2rq:propertyDefinitionLabel	"Estado" .
+
+map:PRODUCAO_POCO_EMPRESA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.EMPRESA" ;
+d2rq:property                 vocab:PRODUCAO_POCO_EMPRESA ;
+d2rq:propertyDefinitionLabel	"Operador" .
+
+map:PRODUCAO_POCO_PRODUCAO_OLEO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_OLEO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_OLEO ;
+d2rq:propertyDefinitionLabel	"Produção Óleo" .
+
+map:PRODUCAO_POCO_PRODUCAO_CONDENSADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_CONDENSADO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_CONDENSADO ;
+d2rq:propertyDefinitionLabel	"Produção Condensado" .
+
+map:PRODUCAO_POCO_PRODUCAO_PETROLEO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_PETROLEO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_PETROLEO ;
+d2rq:propertyDefinitionLabel	"Produção Petróleo" .
+
+map:PRODUCAO_POCO_PRODUCAO_GAS_ASSOCIADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_GAS_ASSOCIADO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_GAS_ASSOCIADO ;
+d2rq:propertyDefinitionLabel	"Produção Gás Associado" .
+
+map:PRODUCAO_POCO_PRODUCAO_GAS_NAO_ASSOCIADO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_GAS_NAO_ASSOCIADO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_GAS_NAO_ASSOCIADO ;
+d2rq:propertyDefinitionLabel	"Produção Gás Não Associado" .
+
+map:PRODUCAO_POCO_PRODUCAO_GAS_TOTAL	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_GAS_TOTAL" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_GAS_TOTAL ;
+d2rq:propertyDefinitionLabel	"Produção Gás Total" .
+
+map:PRODUCAO_POCO_PRODUCAO_AGUA	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PRODUCAO_AGUA" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PRODUCAO_AGUA ;
+d2rq:propertyDefinitionLabel	"Produção Água" .
+
+map:PRODUCAO_POCO_PERIODO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.PERIODO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_PERIODO ;
+d2rq:propertyDefinitionLabel	"Período" .
+
+map:PRODUCAO_POCO_MES	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.MES" ;
+d2rq:property                 vocab:PRODUCAO_POCO_MES ;
+d2rq:propertyDefinitionLabel	"Mês" .
+
+map:PRODUCAO_POCO_ANO	a	d2rq:PropertyBridge ;
+d2rq:belongsToClassMap		map:PRODUCAO_POCO ;
+d2rq:column                   "PRODUCAO_POCO.ANO" ;
+d2rq:property                 vocab:PRODUCAO_POCO_ANO ;
+d2rq:propertyDefinitionLabel	"Ano" .
+
+
+

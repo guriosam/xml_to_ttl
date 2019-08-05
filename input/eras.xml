@@ -8,18 +8,18 @@
   <views>
     <view origin="ERAS" name="jobs" label="Jobs" identifier="true" >
       <tables repcol="id">
-		<table name="jobs" owner="public"> 
+        <table name="jobs" owner="public"> 
           <pk>id</pk>
           <group name="Dados Gerais">
             <column name="id" label="ID" exclude="true"/>
             <column name="auto_machine_selected" label="Auto machine selected"/>
-            <column name="cpu_time" label="CPU time" datatype="timestamp"/>
+            <column name="cpu_time" label="CPU time"/>
             <column name="description" label="Description" indexing="true"/>
             <column name="end_time" label="End time"/>             
             <column name="execution_machine" label="Execution machine" indexing="true"/>             
             <column name="description" label="Description" indexing="true"/>
             <column name="exit_code" label="Exit code"/>           
-            <column name="exit_status" label="Exit status" datatype="integer"/>          
+            <column name="exit_status" label="Exit status"/>          
             <column name="flow_id" label="Flow id"/>
             <column name="flow_name" label="Flow name" indexing="true"/>
             <column name="flow_raw" label="Flow raw"/>

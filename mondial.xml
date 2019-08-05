@@ -1,0 +1,912 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mapping>
+  <config>
+    <version>1.6</version>
+    <prefix>http://www.semwebtech.org/mondial</prefix>
+    <database>mondial_postgres</database>
+  </config>
+  <views>
+   <view origin="Mondial" name="AIRPORT" label="Airport" identifier="true">
+      <tables repcol="NAME">
+        <table name="AIRPORT" owner="MONDIAL">
+          <pk>IATACODE</pk>
+          <group>
+            <column name="IATACODE" label="Airport Code" untagged="true"/>
+            <column name="NAME" label="Name"/>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="CITY" label="City" untagged="true">
+               <join view="CITY">
+                <condition from="CITY" to="NAME"/>
+               </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true"/>
+            <column name="ISLAND" label="Island" indexing="true"/>
+            <column name="LATITUDE" label="Latitude"/>
+            <column name="LONGITUDE" label="Longitude"/>
+            <column name="ELEVATION" label="Elevation"/>
+            <column name="GMTOFFSET" label="GMT Offset"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="BORDERS" label="Borders" >
+      <tables repcol="C1 || ' has borders with ' || C2">
+        <table name="BORDERS" owner="MONDIAL">
+          <pk>COUNTRY1 COUNTRY2</pk>
+          <group>
+            <column name="COUNTRY1" label="Country1" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY1" to="CODE"/>
+              </join>
+            </column>
+            <column name="COUNTRY2" label="Country2" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY2" to="CODE"/>
+              </join>
+            </column>
+            <column name="LENGTH" label="Length"/>
+          </group>
+        </table>
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>COUNTRY1</pk>
+          <group>
+            <column name="NAME" as="C1" label="Name" exclude="true"/>
+            <column name="CODE" as="COUNTRY1" label="Code" untagged="true"/>
+          </group>
+        </table>
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>COUNTRY2</pk>
+          <group>
+            <column name="NAME" as="C2" label="Name" exclude="true"/>
+            <column name="CODE" as="COUNTRY2" label="Code" untagged="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="CITY" label="City" identifier="true">
+      <tables repcol="NAME">
+        <table name="CITY" owner="MONDIAL">
+          <pk>NAME PROVINCE COUNTRY</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="COUNTRY" label="Country" untagged="true">
+            <!-- <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>-->
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+                <condition from="COUNTRY" to="COUNTRY"/>
+              </join>
+            </column>
+            <column name="POPULATION" label="Population"/>
+            <column name="LATITUDE" label="Latitude"/>
+            <column name="LONGITUDE" label="Longitude"/>
+            <column name="ELEVATION" label="Elevation"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="CITYOTHERNAME" label="Other Name (City)">
+      <tables repcol="OTHERNAME">
+        <table name="CITYOTHERNAME" owner="MONDIAL">
+          <pk>OTHERNAME CITY PROVINCE COUNTRY</pk>
+          <group>
+            <column name="CITY" label="Main City Name" untagged="true">
+              <join view="CITY">
+                <condition from="COUNTRY" to="COUNTRY"/>
+                <condition from="CITY" to="NAME"/>
+                <condition from="PROVINCE" to="PROVINCE"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true"/>
+            <column name="PROVINCE" label="Province" untagged="true"/>
+            <column name="OTHERNAME" label="Other Name" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="CITYPOPS" label="Population (City)">
+      <tables repcol="CITY || ' - ' || POPULATION || ' people (' || YEAR || ')'">
+        <table name="CITYPOPS" owner="MONDIAL">
+          <pk>CITY PROVINCE COUNTRY YEAR</pk>
+          <group>
+            <column name="CITY" label="City" untagged="true">
+              <join view="CITY">
+                <condition from="COUNTRY" to="COUNTRY"/>
+                <condition from="CITY" to="NAME"/>
+                <condition from="PROVINCE" to="PROVINCE"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" exclude="true"/>
+            <column name="PROVINCE" label="Province" untagged="true"/>
+            <column name="YEAR" label="Year"/>
+            <column name="POPULATION" label="Population"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="CONTINENT" label="Continent" identifier="true">
+      <tables repcol="NAME">
+        <table name="CONTINENT" owner="MONDIAL">
+          <pk>NAME</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="AREA" label="Area"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="COUNTRY" label="Country" identifier="true">
+      <tables repcol="NAME">
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>CODE</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="CODE" label="Code" untagged="true"/>
+            <column name="CAPITAL" label="Capital" indexing="true"/>
+            <!--<column name="PROVINCE" label="Province"/>-->
+            <column name="AREA" label="Area"/>
+            <column name="POPULATION" label="Population"/>
+          </group>
+        </table>
+        <table name="POPULATION" owner="MONDIAL">
+          <pk>CODE</pk>
+          <group>
+            <column name="COUNTRY" as="CODE" label="Country" untagged="true"/>
+            <column name="POPULATION_GROWTH" label="Population Growth"/>
+            <column name="INFANT_MORTALITY" label="Infant Mortality"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="COUNTRYPOPS" label="Population (Country)">
+      <tables repcol="NAME || ' - ' || POPULATION || ' people (' || YEAR || ')'">
+        <table name="COUNTRYPOPS" owner="MONDIAL">
+          <pk>YEAR COUNTRY</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="YEAR" label="Year"/>
+            <column name="POPULATION" label="Population"/>
+          </group>
+        </table>
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>COUNTRY</pk>
+          <group>
+            <column name="NAME" label="Name" exclude="true"/>
+            <column name="CODE" as="COUNTRY" label="Code" untagged="true"/>
+          </group>
+        </table> 
+      </tables>
+    </view>
+   <view origin="Mondial" name="DESERT" label="Desert" identifier="true">
+      <tables repcol="NAME">
+        <table name="DESERT" owner="MONDIAL">
+          <pk>NAME </pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="AREA" label="Area"/>
+            <!--  <column name="COORDINATES" label="Coordinates" exclude="true"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="ECONOMY" label="Economy">
+      <tables repcol="'Economy of ' || NAME">
+        <table name="ECONOMY" owner="MONDIAL">
+          <pk>COUNTRY</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="GDP" label="GDP"/>
+            <column name="AGRICULTURE" label="Agriculture"/>
+            <column name="SERVICE" label="Service"/>
+            <column name="INDUSTRY" label="Industry"/>
+            <column name="INFLATION" label="Inflation"/>
+            <column name="UNEMPLOYMENT" label="Unemployment"/>
+          </group>
+        </table>
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>COUNTRY</pk>
+          <group>
+            <column name="CODE" as="COUNTRY" label="Name" untagged="true"/>
+            <column name="NAME" label="Name" exclude="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="ENCOMPASSES" label="Encompasses">
+      <tables repcol="COUNTRY || ' ' ||PERCENTAGE || '% of ' || CONTINENT">
+        <table name="ENCOMPASSES" owner="MONDIAL">
+          <pk>CONTINENT COUNTRY</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="CONTINENT" label="Continent" untagged="true">
+              <join view="CONTINENT">
+                <condition from="CONTINENT" to="NAME"/>
+              </join>
+            </column>
+            <column name="PERCENTAGE" label="Percentage"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="ETHNICGROUP" label="Ethnic Group" identifier="true">
+      <tables repcol="NAME">
+        <table name="ETHNICGROUP" owner="MONDIAL">
+          <pk>NAME COUNTRY</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="NAME" label="Name"/>
+            <column name="PERCENTAGE" label="Percentage"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="GEO_DESERT" label="Geo Desert">
+      <tables repcol="DESERT">
+        <table name="GEO_DESERT" owner="MONDIAL">
+          <pk>DESERT PROVINCE COUNTRY</pk>
+          <group>
+            <column name="DESERT" label="Desert" untagged="true">
+              <join view="DESERT">
+                <condition from="DESERT" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <!-- GEO ESTUARY
+   <view origin="Mondial" name="GEO_ESTUARY" label="Geo Estuary">
+      <tables repcol="RIVER">
+        <table name="GEO_ESTUARY" owner="MONDIAL">
+          <pk>RIVER PROVINCE COUNTRY</pk>
+          <group>
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->    
+    <!-- GEO ISLAND
+   <view origin="Mondial" name="GEO_ISLAND" label="Geo Island">
+      <tables repcol="ISLAND">
+        <table name="GEO_ISLAND" owner="MONDIAL">
+          <pk>ISLAND COUNTRY PROVINCE</pk>
+          <group>
+            <column name="ISLAND" label="Island">
+              <join view="ISLAND">
+                <condition from="ISLAND" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->
+    <!-- GEO LAKE
+   <view origin="Mondial" name="GEO_LAKE" label="Geo Lake">
+      <tables repcol="LAKE">
+        <table name="GEO_LAKE" owner="MONDIAL">
+          <pk>LAKE COUNTRY PROVINCE</pk>
+          <group>
+            <column name="LAKE" label="Lake" untagged="true">
+              <join view="LAKE">
+                <condition from="LAKE" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->
+   <view origin="Mondial" name="GEO_MOUNTAIN" label="Geo Mountain">
+      <tables repcol="MOUNTAIN">
+        <table name="GEO_MOUNTAIN" owner="MONDIAL">
+          <pk>MOUNTAIN COUNTRY PROVINCE</pk>
+          <group>
+            <column name="MOUNTAIN" label="Mountain" untagged="true">
+            <join view="MOUNTAIN">
+                <condition from="MOUNTAIN" to="NAME"/>
+              </join>
+           </column>
+           <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <!-- GEO RIVER
+   <view origin="Mondial" name="GEO_RIVER" label="Geo River">
+      <tables repcol="RIVER">
+        <table name="GEO_RIVER" owner="MONDIAL">
+          <pk>PROVINCE COUNTRY RIVER</pk>
+          <group>
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->
+    <!-- GEO SEA
+   <view origin="Mondial" name="GEO_SEA" label="Geo Sea">
+      <tables repcol="SEA">
+        <table name="GEO_SEA" owner="MONDIAL">
+          <pk>SEA PROVINCE COUNTRY</pk>
+          <group>
+            <column name="SEA" label="Sea" untagged="true">
+              <join view="SEA">
+                <condition from="SEA" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->
+    <!-- GEO SOURCE
+   <view origin="Mondial" name="GEO_SOURCE" label="Source">
+      <tables repcol="RIVER">
+        <table name="GEO_SOURCE" owner="MONDIAL">
+          <pk>RIVER PROVINCE COUNTRY</pk>
+          <group>
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->
+   <view origin="Mondial" name="ISLAND" label="Island" identifier="true">
+      <tables repcol="NAME">
+        <table name="ISLAND" owner="MONDIAL">
+          <pk>NAME</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="ISLANDS" label="Islands" indexing="true"/>
+            <column name="AREA" label="Area"/>
+            <column name="ELEVATION" label="Elevation"/>
+            <column name="TYPE" label="Type" indexing="true"/>
+            <!-- <column name="COORDINATES" label="Coordinates"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="ISLANDIN" label="Island In">
+      <tables repcol="ISLAND">
+        <table name="ISLANDIN" owner="MONDIAL">
+          <pseudoPk>ISLAND</pseudoPk>
+          <group>
+            <column name="ISLAND" label="Island" untagged="true">
+              <join view="ISLAND">
+                <condition from="ISLAND" to="NAME"/>
+              </join>
+            </column>
+            <column name="SEA" label="Sea" untagged="true">
+              <join view="SEA">
+                <condition from="SEA" to="NAME"/>
+              </join>
+            </column>
+            <column name="LAKE" label="Lake" untagged="true">
+              <join view="LAKE">
+                <condition from="LAKE" to="NAME"/>
+              </join>
+            </column>
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="ISMEMBER" label="Is Member">
+      <tables repcol="NAME || ' is member of ' || ORGANIZATION">
+        <table name="ISMEMBER" owner="MONDIAL">
+          <pk>COUNTRY ORGANIZATION</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="ORGANIZATION" label="Organization" untagged="true">
+              <join view="ORGANIZATION">
+                <condition from="ORGANIZATION" to="ABBREVIATION"/>
+              </join>
+            </column>
+            <column name="TYPE" label="Type" indexing="true"/>
+          </group>
+        </table>
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>COUNTRY</pk>
+          <group>
+            <column name="NAME" label="Name" exclude="true"/>
+            <column name="CODE" as="COUNTRY" label="Code" untagged="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="LAKE" label="Lake" identifier="true">
+      <tables repcol="NAME">
+        <table name="LAKE" owner="MONDIAL">
+          <pk>NAME</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="AREA" label="Area"/>
+            <column name="DEPTH" label="Depth"/>
+            <column name="ELEVATION" label="Elevation"/>
+            <column name="TYPE" label="Type" indexing="true"/>
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+            <!--<column name="COORDINATES" label="Coordinates"/>-->
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="LANGUAGE" label="Language" identifier="true">
+      <tables repcol="NAME">
+        <table name="LANGUAGE" owner="MONDIAL">
+          <pk>COUNTRY NAME</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="NAME" label="Name" />
+            <column name="PERCENTAGE" label="Percentage"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="LOCATED" label="Located">
+      <tables repcol="CITY || '-'  ||PROVINCE || '(' || COUNTRY || ')'">
+        <table name="LOCATED" owner="MONDIAL">
+          <pseudoPk>PROVINCE COUNTRY</pseudoPk>
+          <group>
+          
+            <column name="CITY" label="City" untagged="true">
+              <join view="CITY">
+                <condition from="CITY" to="NAME"/>
+                <condition from="PROVINCE" to="PROVINCE"/>
+                <condition from="COUNTRY" to="COUNTRY"/>
+              </join>
+            </column>          
+            
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+                <condition from="COUNTRY" to="COUNTRY"/>
+              </join>
+            </column>
+                       
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+            <column name="LAKE" label="Lake" untagged="true">
+              <join view="LAKE">
+                <condition from="LAKE" to="NAME"/>
+              </join>
+            </column>
+            <column name="SEA" label="Sea" untagged="true">
+              <join view="SEA">
+                <condition from="SEA" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="LOCATEDON" label="Located on">
+      <tables repcol="CITY">
+        <table name="LOCATEDON" owner="MONDIAL">
+          <pk>CITY ISLAND PROVINCE COUNTRY</pk>
+          <group>
+            <column name="CITY" label="City" untagged="true">
+              <join view="CITY">
+                <condition from="CITY" to="NAME"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="ISLAND" label="Island" untagged="true">
+              <join view="ISLAND">
+                <condition from="ISLAND" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="MERGESWITH" label="Merges With">
+      <tables repcol="SEA1 || ' merges with ' || SEA2">
+        <table name="MERGESWITH" owner="MONDIAL">
+          <pk>SEA1 SEA2</pk>
+          <group>
+            <column name="SEA1" label="Sea1" untagged="true">
+              <join view="SEA">
+                <condition from="SEA1" to="NAME"/>
+              </join>
+            </column>
+            <column name="SEA2" label="Sea2" untagged="true">
+              <join view="SEA">
+                <condition from="SEA2" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="MOUNTAIN" label="Mountain" identifier="true">
+      <tables repcol="NAME">
+        <table name="MOUNTAIN" owner="MONDIAL">
+          <pk>NAME</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="MOUNTAINS" label="Mountains" indexing="true"/>
+            <column name="ELEVATION" label="Elevation"/>
+            <column name="TYPE" label="Type" indexing="true"/>
+            <!-- <column name="COORDINATES" label="Coordinates"/> -->
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="MOUNTAINONISLAND" label="Mountain on Island">
+      <tables repcol="MOUNTAIN || ' on ' || ISLAND">
+        <table name="MOUNTAINONISLAND" owner="MONDIAL">
+          <pk>MOUNTAIN ISLAND</pk>
+          <group>
+            <column name="MOUNTAIN" label="Mountain" untagged="true">
+              <join view="MOUNTAIN">
+                <condition from="MOUNTAIN" to="NAME"/>
+              </join>
+            </column>
+            <column name="ISLAND" label="Island" untagged="true">
+              <join view="ISLAND">
+                <condition from="ISLAND" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="ORGANIZATION" label="Organization" identifier="true">
+      <tables repcol="NAME">
+        <table name="ORGANIZATION" owner="MONDIAL">
+          <pk>ABBREVIATION</pk>
+          <group>
+            <column name="ABBREVIATION" label="Abbreviation"/>
+            <column name="NAME" label="Name"/>
+            <column name="CITY" label="City" untagged="true"/>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="PROVINCE" label="Province" untagged="true"/>
+            <column name="ESTABLISHED" label="Established"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="POLITICS" label="Politics">
+      <tables repcol="'Politics of ' || NAME">
+        <table name="POLITICS" owner="MONDIAL">
+          <pk>CODE</pk>
+          <group>
+            <column name="COUNTRY" as="CODE" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="CODE" to="CODE"/>
+              </join>
+            </column>
+            <column name="INDEPENDENCE" label="Independence"/>
+            <column name="GOVERNMENT" label="Government" indexing="true"/>
+            <!-- Não criar link porque não tem como selecionar o join -->
+            <!-- Desnormalização para poder mostrar o nome dos países como valor de propriedade -->
+            <column name="WASDEPENDENT" as="CODEWASDEPENDENT" label="Was Dependent" exclude="true"/>
+            <column name="DEPENDENT" as="CODEDEPENDENT" label="Dependent" exclude="true"/>
+          </group>
+        </table>
+        <!-- Desnormalização para mostrar o nome do país no label da instância -->
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>CODE</pk>
+          <group>
+            <column name="NAME" label="Name" exclude="true"/>
+            <column name="CODE" label="Code" untagged="true"/>
+          </group>
+        </table>
+        <!-- Desnormalização para poder mostrar o nome dos países como valor das propriedades -->
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>CODEWASDEPENDENT</pk>
+          <group>
+            <column name="NAME" as="WASDEPENDENT" label="Was Dependent"/>
+            <column name="CODE" as="CODEWASDEPENDENT" label="Code" exclude="true"/>
+          </group>
+        </table>
+        <table name="COUNTRY" owner="MONDIAL">
+          <pk>CODEDEPENDENT</pk>
+          <group>
+            <column name="NAME" as="DEPENDENT" label="Dependent" />
+            <column name="CODE" as="CODEDEPENDENT" label="Code" exclude="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <!-- POPULATION
+   <view origin="Mondial" name="POPULATION" label="Population">
+      <tables repcol="COUNTRY">
+        <table name="POPULATION" owner="MONDIAL">
+          <pk>COUNTRY</pk>
+          <group>
+            <column name="COUNTRY" label="Country"/>
+            <column name="POPULATION_GROWTH" label="Population Growth"/>
+            <column name="INFANT_MORTALITY" label="Infant Mortality"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    -->
+   <view origin="Mondial" name="PROVINCE" label="Province" identifier="true">
+      <tables repcol="NAME">
+        <table name="PROVINCE" owner="MONDIAL">
+          <pk>NAME COUNTRY</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="CAPITAL" label="Capital" indexing="true"/>
+            <column name="CAPPROV" label="Province Capital" indexing="true"/>
+            <column name="POPULATION" label="Population"/>
+            <column name="AREA" label="Area"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="PROVINCEOTHERNAME" label="Other Name (Province)">
+      <tables repcol="OTHERNAME">
+        <table name="PROVINCEOTHERNAME" owner="MONDIAL">
+          <pk>OTHERNAME PROVINCE COUNTRY</pk>
+          <group>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="COUNTRY" to="COUNTRY"/>
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true"/>
+            <column name="OTHERNAME" label="Other Name" indexing="true"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="PROVPOPS" label="Population (Province)">
+      <tables repcol="PROVINCE || ' - ' || POPULATION || ' people (' || YEAR || ')'">
+        <table name="PROVPOPS" owner="MONDIAL">
+          <pk>PROVINCE COUNTRY YEAR</pk>
+          <group>
+            <column name="PROVINCE" label="Province" untagged="true">
+              <join view="PROVINCE">
+                <condition from="COUNTRY" to="COUNTRY"/>
+                <condition from="PROVINCE" to="NAME"/>
+              </join>
+            </column>
+            <column name="COUNTRY" label="Country" untagged="true"/>
+            <column name="YEAR" label="Year"/>
+            <column name="POPULATION" label="Population"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="RELIGION" label="Religion" identifier="true">
+      <tables repcol="NAME">
+        <table name="RELIGION" owner="MONDIAL">
+          <pk>NAME COUNTRY</pk>
+          <group>
+            <column name="COUNTRY" label="Country" untagged="true">
+              <join view="COUNTRY">
+                <condition from="COUNTRY" to="CODE"/>
+              </join>
+            </column>
+            <column name="NAME" label="Name"/>
+            <column name="PERCENTAGE" label="Percentage"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="RIVER" label="River" identifier="true">
+      <tables repcol="NAME">
+        <table name="RIVER" owner="MONDIAL">
+          <pk>NAME</pk>
+          <group>
+            <column name="NAME" label="Name" />
+            <column name="RIVER" as="MAIN_STEM" label="Main stem" indexing ="true"/>
+            <column name="LAKE" label="Lake" untagged="true">
+              <join view="LAKE">
+                <condition from="LAKE" to="NAME"/>
+              </join>
+            </column>
+            <!--
+            <column name="SEA" label="Sea" untagged="true">
+              <join view="SEA">
+                <condition from="SEA" to="NAME"/>
+              </join>
+            </column>
+            -->
+            <column name="LENGTH" label="Length"/>
+            <column name="AREA" label="Area"/>
+            <!--<column name="SOURCE" label="Source"/>-->
+            <!--
+            <column name="MOUNTAINS" label="Mountains" untagged="true">
+              <join view="MOUNTAIN">
+                <condition from="MOUNTAINS" to="MOUNTAINS"/>
+              </join>
+            </column>
+            -->
+            <column name="SOURCEELEVATION" label="Source Elevation"/>
+            <!--<column name="ESTUARY" label="Estuary"/>-->
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="RIVERTHROUGH" label="River through">
+      <tables repcol="RIVER || ' through ' || LAKE ">
+        <table name="RIVERTHROUGH" owner="MONDIAL">
+          <pk>RIVER LAKE</pk>
+          <group>
+            <column name="RIVER" label="River" untagged="true">
+              <join view="RIVER">
+                <condition from="RIVER" to="NAME"/>
+              </join>
+            </column>
+            <column name="LAKE" label="Lake" untagged="true">
+              <join view="LAKE">
+                <condition from="LAKE" to="NAME"/>
+              </join>
+            </column>
+          </group>
+        </table>
+      </tables>
+    </view>
+   <view origin="Mondial" name="SEA" label="Sea" identifier="true">
+      <tables repcol="NAME">
+        <table name="SEA" owner="MONDIAL">
+          <pk>NAME</pk>
+          <group>
+            <column name="NAME" label="Name"/>
+            <column name="DEPTH" label="Depth"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+  </views>
+</mapping>
