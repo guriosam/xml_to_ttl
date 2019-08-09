@@ -180,11 +180,6 @@ public class TablesXML {
 
 		String ttl = "";
 
-		/*
-		 * map:jobs__label a d2rq:PropertyBridge ; d2rq:belongsToClassMap map:jobs ;
-		 * d2rq:pattern "jobs_@@jobs.id@@" ; d2rq:property rdfs:label .
-		 */
-
 		String[] reps = repCol.split(" ");
 
 		String rep = reps[0];
@@ -199,6 +194,28 @@ public class TablesXML {
 		}
 
 		return ttl;
+	}
+
+	public String toStringRML(String uri) {
+		
+		String tablesRML = "";
+
+		tablesRML += "<#TablesMapping>\n";
+		tablesRML += "  rml:logicalSource [\n";
+		tablesRML += "    rml:source \"" + uri + "\";\n";
+		tablesRML += "    rml:referenceFormulation ql:xPath;\n";
+		tablesRML += "    rml:iterator \"/views/view/tables/table\";\n";
+		tablesRML += "    ];\n";
+		
+		//Missing repcol, not sure how to add it yet.
+		//TODO
+		
+		
+		for(TableXML t : tablesXML) {
+			tablesRML += t.toStringRML(uri);
+		}
+		
+		return tablesRML;
 	}
 
 }

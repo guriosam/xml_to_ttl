@@ -70,7 +70,7 @@ public class ColumnXML {
 			String aux = fileLine.substring(fileLine.indexOf("expr=\"") + 6);
 			expr = aux.substring(0, aux.indexOf("\""));
 		}
-		
+
 		if (fileLine.contains("default=")) {
 			String aux = fileLine.substring(fileLine.indexOf("default=\"") + 8);
 			def = aux.substring(0, aux.indexOf("\""));
@@ -182,29 +182,16 @@ public class ColumnXML {
 		}
 
 		if (joinsXML.size() > 0) {
-			/*
-			 * map:job_status_history_job_id__ref a d2rq:PropertyBridge ;
-			 * d2rq:belongsToClassMap map:job_status_history ; d2rq:join
-			 * "job_status_history.job_id <= jobs.id" ; d2rq:propertyDefinitionLabel "Job" ;
-			 * d2rq:property vocab:job_status_history_job ; d2rq:refersToClassMap map:jobs .
-			 */
-
-			/*
-			 * map:PaperConference a d2rq:PropertyBridge; d2rq:belongsToClassMap map:Paper;
-			 * d2rq:property :journalIssue; d2rq:refersToClassMap map:JournalIssue;
-			 * d2rq:join "Papers.Journal => Journal.JournalID"; d2rq:join
-			 * "Papers.Issue => Journal.IssueID"; .
-			 */
 
 			for (JoinXML join : joinsXML) {
 				ttl += "map:" + viewName + "_" + name + "__ref		a	d2rq:PropertyBridge ;\n";
 				ttl += "d2rq:belongsToClassMap		map:" + viewName + " ;\n";
-				// loop conditions
+
 				for (ConditionXML condition : join.getConditionsXML()) {
 					ttl += "d2rq:join                   \"" + viewName + "." + condition.getColumnFrom() + "<="
 							+ join.getView() + "." + condition.getColumnTo() + "\" ;\n";
-					// end loop conditions
 				}
+
 				ttl += "d2rq:propertyDefinitionLabel \"" + label + "\" ;\n";
 				ttl += "d2rq:property                 vocab:" + viewName + "_" + name + " ;\n";
 				ttl += "d2rq:refersToClassMap	map:" + join.getView() + " .\n\n";
@@ -288,6 +275,48 @@ public class ColumnXML {
 
 	public void setAs(String as) {
 		this.as = as;
+	}
+
+	public String toStringRML(String prefix) {
+
+		String columnRML = "";
+
+		if (name != null && !name.equals("")) {
+			columnRML += "  rr:subjectMap [\n";
+			columnRML += "    rr:template \"" + prefix + "@name\";\n";
+			columnRML += "    rr:class map:Group\n";
+			columnRML += "  ];\n";
+		}
+
+		if (label != null && !label.equals("")) {
+			columnRML += "  rr:subjectMap [\n";
+			columnRML += "    rr:template \"" + prefix + "@label\";\n";
+			columnRML += "    rr:class map:Group\n";
+			columnRML += "  ];\n";
+		}
+
+		if (as != null && !as.equals("")) {
+			columnRML += "  rr:subjectMap [\n";
+			columnRML += "    rr:template \"" + prefix + "@as\";\n";
+			columnRML += "    rr:class map:Group\n";
+			columnRML += "  ];\n";
+		}
+
+		if (indexing != null && !indexing.equals("")) {
+			columnRML += "  rr:subjectMap [\n";
+			columnRML += "    rr:template \"" + prefix + "@indexing\";\n";
+			columnRML += "    rr:class map:Group\n";
+			columnRML += "  ];\n";
+		}
+		
+		
+		for(JoinXML j : joinsXML) {
+			//columnRML += j.toStringRML(prefix);
+		}
+		
+		//TODO decode, not sure how to do it
+		
+		return columnRML;
 	}
 
 }

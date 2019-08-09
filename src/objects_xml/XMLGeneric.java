@@ -182,6 +182,27 @@ public class XMLGeneric {
 		return prefix;
 
 	}
+	
+	public String printRML() {
+		
+		//SOURCE: http://i3s.unice.fr/~fmichel/xr2rml_specification.html#_Toc466307453
+		//http://rml.io/spec.html#overview-0
+		
+		String rml = "";
+		
+		rml += "@prefix d2rq:  <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .\n";
+		rml += "@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .\n";
+		rml += "@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .\n";
+		rml += "@prefix vocab: <http://eras.tecgraf.puc-rio.br/> .\n";
+		rml += "@prefix map:   <http://eras.tecgraf.puc-rio.br/map#> .\n";
+		rml += "@prefix jdbc:  <http://d2rq.org/terms/jdbc/> .\n";
+		rml += "@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .\n\n";
+		
+		rml += viewsXML.toStringRML();
+		
+		
+		return rml;
+	}
 
 	public DatabasesXML getDatabasesXML() {
 		return databasesXML;

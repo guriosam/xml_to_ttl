@@ -49,7 +49,7 @@ public class Main {
 			
 		}
 		
-		System.out.println(g.printTTL());
+		System.out.println(g.printRML());
 		
 		//IO.writeAnyString(path + file.replace(".xml", ".ttl"), g.printTTL());
 

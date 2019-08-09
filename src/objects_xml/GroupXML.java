@@ -129,4 +129,22 @@ public class GroupXML {
 		return ttl;
 	}
 
+	public String toStringRML(String prefix) {
+		
+		String groupRML = "";
+		
+		groupRML += "<#GroupMapping>\n";
+		groupRML += "  rml:logicalSource [\n";
+		groupRML += "    rml:source \"" + prefix + "\";\n";
+		groupRML += "    rml:referenceFormulation ql:xPath;\n";
+		groupRML += "    rml:iterator \"/views/view/tables/table/group\";\n";
+		groupRML += "    ];\n";
+		
+		for(ColumnXML c : columnsXML) {
+			groupRML += c.toStringRML(prefix);
+		}
+		
+		return groupRML;
+	}
+
 }

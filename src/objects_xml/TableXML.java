@@ -191,4 +191,54 @@ public class TableXML {
 		this.where = where;
 	}
 
+	public String toStringRML(String prefix) {
+
+		String tableRML = "";
+
+		if (name != null && !name.equals("")) {
+			tableRML += "  rr:subjectMap [\n";
+			tableRML += "    rr:template \"" + prefix + "@name\";\n";
+			tableRML += "    rr:class map:Table\n";
+			tableRML += "  ];\n";
+		}
+
+		if (owner != null && !owner.equals("")) {
+			tableRML += "  rr:subjectMap [\n";
+			tableRML += "    rr:template \"" + prefix + "@owner\";\n";
+			tableRML += "    rr:class map:Table\n";
+			tableRML += "  ];\n";
+		}
+
+		if (pk != null && !pk.equals("")) {
+			tableRML += "  rr:predicateObjectMap [\n";
+			tableRML += "    rr:predicate map:pk;\n";
+			tableRML += "    rr:objectMap [\n";
+			tableRML += "      rr:reference\".\";\n";
+			tableRML += "    ]\n";
+			tableRML += "  ]\n";
+		}
+
+		if (pseudoPk != null && !pseudoPk.equals("")) {
+			tableRML += "  rr:predicateObjectMap [\n";
+			tableRML += "    rr:predicate map:pseudoPk;\n";
+			tableRML += "    rr:objectMap [\n";
+			tableRML += "      rr:reference\".\";\n";
+			tableRML += "    ]\n";
+			tableRML += "  ]\n";
+		}
+
+		tableRML += "  rr:predicateObjectMap [\n";
+		tableRML += "    rr:predicate map:group;\n";
+		tableRML += "    rr:objectMap [\n";
+		tableRML += "      rr:parentTriplesMap <#GroupMapping> \n";
+		tableRML += "    ]\n";
+		tableRML += "  ].\n";
+		
+		for(GroupXML g : groupsXML) {
+			tableRML += g.toStringRML(prefix);
+		}
+
+		return tableRML;
+	}
+
 }

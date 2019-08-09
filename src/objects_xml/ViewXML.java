@@ -161,8 +161,8 @@ public class ViewXML {
 			if (f) {
 				pks += "_";
 			}
-			
-			if(t == null) {
+
+			if (t == null) {
 				continue;
 			}
 
@@ -183,6 +183,58 @@ public class ViewXML {
 		ttl += tablesXML.toStringTTL();
 
 		return ttl;
+	}
+
+	public String getPrefix() {
+		return prefix;
+	}
+
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+
+	public String toStringRML() {
+
+		String viewRML = "";
+
+		if (origin != null && !origin.equals("")) {
+			viewRML += "  rr:subjectMap [\n";
+			viewRML += "    rr:template \"" + prefix + "@origin\";\n";
+			viewRML += "    rr:class map:Views\n";
+			viewRML += "  ];\n";
+		}
+
+		if (name != null && !name.equals("")) {
+			viewRML += "  rr:subjectMap [\n";
+			viewRML += "    rr:template \"" + prefix + "@name\";\n";
+			viewRML += "    rr:class map:Views\n";
+			viewRML += "  ];\n";
+		}
+
+		if (label != null && !label.equals("")) {
+			viewRML += "  rr:subjectMap [\n";
+			viewRML += "    rr:template \"" + prefix + "@label\";\n";
+			viewRML += "    rr:class map:Views\n";
+			viewRML += "  ];\n";
+		}
+
+		if (identifier != null && !identifier.equals("")) {
+			viewRML += "  rr:subjectMap [\n";
+			viewRML += "    rr:template \"" + prefix + "@identifier\";\n";
+			viewRML += "    rr:class map:Views\n";
+			viewRML += "  ];\n";
+		}
+		
+		viewRML += "  rr:predicateObjectMap [\n";
+		viewRML += "    rr:predicate map:tables;\n";
+		viewRML += "    rr:objectMap [\n";
+		viewRML += "      rr:parentTriplesMap <#TablesMapping> \n";
+		viewRML += "    ]\n";
+		viewRML += "  ].\n";
+		
+		viewRML += tablesXML.toStringRML(prefix);
+
+		return viewRML;
 	}
 
 }

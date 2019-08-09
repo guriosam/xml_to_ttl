@@ -85,6 +85,35 @@ public class JoinXML {
 	public void setConditionsXML(List<ConditionXML> conditionsXML) {
 		this.conditionsXML = conditionsXML;
 	}
+
+	public String toStringRML(String prefix) {
+		
+		String joinRML = "";
+		
+		/*
+		 * join example
+		 * 
+		 * rr:predicateObjectMap [
+    		rr:predicate ex:route;
+    		rr:objectMap [
+		      	rr:parentTriplesMap <#TransportMapping> ;
+		      	[
+		        	rr:joinCondition [
+		          	rr:child "bus";
+		          	rr:parent "/transport/bus@id"
+		        ]
+		      ]
+    		]
+  ];
+		 */
+		
+		joinRML += "  rr:predicateObjectMap [\n";
+		joinRML += "    rr:predicate map:";
+		//TODO not sure how to make join
+		
+		
+		return joinRML;
+	}
 	
 	
 	

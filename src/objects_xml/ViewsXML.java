@@ -5,15 +5,14 @@ import java.util.List;
 
 /**
  * @author cbvs
- *
- *         Representation of a Views tag in the XML File
- *
+ * Representation of a Views tag in the XML File
  */
 public class ViewsXML {
 
 	private List<ViewXML> viewsXML;
 
 	public ViewsXML() {
+		
 		setViewsXML(new ArrayList<>());
 	}
 
@@ -53,6 +52,30 @@ public class ViewsXML {
 		ttl += "\n";
 
 		return ttl;
+	}
+
+	public String toStringRML() {
+		
+		String viewsRML = "";
+		
+		String uri = "";
+		if(viewsXML != null && viewsXML.size() != 0) {
+			uri = viewsXML.get(0).getPrefix();
+		}
+		
+		viewsRML += "<#ViewsMapping>\n";
+		viewsRML += "  rml:logicalSource [\n";
+		viewsRML += "    rml:source \"" + uri + "\";\n";
+		viewsRML += "    rml:referenceFormulation ql:xPath;\n";
+		viewsRML += "    rml:iterator \"/views/view\";\n";
+		viewsRML += "    ];\n";
+		
+		
+		for(ViewXML v : viewsXML) {
+			viewsRML += v.toStringRML();
+		}
+		
+		return viewsRML;
 	}
 
 }
