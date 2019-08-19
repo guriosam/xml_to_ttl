@@ -166,11 +166,16 @@ public class ViewXML {
 				continue;
 			}
 
+			String pk = "";
+
 			if (t.getPk() != null && !t.getPk().equals("")) {
-				pks += "@@" + name + "." + t.getPk() + "@@";
-			} else {
-				pks += "@@" + name + "." + t.getPseudoPk() + "@@";
+				pk = t.getPk();
+			} else if (t.getPseudoPk() != null && !t.getPseudoPk().equals("")) {
+				pk = t.getPseudoPk();
 			}
+
+			pks += "@@" + name + "." + pk + "@@";
+
 			f = true;
 		}
 
@@ -224,14 +229,14 @@ public class ViewXML {
 			viewRML += "    rr:class map:Views\n";
 			viewRML += "  ];\n";
 		}
-		
+
 		viewRML += "  rr:predicateObjectMap [\n";
 		viewRML += "    rr:predicate map:tables;\n";
 		viewRML += "    rr:objectMap [\n";
 		viewRML += "      rr:parentTriplesMap <#TablesMapping> \n";
 		viewRML += "    ]\n";
 		viewRML += "  ].\n";
-		
+
 		viewRML += tablesXML.toStringRML(prefix);
 
 		return viewRML;

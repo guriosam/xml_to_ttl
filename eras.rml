@@ -20,29 +20,29 @@
 	 
 <#TablesMapping>
   rr:subjectMap [ 
-    rr:template "http://ex.com/view"]; (?)
+    rr:template "http://eras.tecgraf.puc-rio.br/view"]; (?)
 	
  rr:subjectMap [ 
-    rr:template “http://ex.com/view/{@repcol}”];	 ('view/'?)
+    rr:template “http://eras.tecgraf.puc-rio.br/view/{@repcol}”];	 ('view/'?)
  
- rr:subjectMap [ 
-    rr:template “http://ex.com/view/{@}”]; ('view/'?)
+// rr:subjectMap [ 
+//    rr:template “http://eras.tecgraf.puc-rio.br/view/{@}”]; ('view/'?)
 	
 
  rr:predicateObjectMap [
-   rr:predicate ex:tables;
+   rr:predicate ex:table;
    rr:objectMap [ 
      rr:parentTriplesMap <#TableMapping> ] ].
 	 
  <#TablesMapping>
   rr:subjectMap [ 
-    rr:template "http://ex.com/view/group"]; (?)
+    rr:template "http://eras.tecgraf.puc-rio.br/view/tables"]; (?)
 	
  rr:subjectMap [ 
-    rr:template “http://ex.com/view/{@name}”];	 ('table/'?)
- 
- 
- 
+    rr:template “http://eras.tecgraf.puc-rio.br/view/tables/{@name}”];	 ('table/'?)
+	
+ rr:subjectMap [ 
+    rr:template “http://eras.tecgraf.puc-rio.br/view/tables/	{@owner}”];	 ('table/'?)
  
  
   rr:predicateObjectMap [ 

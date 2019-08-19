@@ -70,7 +70,6 @@ public class ViewsXML {
 		viewsRML += "    rml:iterator \"/views/view\";\n";
 		viewsRML += "    ];\n";
 		
-		
 		for(ViewXML v : viewsXML) {
 			viewsRML += v.toStringRML();
 		}

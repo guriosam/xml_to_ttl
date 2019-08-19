@@ -24,8 +24,7 @@ public class DatabaseXML {
 	 */
 	public void collectDatabase(String fileLine) {
 
-		if (fileLine.matches("<(\\w)*>[\\S ]+<\\/(\\w)*>")) {
-
+		try {
 			String aux = fileLine.substring(fileLine.indexOf(">") + 1);
 			aux = aux.substring(0, aux.indexOf("<"));
 
@@ -47,9 +46,10 @@ public class DatabaseXML {
 				setDriver(aux);
 			}
 
-		} else {
+		} catch (Exception e) {
 			System.out.println("Something went wrong in DatabaseXML.");
 			System.out.println(fileLine);
+			e.printStackTrace();
 		}
 
 	}
@@ -62,7 +62,7 @@ public class DatabaseXML {
 	public String toStringTTL() {
 
 		String toString = "map:database a d2rq:Database ;\n";
-		toString += "d2rq:jdbcDSN	jdbc:\"" + driver + "://" + host + "/" + database + "\n";
+		toString += "d2rq:jdbcDSN	jdbc:\"" + driver + "://" + host + "/" + database + "\" ;\n";
 		toString += "d2rq:jdbcDriver  \"org.postgresql.Driver\" ;\n";
 		toString += "d2rq:password    \"" + password + "\" ;\n";
 		toString += "d2rq:username    \"" + username + "\" . \n";

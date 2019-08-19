@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <databases>
-  
-   <eras>
-    <driver>postgresql</driver>
-    <host>quiowpost.tecgraf.puc-rio.br</host>
-    <port>5432</port>
-    <database>ERAS</database>
-    <schema>public</schema>
-    <user>postgres</user>
-    <password>#Ink897$</password>
-  </eras> 
-  
+<PDS>
+   <driver>oracle<driver>
+    <host>PDS</host>
+    <port>1521</port>
+    <sid>PDS</sid>
+    <user>MTO_P00</user>
+    <password>MTO_P00</password>
+</PDS>
 </databases>

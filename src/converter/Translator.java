@@ -34,15 +34,23 @@ public class Translator {
 	 * @return toStringTTL of the XML file.
 	 * @throws FileNotFoundException
 	 */
-	public String xmlToTTL(String xmlPath) throws FileNotFoundException {
+	public String xmlToTTL(String databasePath, String xmlPath) throws FileNotFoundException {
 
 		if (xmlObject != null) {
 			return xmlObject.printTTL();
 		}
 
-		return xmlToObject(xmlPath).printTTL();
+		return xmlToObject(databasePath, xmlPath).printTTL();
 	}
+	
+	public String xmlToRML(String databasePath, String xmlPath) throws FileNotFoundException {
 
+		if (xmlObject != null) {
+			return xmlObject.printTTL();
+		}
+
+		return xmlToObject(databasePath, xmlPath).printRML();
+	}
 	/**
 	 * Method responsible for converting the given XML (in a list of lines) to a
 	 * Java Object.
@@ -51,7 +59,18 @@ public class Translator {
 	 * @return a Java Object representation of the XML file
 	 * @throws FileNotFoundException
 	 */
-	public XMLGeneric xmlToObject(String xmlPath) throws FileNotFoundException {
+	public XMLGeneric xmlToObject(String databasePath, String xmlPath) throws FileNotFoundException {
+
+		File f1 = new File(databasePath);
+		List<String> databaseLines = new ArrayList<>();
+
+		// Checking if the file is still there and isn't a folder
+		if (!f1.exists() || f1.isDirectory()) {
+			throw new FileNotFoundException();
+		}
+
+		// collecting the fileLines
+		databaseLines = IO.readAnyFile(databasePath);
 
 		File f = new File(xmlPath);
 		List<String> fileLines = new ArrayList<>();
@@ -62,15 +81,25 @@ public class Translator {
 		}
 
 		// collecting the fileLines
-		System.out.println(xmlPath);
 		fileLines = IO.readAnyFile(xmlPath);
 
 		skip = false;
 
+		collectXMLInfo(databaseLines);
+		collectXMLInfo(fileLines);
+
+		return xmlObject;
+
+	}
+
+	private void collectXMLInfo(List<String> fileLines) {
+
+		
 		int i = 0;
 		for (String fileLine : fileLines) {
 			i++;
 			try {
+				
 
 				fileLine = fileLine.replace(" =", "=");
 				fileLine = fileLine.replace("= ", "=");
@@ -80,7 +109,6 @@ public class Translator {
 					continue;
 				}
 
-				// Collecting the encoding for future needs
 				if (fileLine.contains("encoding")) {
 					String encoding = getEncoding(fileLine);
 					xmlObject.setEncoding(encoding);
@@ -99,10 +127,12 @@ public class Translator {
 				if (config) {
 					xmlObject.getConfigXML().collectConfig(fileLine);
 				} else if (databases) {
-
+					System.out.println(fileLine);
 					if (fileLine.matches("<(\\w)*>")) {
+						if (xmlObject.getDatabasesXML() == null) {
+							xmlObject.setDatabasesXML(new DatabasesXML());
+						}
 						xmlObject.getDatabasesXML().getDatabases().add(new DatabaseXML(fileLine));
-						System.out.println(fileLine);
 					} else if (fileLine.matches("<[/](\\w)*>(\\s)*")) {
 						continue;
 					} else {
@@ -119,8 +149,6 @@ public class Translator {
 			}
 
 		}
-
-		return xmlObject;
 
 	}
 

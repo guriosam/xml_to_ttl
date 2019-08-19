@@ -1,0 +1,1530 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<mapping>
+  <config>
+    <version>1.0</version>
+    <prefix>http://www.tecgraf.puc-rio.br/pds/</prefix>
+    <database>PDS</database>
+  </config>
+  <views>
+
+    <!-- Schema MTO_P00 -->
+
+    <view label="PDTABLE_101" name="PDTABLE_101" origin="PDS">
+      <tables repcol="SYSTEM_UNIQUE_NO">
+        <table name="PDTABLE_101" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="PROJECT_NO" name="PROJECT_NO"/>
+            <column indexing="true" label="PROJECT_NAME" name="PROJECT_NAME"/>
+            <column indexing="true" label="JOB_NO" name="JOB_NO"/>
+            <column indexing="true" label="COMPANY_NAME" name="COMPANY_NAME"/>
+            <column indexing="true" label="PLANT_NAME" name="PLANT_NAME"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_110" name="PDTABLE_110" origin="PDS">
+      <tables repcol="INDEX_NO">
+        <table name="PDTABLE_110" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="INDEX_NO" name="INDEX_NO"/>
+            <column label="IDX_12" name="IDX_12"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="OWN_COMP_TABLE_NO" name="OWN_COMP_TABLE_NO"/>
+            <column label="IDX_OF_OWN_COMP" name="IDX_OF_OWN_COMP"/>
+            <column label="OWN_COMP_CP_NO" name="OWN_COMP_CP_NO"/>
+            <column label="MAT_PARTITION_NO" name="MAT_PARTITION_NO"/>
+            <column label="MAT_COMP_TABLE_NO" name="MAT_COMP_TABLE_NO"/>
+            <column label="IDX_OF_MAT_COMP" name="IDX_OF_MAT_COMP"/>
+            <column label="MAT_COMP_CP_NO" name="MAT_COMP_CP_NO"/>
+            <column label="GASKET_OD" name="GASKET_OD"/>
+            <column label="GASKET_ID" name="GASKET_ID"/>
+            <column indexing="true" label="PMC" name="PMC"/>
+            <column label="GASKET_THK" name="GASKET_THK"/>
+            <column indexing="true" label="COMMODITY_CODE" name="COMMODITY_CODE"/>
+            <column indexing="true" label="LINE_ID" name="LINE_ID"/>
+            <column indexing="true" label="COMMODITY_NAME" name="COMMODITY_NAME"/>
+            <column label="GASKET_OPTION" name="GASKET_OPTION"/>
+            <column label="MAX_TEMP" name="MAX_TEMP"/>
+            <column label="END_PREP" name="END_PREP"/>
+            <column indexing="true" label="PRES_RATING" name="PRES_RATING"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="MATER_GRADE" name="MATER_GRADE"/>
+            <column label="STD_NOTE_A" name="STD_NOTE_A"/>
+            <column label="STD_NOTE_B" name="STD_NOTE_B"/>
+            <column indexing="true" label="UNIQUE_NAME" name="UNIQUE_NAME"/>
+            <column label="IDX_205" name="IDX_205"/>
+            <column label="IDX_215" name="IDX_215"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_12" name="PDTABLE_12" origin="PDS">
+      <tables repcol="VISCOSITY">
+        <table name="PDTABLE_12" owner="MTO_P00">
+          <pk>SYSTEM_UNIQUE_NO</pk>
+          <group name="Default">
+            <column label="VISCOSITY" name="VISCOSITY"/>
+            <column label="DENSITY" name="DENSITY"/>
+            <column label="SPEC_HEAT_RATIO" name="SPEC_HEAT_RATIO"/>
+            <column label="SONIC_VELOCITY" name="SONIC_VELOCITY"/>
+            <column label="SURFACE_ROUGHNESS" name="SURFACE_ROUGHNESS"/>
+            <column indexing="true" label="TEST_SYSTEM_NO" name="TEST_SYSTEM_NO"/>
+            <column label="TEST_FLUID" name="TEST_FLUID"/>
+            <column label="TEST_PRESSURE" name="TEST_PRESSURE"/>
+            <column indexing="true" label="PID_ID_PART_A" name="PID_ID_PART_A"/>
+            <column indexing="true" label="PID_ID_PART_B" name="PID_ID_PART_B"/>
+            <column label="END_1_NOZZLE_ID" name="END_1_NOZZLE_ID"/>
+            <column label="END_2_NOZZLE_ID" name="END_2_NOZZLE_ID"/>
+            <column indexing="true" label="ALPHA_DESCRIPT_ID" name="ALPHA_DESCRIPT_ID"/>
+            <column label="STANDARD_NOTE_NO" name="STANDARD_NOTE_NO"/>
+            <column label="PID_INDEX_NO" name="PID_INDEX_NO"/>
+            <column indexing="true" label="COLOR_CODE" name="COLOR_CODE"/>
+            <column indexing="true" label="INSPECTION_ISO_ID" name="INSPECTION_ISO_ID"/>
+            <column label="INDEX_TO_PI_DWG" name="INDEX_TO_PI_DWG"/>
+            <column indexing="true" label="WELD_ID" name="WELD_ID"/>
+            <column indexing="true" label="SPPID_PIPERUN_GUID" name="SPPID_PIPERUN_GUID"/>
+            <column indexing="true" label="SPPID_DRAWING_GUID" name="SPPID_DRAWING_GUID"/>
+            <column label="SEG_LEN" name="SEG_LEN"/>
+            <column indexing="true" label="END1_NOZ_ID_ASCII" name="END1_NOZ_ID_ASCII"/>
+            <column indexing="true" label="END2_NOZ_ID_ASCII" name="END2_NOZ_ID_ASCII"/>
+            <column label="PARTITION_NO" name="PARTITION_NO">
+              <join view="PDTABLE_110">
+                <condition from="PARTITION_NO" to="PARTITION_NO"/>
+              </join>
+            </column>
+            <column label="NPD" name="NPD"/>
+            <column indexing="true" label="FLOW_DIRECTION" name="FLOW_DIRECTION"/>
+            <column label="ALT_DGN_TEMP_UNITS" name="ALT_DGN_TEMP_UNITS"/>
+            <column label="STEAM_TEMP_UNITS" name="STEAM_TEMP_UNITS"/>
+            <column indexing="true" label="STRESS_SYSTEM_NO" name="STRESS_SYSTEM_NO"/>
+            <column label="STRESS_REQMTS" name="STRESS_REQMTS"/>
+            <column indexing="true" label="HYD_SYSTEM_NO" name="HYD_SYSTEM_NO"/>
+            <column label="HYD_REQMTS" name="HYD_REQMTS"/>
+            <column label="SPECIFIC_GRAVITY_A" name="SPECIFIC_GRAVITY_A"/>
+            <column label="SPECIFIC_GRAVITY_B" name="SPECIFIC_GRAVITY_B"/>
+            <column label="SPECIFIC_GRAVITY_C" name="SPECIFIC_GRAVITY_C"/>
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="LINE_NUMBER_LABEL" name="LINE_NUMBER_LABEL"/>
+            <column indexing="true" label="LINE_ID" name="LINE_ID"/>
+            <column indexing="true" label="UNIT_NUMBER" name="UNIT_NUMBER"/>
+            <column indexing="true" label="UNIT_CODE" name="UNIT_CODE"/>
+            <column indexing="true" label="MODULE_NO" name="MODULE_NO"/>
+            <column indexing="true" label="PACKAGE_SYSTEM_NO" name="PACKAGE_SYSTEM_NO"/>
+            <column indexing="true" label="TRAIN_NUMBER" name="TRAIN_NUMBER"/>
+            <column label="FLUID_CODE" name="FLUID_CODE"/>
+            <column indexing="true" label="LINE_SEQUENCE_NO" name="LINE_SEQUENCE_NO"/>
+            <column label="NOMINAL_PIPING_DIA" name="NOMINAL_PIPING_DIA"/>
+            <column indexing="true" label="PIPING_MATER_CLASS" name="PIPING_MATER_CLASS"/>
+            <column indexing="true" label="GASKET_SEPARATION" name="GASKET_SEPARATION"/>
+            <column label="INSULATION_PURPOSE" name="INSULATION_PURPOSE"/>
+            <column label="INSULATION_THICK" name="INSULATION_THICK"/>
+            <column label="INSULATION_DENSITY" name="INSULATION_DENSITY"/>
+            <column label="HEAT_TRACING_REQMT" name="HEAT_TRACING_REQMT"/>
+            <column label="HEAT_TRACING_MEDIA" name="HEAT_TRACING_MEDIA"/>
+            <column label="HEAT_TRACING_TEMP" name="HEAT_TRACING_TEMP"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="HOLD_STATUS" name="HOLD_STATUS"/>
+            <column label="APPROVAL_STATUS" name="APPROVAL_STATUS"/>
+            <column indexing="true" label="SCHEDULE_OVERRIDE" name="SCHEDULE_OVERRIDE"/>
+            <column label="NOR_OPER_PRES" name="NOR_OPER_PRES"/>
+            <column label="NOR_OPER_TEMP" name="NOR_OPER_TEMP"/>
+            <column label="ALT_OPER_PRES" name="ALT_OPER_PRES"/>
+            <column label="ALT_OPER_TEMP" name="ALT_OPER_TEMP"/>
+            <column label="NOR_DGN_PRES" name="NOR_DGN_PRES"/>
+            <column label="NOR_DGN_TEMP" name="NOR_DGN_TEMP"/>
+            <column label="ALT_DGN_PRES" name="ALT_DGN_PRES"/>
+            <column label="ALT_DGN_TEMP" name="ALT_DGN_TEMP"/>
+            <column label="STEAM_OUTLET_TEMP" name="STEAM_OUTLET_TEMP"/>
+            <column indexing="true" label="MATER_OF_CONSTRUCT" name="MATER_OF_CONSTRUCT"/>
+            <column label="SAFETY_CLASS" name="SAFETY_CLASS"/>
+            <column label="DESIGN_STANDARD" name="DESIGN_STANDARD"/>
+            <column indexing="true" label="DESIGN_AREA_NUMBER" name="DESIGN_AREA_NUMBER"/>
+            <column label="DESIGN_RESP" name="DESIGN_RESP"/>
+            <column label="CONSTRUCTION_RESP" name="CONSTRUCTION_RESP"/>
+            <column label="SUPPLY_RESP" name="SUPPLY_RESP"/>
+            <column label="COATING_REQMTS" name="COATING_REQMTS"/>
+            <column label="CLEANING_REQMTS" name="CLEANING_REQMTS"/>
+            <column indexing="true" label="FLUID_CATEGORY" name="FLUID_CATEGORY"/>
+            <column label="NOR_OP_PRES_UNITS" name="NOR_OP_PRES_UNITS"/>
+            <column label="NOR_OP_TEMP_UNITS" name="NOR_OP_TEMP_UNITS"/>
+            <column label="ALT_OP_PRES_UNITS" name="ALT_OP_PRES_UNITS"/>
+            <column label="ALT_OP_TEMP_UNITS" name="ALT_OP_TEMP_UNITS"/>
+            <column label="NOR_DGN_PRES_UNITS" name="NOR_DGN_PRES_UNITS"/>
+            <column label="NOR_DGN_TEMP_UNITS" name="NOR_DGN_TEMP_UNITS"/>
+            <column label="ALT_DGN_PRES_UNITS" name="ALT_DGN_PRES_UNITS"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_120" name="PDTABLE_120" origin="PDS">
+      <tables repcol="UNIQUE_NAME">
+        <table name="PDTABLE_120" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="UNIQUE_NAME" name="UNIQUE_NAME"/>
+            <column label="IDX_205" name="IDX_205"/>
+            <column label="IDX_215" name="IDX_215"/>
+            <column label="INDEX_NO" name="INDEX_NO"/>
+            <column label="IDX_12" name="IDX_12"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="OWN_COMP_TABLE_NO" name="OWN_COMP_TABLE_NO"/>
+            <column label="IDX_OF_OWN_COMP" name="IDX_OF_OWN_COMP"/>
+            <column label="OWN_COMP_CP_NO" name="OWN_COMP_CP_NO"/>
+            <column label="MAT_PARTITION_NO" name="MAT_PARTITION_NO"/>
+            <column label="MAT_COMP_TABLE_NO" name="MAT_COMP_TABLE_NO"/>
+            <column label="IDX_OF_MAT_COMP" name="IDX_OF_MAT_COMP"/>
+            <column label="MAT_COMP_CP_NO" name="MAT_COMP_CP_NO"/>
+            <column indexing="true" label="PMC" name="PMC"/>
+            <column indexing="true" label="LINE_ID" name="LINE_ID"/>
+            <column label="QUANTITY" name="QUANTITY"/>
+            <column label="DIAMETER" name="DIAMETER"/>
+            <column label="ITEM_LENGTH" name="ITEM_LENGTH"/>
+            <column indexing="true" label="COMMODITY_CODE" name="COMMODITY_CODE"/>
+            <column label="TOTAL_WT" name="TOTAL_WT"/>
+            <column indexing="true" label="COMMODITY_NAME" name="COMMODITY_NAME"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="MATERIAL_GRADE" name="MATERIAL_GRADE"/>
+            <column label="STD_NOTE_A" name="STD_NOTE_A"/>
+            <column label="STD_NOTE_B" name="STD_NOTE_B"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_130" name="PDTABLE_130" origin="PDS">
+      <tables repcol="INDEX_NO">
+        <table name="PDTABLE_130" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="INDEX_NO" name="INDEX_NO"/>
+            <column label="IDX_12" name="IDX_12"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="OWN_COMP_TABLE_NO" name="OWN_COMP_TABLE_NO"/>
+            <column label="IDX_OF_OWN_COMP" name="IDX_OF_OWN_COMP"/>
+            <column label="OWN_COMP_CP_NO" name="OWN_COMP_CP_NO"/>
+            <column label="MAT_PARTITION_NO" name="MAT_PARTITION_NO"/>
+            <column label="MAT_COMP_TABLE_NO" name="MAT_COMP_TABLE_NO"/>
+            <column label="IDX_OF_MAT_COMP" name="IDX_OF_MAT_COMP"/>
+            <column label="MAT_COMP_CP_NO" name="MAT_COMP_CP_NO"/>
+            <column indexing="true" label="PMC" name="PMC"/>
+            <column indexing="true" label="LINE_ID" name="LINE_ID"/>
+            <column label="WELD_DIAMETER" name="WELD_DIAMETER"/>
+            <column label="WELD_TYPE" name="WELD_TYPE"/>
+            <column label="END_PREP_A" name="END_PREP_A"/>
+            <column label="END_PREP_B" name="END_PREP_B"/>
+            <column indexing="true" label="SCHED_THICK_A" name="SCHED_THICK_A"/>
+            <column indexing="true" label="SCHED_THICK_B" name="SCHED_THICK_B"/>
+            <column label="MATER_GRADE_A" name="MATER_GRADE_A"/>
+            <column label="MATER_GRADE_B" name="MATER_GRADE_B"/>
+            <column indexing="true" label="WELD_NO" name="WELD_NO"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_140" name="PDTABLE_140" origin="PDS">
+      <tables repcol="INDEX_NO">
+        <table name="PDTABLE_140" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="INDEX_NO" name="INDEX_NO"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="TABLE_NO" name="TABLE_NO"/>
+            <column label="TABLE_UNIQ_NO" name="TABLE_UNIQ_NO"/>
+            <column indexing="true" label="SOURCE_COMM_CODE" name="SOURCE_COMM_CODE"/>
+            <column indexing="true" label="REPORT_COMM_CODE" name="REPORT_COMM_CODE"/>
+            <column label="QUANTITY" name="QUANTITY"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="STANDARD_NOTE_NO" name="STANDARD_NOTE_NO"/>
+            <column label="IDX_205" name="IDX_205"/>
+            <column label="IDX_215" name="IDX_215"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_150" name="PDTABLE_150" origin="PDS">
+      <tables repcol="PARTITION_NO">
+        <table name="PDTABLE_150" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="COMPONENT_GROUP_NO" name="COMPONENT_GROUP_NO"/>
+            <column label="PIPE_LENGTH" name="PIPE_LENGTH"/>
+            <column label="NUMBER_OF_BENDS" name="NUMBER_OF_BENDS"/>
+            <column label="IDX_12" name="IDX_12"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_160" name="PDTABLE_160" origin="PDS">
+      <tables repcol="IDX_80">
+        <table name="PDTABLE_160" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="IDX_80" name="IDX_80"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column indexing="true" label="MATERIAL_INDEX" name="MATERIAL_INDEX"/>
+            <column label="SEQUENCE_NUMBER" name="SEQUENCE_NUMBER"/>
+            <column label="QUANTITY" name="QUANTITY"/>
+            <column label="DIMENSION" name="DIMENSION"/>
+            <column indexing="true" label="MATERIAL_DESCR" name="MATERIAL_DESCR"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_170" name="PDTABLE_170" origin="PDS">
+      <tables repcol="PARTITION_NO">
+        <table name="PDTABLE_170" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="TABLE_NO" name="TABLE_NO"/>
+            <column label="TABLE_UNIQ_NO" name="TABLE_UNIQ_NO"/>
+            <column label="CONNECT_POINT_NO" name="CONNECT_POINT_NO"/>
+            <column label="CP_EASTING" name="CP_EASTING"/>
+            <column label="CP_NORTHING" name="CP_NORTHING"/>
+            <column label="CP_ELEVATION" name="CP_ELEVATION"/>
+            <column label="CP_EASTING_DVCS" name="CP_EASTING_DVCS"/>
+            <column label="CP_NORTHING_DVCS" name="CP_NORTHING_DVCS"/>
+            <column label="CP_ELEVATION_DVCS" name="CP_ELEVATION_DVCS"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_180" name="PDTABLE_180" origin="PDS">
+      <tables repcol="INDEX_NO">
+        <table name="PDTABLE_180" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="INDEX_NO" name="INDEX_NO"/>
+            <column label="ERROR_CODE" name="ERROR_CODE"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="TABLE_NO" name="TABLE_NO"/>
+            <column label="TABLE_UNIQ_NO" name="TABLE_UNIQ_NO"/>
+            <column label="SEC_TABLE_NO" name="SEC_TABLE_NO"/>
+            <column label="SEC_TABLE_UNIQ_NO" name="SEC_TABLE_UNIQ_NO"/>
+            <column indexing="true" label="WHERE_STRING" name="WHERE_STRING"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_205" name="PDTABLE_205" origin="PDS">
+      <tables repcol="SYSTEM_UNIQUE_NO">
+        <table name="PDTABLE_205" owner="MTO_P00">
+          <pk>SYSTEM_UNIQUE_NO</pk>
+          <group name="Default">
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="LABEL" name="LABEL"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_21" name="PDTABLE_21" origin="PDS">
+      <tables repcol="EQUIP_INDX_NO">
+        <table name="PDTABLE_21" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="EQUIP_INDX_NO" name="EQUIP_INDX_NO"/>
+            <column indexing="true" label="EQUIP_NO" name="EQUIP_NO"/>
+            <column indexing="true" label="EQUIP_DESCR_1" name="EQUIP_DESCR_1"/>
+            <column indexing="true" label="EQUIP_DESCR_2" name="EQUIP_DESCR_2"/>
+            <column indexing="true" label="TUTORIAL_NO" name="TUTORIAL_NO"/>
+            <column indexing="true" label="EQUIP_CLASS" name="EQUIP_CLASS"/>
+            <column label="DRY_WEIGHT" name="DRY_WEIGHT"/>
+            <column label="OPER_WEIGHT_1" name="OPER_WEIGHT_1"/>
+            <column label="OPER_WEIGHT_2" name="OPER_WEIGHT_2"/>
+            <column label="INSULATION_THK" name="INSULATION_THK"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="EQUIPMENT_DIVISION" name="EQUIPMENT_DIVISION"/>
+            <column label="APPROVAL_STATUS" name="APPROVAL_STATUS"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_215" name="PDTABLE_215" origin="PDS">
+      <tables repcol="SYSTEM_UNIQUE_NO">
+        <table name="PDTABLE_215" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="LABEL_PART1" name="LABEL_PART1"/>
+            <column indexing="true" label="LABEL_PART2" name="LABEL_PART2"/>
+            <column indexing="true" label="LABEL_PART3" name="LABEL_PART3"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_22" name="PDTABLE_22" origin="PDS">
+      <tables repcol="NOZZLE_INDX_NO">
+        <table name="PDTABLE_22" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="NOZZLE_INDX_NO" name="NOZZLE_INDX_NO"/>
+            <column indexing="true" label="NOZZLE_NO" name="NOZZLE_NO"/>
+            <column label="EQUIP_INDX_NO" name="EQUIP_INDX_NO"/>
+            <column label="NOMINAL_PIPING_DIA" name="NOMINAL_PIPING_DIA"/>
+            <column indexing="true" label="RATING" name="RATING"/>
+            <column label="PREPARATION" name="PREPARATION"/>
+            <column indexing="true" label="PIPING_MATER_CLASS" name="PIPING_MATER_CLASS"/>
+            <column indexing="true" label="UNIT_NO" name="UNIT_NO"/>
+            <column label="FLUID_CODE" name="FLUID_CODE"/>
+            <column indexing="true" label="UNIT_CODE" name="UNIT_CODE"/>
+            <column indexing="true" label="LINE_SEQUENCE_NO" name="LINE_SEQUENCE_NO"/>
+            <column label="HEAT_TRACING_REQMT" name="HEAT_TRACING_REQMT"/>
+            <column label="HEAT_TRACING_MEDIA" name="HEAT_TRACING_MEDIA"/>
+            <column label="INSULATION_PURPOSE" name="INSULATION_PURPOSE"/>
+            <column label="INSULATION_THK" name="INSULATION_THK"/>
+            <column label="TABLE_SUFFIX" name="TABLE_SUFFIX"/>
+            <column indexing="true" label="SERVICE" name="SERVICE"/>
+            <column indexing="true" label="SCHEDULE_THICKNESS" name="SCHEDULE_THICKNESS"/>
+            <column label="NOR_THERM_GROWTH_X" name="NOR_THERM_GROWTH_X"/>
+            <column label="NOR_THERM_GROWTH_Y" name="NOR_THERM_GROWTH_Y"/>
+            <column label="NOR_THERM_GROWTH_Z" name="NOR_THERM_GROWTH_Z"/>
+            <column label="ALT_THERM_GROWTH_X" name="ALT_THERM_GROWTH_X"/>
+            <column label="ALT_THERM_GROWTH_Y" name="ALT_THERM_GROWTH_Y"/>
+            <column label="ALT_THERM_GROWTH_Z" name="ALT_THERM_GROWTH_Z"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="IDX_12" name="IDX_12"/>
+            <column label="NPD" name="NPD"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_250" name="PDTABLE_250" origin="PDS">
+      <tables repcol="SYSTEM_UNIQUE_NO">
+        <table name="PDTABLE_250" owner="MTO_P00">
+          <pk>SYSTEM_UNIQUE_NO</pk>
+          <group name="Default">
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column label="STD_NOTE_NO" name="STD_NOTE_NO"/>
+            <column label="STD_NOTE_CODE" name="STD_NOTE_CODE">
+              <join view="PDTABLE_12">
+                <condition from="STD_NOTE_CODE" to="FLUID_CODE"/>
+                <condition from="STD_NOTE_CODE" to="NOR_DGN_PRES_UNITS"/>
+                <condition from="STD_NOTE_CODE" to="NOR_OP_PRES_UNITS"/>
+              </join>
+            </column>
+            <column indexing="true" label="LONG_DESCR" name="LONG_DESCR"/>
+            <column indexing="true" label="SHORT_DESCR" name="SHORT_DESCR"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_34" name="PDTABLE_34" origin="PDS">
+      <tables repcol="CP_1_RATING">
+        <table name="PDTABLE_34" owner="MTO_P00">
+          <pk>SYSTEM_UNIQUE_NO</pk>
+          <group name="Default">
+            <column indexing="true" label="CP_1_RATING" name="CP_1_RATING"/>
+            <column label="CP_1_FACE_TO_CTR" name="CP_1_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_1_WELD_NO" name="CP_1_WELD_NO"/>
+            <column label="CP_1_WELD_TYPE" name="CP_1_WELD_TYPE"/>
+            <column label="CP_1_GASKET_GAP" name="CP_1_GASKET_GAP"/>
+            <column label="CP_1_GASKET_OPTION" name="CP_1_GASKET_OPTION"/>
+            <column label="CP_1_STRESS_NODE" name="CP_1_STRESS_NODE"/>
+            <column label="CP_1_STRESS_FACTOR" name="CP_1_STRESS_FACTOR"/>
+            <column label="CP_1_HEAD_LOSS" name="CP_1_HEAD_LOSS"/>
+            <column label="CP_2_NOM_PIPE_DIAM" name="CP_2_NOM_PIPE_DIAM"/>
+            <column label="CP_2_OUTSIDE_DIAM" name="CP_2_OUTSIDE_DIAM"/>
+            <column label="CP_2_END_PREP" name="CP_2_END_PREP"/>
+            <column indexing="true" label="CP_2_SCH_THK" name="CP_2_SCH_THK"/>
+            <column indexing="true" label="CP_2_RATING" name="CP_2_RATING"/>
+            <column label="CP_2_FACE_TO_CTR" name="CP_2_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_2_WELD_NO" name="CP_2_WELD_NO"/>
+            <column label="CP_2_WELD_TYPE" name="CP_2_WELD_TYPE"/>
+            <column label="CP_2_GASKET_GAP" name="CP_2_GASKET_GAP"/>
+            <column label="CP_2_GASKET_OPTION" name="CP_2_GASKET_OPTION"/>
+            <column label="CP_2_STRESS_NODE" name="CP_2_STRESS_NODE"/>
+            <column label="CP_2_STRESS_FACTOR" name="CP_2_STRESS_FACTOR"/>
+            <column label="CP_2_HEAD_LOSS" name="CP_2_HEAD_LOSS"/>
+            <column label="CP_3_NOM_PIPE_DIAM" name="CP_3_NOM_PIPE_DIAM"/>
+            <column label="CP_3_OUTSIDE_DIAM" name="CP_3_OUTSIDE_DIAM"/>
+            <column label="CP_3_END_PREP" name="CP_3_END_PREP"/>
+            <column indexing="true" label="CP_3_SCH_THK" name="CP_3_SCH_THK"/>
+            <column indexing="true" label="CP_3_RATING" name="CP_3_RATING"/>
+            <column label="CP_3_FACE_TO_CTR" name="CP_3_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_3_WELD_NO" name="CP_3_WELD_NO"/>
+            <column label="CP_3_WELD_TYPE" name="CP_3_WELD_TYPE"/>
+            <column label="CP_3_GASKET_GAP" name="CP_3_GASKET_GAP"/>
+            <column label="CP_3_GASKET_OPTION" name="CP_3_GASKET_OPTION"/>
+            <column label="CP_3_STRESS_NODE" name="CP_3_STRESS_NODE"/>
+            <column label="CP_3_STRESS_FACTOR" name="CP_3_STRESS_FACTOR"/>
+            <column label="CP_3_HEAD_LOSS" name="CP_3_HEAD_LOSS"/>
+            <column label="CP_4_NOM_PIPE_DIAM" name="CP_4_NOM_PIPE_DIAM"/>
+            <column label="CP_4_OUTSIDE_DIAM" name="CP_4_OUTSIDE_DIAM"/>
+            <column label="CP_4_END_PREP" name="CP_4_END_PREP"/>
+            <column indexing="true" label="CP_4_SCH_THK" name="CP_4_SCH_THK"/>
+            <column indexing="true" label="CP_4_RATING" name="CP_4_RATING"/>
+            <column label="CP_4_FACE_TO_CTR" name="CP_4_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_4_WELD_NO" name="CP_4_WELD_NO"/>
+            <column label="CP_4_WELD_TYPE" name="CP_4_WELD_TYPE"/>
+            <column label="CP_4_GASKET_GAP" name="CP_4_GASKET_GAP"/>
+            <column label="CP_4_GASKET_OPTION" name="CP_4_GASKET_OPTION"/>
+            <column label="CP_4_STRESS_NODE" name="CP_4_STRESS_NODE"/>
+            <column label="CP_4_STRESS_FACTOR" name="CP_4_STRESS_FACTOR"/>
+            <column label="CP_4_HEAD_LOSS" name="CP_4_HEAD_LOSS"/>
+            <column label="CP_5_NOM_PIPE_DIAM" name="CP_5_NOM_PIPE_DIAM"/>
+            <column label="CP_5_OUTSIDE_DIAM" name="CP_5_OUTSIDE_DIAM"/>
+            <column label="CP_5_END_PREP" name="CP_5_END_PREP"/>
+            <column indexing="true" label="CP_5_SCH_THK" name="CP_5_SCH_THK"/>
+            <column indexing="true" label="CP_5_RATING" name="CP_5_RATING"/>
+            <column label="CP_5_FACE_TO_CTR" name="CP_5_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_5_WELD_NO" name="CP_5_WELD_NO"/>
+            <column label="CP_5_WELD_TYPE" name="CP_5_WELD_TYPE"/>
+            <column label="CP_5_GASKET_GAP" name="CP_5_GASKET_GAP"/>
+            <column label="CP_5_GASKET_OPTION" name="CP_5_GASKET_OPTION"/>
+            <column label="CP_5_STRESS_NODE" name="CP_5_STRESS_NODE"/>
+            <column label="CP_5_STRESS_FACTOR" name="CP_5_STRESS_FACTOR"/>
+            <column label="CP_5_HEAD_LOSS" name="CP_5_HEAD_LOSS"/>
+            <column indexing="true" label="UNIQUE_NAME" name="UNIQUE_NAME"/>
+            <column label="VLV_OPERATOR_DIM_A" name="VLV_OPERATOR_DIM_A"/>
+            <column label="VLV_OPERATOR_DIM_B" name="VLV_OPERATOR_DIM_B"/>
+            <column label="VLV_OPERATOR_DIM_C" name="VLV_OPERATOR_DIM_C"/>
+            <column label="VLV_OPERATOR_DIM_D" name="VLV_OPERATOR_DIM_D"/>
+            <column label="LAST_PLACED_DATE" name="LAST_PLACED_DATE"/>
+            <column indexing="true" label="GENERIC_COMP_NO" name="GENERIC_COMP_NO"/>
+            <column label="INSPECTION_KEY" name="INSPECTION_KEY"/>
+            <column label="CP_1_INSPECT_KEY" name="CP_1_INSPECT_KEY"/>
+            <column label="CP_2_INSPECT_KEY" name="CP_2_INSPECT_KEY"/>
+            <column label="CP_3_INSPECT_KEY" name="CP_3_INSPECT_KEY"/>
+            <column label="CP_4_INSPECT_KEY" name="CP_4_INSPECT_KEY"/>
+            <column label="CP_5_INSPECT_KEY" name="CP_5_INSPECT_KEY"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="CP1_IDX_12" name="CP1_IDX_12">
+              <join view="PDTABLE_12">
+                <condition from="CP1_IDX_12" to="SYSTEM_UNIQUE_NO"/>
+              </join>
+            </column>
+            <column label="CP2_IDX_12" name="CP2_IDX_12"/>
+            <column label="CP3_IDX_12" name="CP3_IDX_12"/>
+            <column label="CP4_IDX_12" name="CP4_IDX_12"/>
+            <column label="CP5_IDX_12" name="CP5_IDX_12"/>
+            <column indexing="true" label="SIZ_DEP_COMM_CODE" name="SIZ_DEP_COMM_CODE"/>
+            <column label="CP1_NPD" name="CP1_NPD"/>
+            <column label="CP2_NPD" name="CP2_NPD"/>
+            <column label="CP3_NPD" name="CP3_NPD"/>
+            <column label="CP4_NPD" name="CP4_NPD"/>
+            <column label="CP5_NPD" name="CP5_NPD"/>
+            <column label="IDX_205" name="IDX_205">
+              <join view="PDTABLE_205">
+                <condition from="IDX_205" to="SYSTEM_UNIQUE_NO"/>
+              </join>
+            </column>
+            <column label="IDX_215" name="IDX_215"/>
+            <column indexing="true" label="CP1_TYPE" name="CP1_TYPE"/>
+            <column indexing="true" label="CP2_TYPE" name="CP2_TYPE"/>
+            <column indexing="true" label="CP3_TYPE" name="CP3_TYPE"/>
+            <column indexing="true" label="CP4_TYPE" name="CP4_TYPE"/>
+            <column indexing="true" label="CP5_TYPE" name="CP5_TYPE"/>
+            <column label="INSULATION_WEIGHT" name="INSULATION_WEIGHT"/>
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="PIPING_COMP_NO" name="PIPING_COMP_NO"/>
+            <column indexing="true" label="COMMODITY_NAME" name="COMMODITY_NAME"/>
+            <column indexing="true" label="MODEL_CODE" name="MODEL_CODE"/>
+            <column label="OPTION_CODE" name="OPTION_CODE"/>
+            <column label="MAXIMUM_TEMP" name="MAXIMUM_TEMP"/>
+            <column indexing="true" label="SCHED_THICK_BASIS" name="SCHED_THICK_BASIS"/>
+            <column indexing="true" label="COMMODITY_CODE" name="COMMODITY_CODE"/>
+            <column label="MTO_REQUIREMENTS" name="MTO_REQUIREMENTS"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="SOURCE_OF_DATA" name="SOURCE_OF_DATA"/>
+            <column indexing="true" label="PDS_SORT_CODE" name="PDS_SORT_CODE"/>
+            <column indexing="true" label="PHYSICAL_DATA_ID" name="PHYSICAL_DATA_ID"/>
+            <column label="GEOMETRIC_STANDARD" name="GEOMETRIC_STANDARD"/>
+            <column label="WEIGHT_CODE" name="WEIGHT_CODE"/>
+            <column label="TABLE_SUFFIX_GREEN" name="TABLE_SUFFIX_GREEN"/>
+            <column label="TABLE_SUFFIX_RED" name="TABLE_SUFFIX_RED"/>
+            <column label="MATERIALS_GRADE" name="MATERIALS_GRADE"/>
+            <column label="BEND_RADIUS" name="BEND_RADIUS"/>
+            <column label="BEND_ANGLE" name="BEND_ANGLE"/>
+            <column label="FACE_TO_FACE_DIM" name="FACE_TO_FACE_DIM"/>
+            <column label="DIMENSION_A" name="DIMENSION_A"/>
+            <column label="DIMENSION_B" name="DIMENSION_B"/>
+            <column label="DIMENSION_C" name="DIMENSION_C"/>
+            <column label="SURFACE_AREA" name="SURFACE_AREA"/>
+            <column label="EMPTY_WEIGHT" name="EMPTY_WEIGHT"/>
+            <column label="WATER_WEIGHT" name="WATER_WEIGHT"/>
+            <column label="OPERATOR_WEIGHT" name="OPERATOR_WEIGHT"/>
+            <column indexing="true" label="OPERATOR_SYM_NAME" name="OPERATOR_SYM_NAME"/>
+            <column label="CHAIN_OPERATOR_NO" name="CHAIN_OPERATOR_NO"/>
+            <column label="OPENING_ACTION" name="OPENING_ACTION"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="HOLD_STATUS" name="HOLD_STATUS"/>
+            <column label="HEAT_TRACING_REQMT" name="HEAT_TRACING_REQMT"/>
+            <column label="HEAT_TRACING_MEDIA" name="HEAT_TRACING_MEDIA"/>
+            <column label="HEAT_TRACING_TEMP" name="HEAT_TRACING_TEMP"/>
+            <column label="ISO_DWG_INDEX_NO" name="ISO_DWG_INDEX_NO"/>
+            <column indexing="true" label="ISOMETRIC_SHEET_NO" name="ISOMETRIC_SHEET_NO"/>
+            <column indexing="true" label="PIECE_MARK_NO" name="PIECE_MARK_NO"/>
+            <column indexing="true" label="COLOR_CODE" name="COLOR_CODE"/>
+            <column label="STRESS_NODE_NO" name="STRESS_NODE_NO"/>
+            <column label="STRESS_INTENS_FACT" name="STRESS_INTENS_FACT"/>
+            <column label="HEAD_LOSS_FACTOR" name="HEAD_LOSS_FACTOR"/>
+            <column indexing="true" label="PIPING_ASSEMBLY" name="PIPING_ASSEMBLY"/>
+            <column label="COMPONENT_GROUP_NO" name="COMPONENT_GROUP_NO"/>
+            <column indexing="true" label="REMARKS" name="REMARKS"/>
+            <column label="STANDARD_NOTE_NO_A" name="STANDARD_NOTE_NO_A"/>
+            <column label="STANDARD_NOTE_NO_B" name="STANDARD_NOTE_NO_B"/>
+            <column label="CP_1_NOM_PIPE_DIAM" name="CP_1_NOM_PIPE_DIAM"/>
+            <column label="CP_1_OUTSIDE_DIAM" name="CP_1_OUTSIDE_DIAM"/>
+            <column label="CP_1_END_PREP" name="CP_1_END_PREP"/>
+            <column indexing="true" label="CP_1_SCH_THK" name="CP_1_SCH_THK"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_50" name="PDTABLE_50" origin="PDS">
+      <tables repcol="PIPE_LENGTH">
+        <table name="PDTABLE_50" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="PIPE_LENGTH" name="PIPE_LENGTH"/>
+            <column label="SURFACE_AREA" name="SURFACE_AREA"/>
+            <column label="EMPTY_WEIGHT" name="EMPTY_WEIGHT"/>
+            <column label="WATER_WEIGHT" name="WATER_WEIGHT"/>
+            <column label="COLD_SPRING_LENGTH" name="COLD_SPRING_LENGTH"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="HOLD_STATUS" name="HOLD_STATUS"/>
+            <column label="HEAT_TRACING_REQMT" name="HEAT_TRACING_REQMT"/>
+            <column label="HEAT_TRACING_MEDIA" name="HEAT_TRACING_MEDIA"/>
+            <column label="HEAT_TRACING_TEMP" name="HEAT_TRACING_TEMP"/>
+            <column label="ISO_DWG_INDEX_NO" name="ISO_DWG_INDEX_NO"/>
+            <column indexing="true" label="ISOMETRIC_SHEET_NO" name="ISOMETRIC_SHEET_NO"/>
+            <column indexing="true" label="PIECE_MARK_NO" name="PIECE_MARK_NO"/>
+            <column indexing="true" label="COLOR_CODE" name="COLOR_CODE"/>
+            <column indexing="true" label="PIPING_ASSEMBLY" name="PIPING_ASSEMBLY"/>
+            <column label="COMPONENT_GROUP_NO" name="COMPONENT_GROUP_NO"/>
+            <column indexing="true" label="REMARKS" name="REMARKS"/>
+            <column label="STANDARD_NOTE_NO_A" name="STANDARD_NOTE_NO_A"/>
+            <column label="STANDARD_NOTE_NO_B" name="STANDARD_NOTE_NO_B"/>
+            <column label="END_1_END_PREP" name="END_1_END_PREP"/>
+            <column indexing="true" label="END_1_WELD_NO" name="END_1_WELD_NO"/>
+            <column label="END_1_WELD_TYPE" name="END_1_WELD_TYPE"/>
+            <column label="END_1_GASKET_GAP" name="END_1_GASKET_GAP"/>
+            <column label="END_1_GASKET_OPT" name="END_1_GASKET_OPT"/>
+            <column label="END_1_STRESS_NODE" name="END_1_STRESS_NODE"/>
+            <column label="END_1_STRES_INT" name="END_1_STRES_INT"/>
+            <column label="END_1_HEAD_LOSS" name="END_1_HEAD_LOSS"/>
+            <column label="END_2_END_PREP" name="END_2_END_PREP"/>
+            <column indexing="true" label="END_2_WELD_NO" name="END_2_WELD_NO"/>
+            <column label="END_2_WELD_TYPE" name="END_2_WELD_TYPE"/>
+            <column label="END_2_GASKET_GAP" name="END_2_GASKET_GAP"/>
+            <column label="END_2_GASKET_OPT" name="END_2_GASKET_OPT"/>
+            <column label="END_2_STRESS_NODE" name="END_2_STRESS_NODE"/>
+            <column label="END_2_STRES_INT" name="END_2_STRES_INT"/>
+            <column label="END_2_HEAD_LOSS" name="END_2_HEAD_LOSS"/>
+            <column indexing="true" label="UNIQUE_NAME" name="UNIQUE_NAME"/>
+            <column label="LAST_PLACED_DATE" name="LAST_PLACED_DATE"/>
+            <column label="INSPECTION_KEY" name="INSPECTION_KEY"/>
+            <column label="END_1_INSPECT_KEY" name="END_1_INSPECT_KEY"/>
+            <column label="END_2_INSPECT_KEY" name="END_2_INSPECT_KEY"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="END1_IDX_12" name="END1_IDX_12"/>
+            <column label="END2_IDX_12" name="END2_IDX_12"/>
+            <column indexing="true" label="SIZ_DEP_COMM_CODE" name="SIZ_DEP_COMM_CODE"/>
+            <column label="NPD" name="NPD"/>
+            <column label="IDX_205" name="IDX_205"/>
+            <column label="IDX_215" name="IDX_215"/>
+            <column label="INSULATION_WEIGHT" name="INSULATION_WEIGHT"/>
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="PIPING_COMP_NO" name="PIPING_COMP_NO"/>
+            <column indexing="true" label="COMMODITY_NAME" name="COMMODITY_NAME"/>
+            <column indexing="true" label="MODEL_CODE" name="MODEL_CODE"/>
+            <column label="OPTION_CODE" name="OPTION_CODE"/>
+            <column label="MAXIMUM_TEMP" name="MAXIMUM_TEMP"/>
+            <column label="NOMINAL_PIPING_DIA" name="NOMINAL_PIPING_DIA"/>
+            <column label="OUTSIDE_DIAMETER" name="OUTSIDE_DIAMETER"/>
+            <column indexing="true" label="SCHEDULE_THICKNESS" name="SCHEDULE_THICKNESS"/>
+            <column indexing="true" label="SCHED_THICK_BASIS" name="SCHED_THICK_BASIS"/>
+            <column indexing="true" label="RATING" name="RATING"/>
+            <column indexing="true" label="COMMODITY_CODE" name="COMMODITY_CODE"/>
+            <column label="MTO_REQUIREMENTS" name="MTO_REQUIREMENTS"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="SOURCE_OF_DATA" name="SOURCE_OF_DATA"/>
+            <column indexing="true" label="PDS_SORT_CODE" name="PDS_SORT_CODE"/>
+            <column label="GEOMETRIC_STANDARD" name="GEOMETRIC_STANDARD"/>
+            <column label="WEIGHT_CODE" name="WEIGHT_CODE"/>
+            <column label="TABLE_SUFFIX_GREEN" name="TABLE_SUFFIX_GREEN"/>
+            <column label="TABLE_SUFFIX_RED" name="TABLE_SUFFIX_RED"/>
+            <column label="MATERIALS_GRADE" name="MATERIALS_GRADE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_500" name="PDTABLE_500" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_500" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="AREA_INDEX_NO" name="AREA_INDEX_NO"/>
+            <column label="FWP_MODEL_ID" name="FWP_MODEL_ID"/>
+            <column label="EXTRACT_LAST_DATE" name="EXTRACT_LAST_DATE"/>
+            <column label="EXTRACT_FAIL_DATE" name="EXTRACT_FAIL_DATE"/>
+            <column indexing="true" label="MODEL_NO" name="MODEL_NO"/>
+            <column indexing="true" label="MODEL_UNITS" name="MODEL_UNITS"/>
+            <column indexing="true" label="LENGTH_UNITS" name="LENGTH_UNITS"/>
+            <column indexing="true" label="FORCE_UNITS" name="FORCE_UNITS"/>
+            <column indexing="true" label="ANALYTICAL_SW" name="ANALYTICAL_SW"/>
+            <column indexing="true" label="DGN_CODE_SETTING" name="DGN_CODE_SETTING"/>
+            <column indexing="true" label="STD_SECTION_TABLE" name="STD_SECTION_TABLE"/>
+            <column indexing="true" label="USER_SECTION_TABLE" name="USER_SECTION_TABLE"/>
+            <column indexing="true" label="LSTEXT_DATE_STRFMT" name="LSTEXT_DATE_STRFMT"/>
+            <column indexing="true" label="FAIL_DATE_STRFMT" name="FAIL_DATE_STRFMT"/>
+            <column indexing="true" label="USER_CEL_FILE" name="USER_CEL_FILE"/>
+            <column label="GLOBAL_ORIGIN_X" name="GLOBAL_ORIGIN_X"/>
+            <column label="GLOBAL_ORIGIN_Y" name="GLOBAL_ORIGIN_Y"/>
+            <column label="GLOBAL_ORIGIN_Z" name="GLOBAL_ORIGIN_Z"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_502" name="PDTABLE_502" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_502" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="MODEL_ATTINDEX_NO" name="MODEL_ATTINDEX_NO"/>
+            <column indexing="true" label="FWP_ATTMODEL_NAME" name="FWP_ATTMODEL_NAME"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_504" name="PDTABLE_504" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_504" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="FWP_MODVIEW_ID" name="FWP_MODVIEW_ID"/>
+            <column indexing="true" label="FWP_VIEW_NAME" name="FWP_VIEW_NAME"/>
+            <column indexing="true" label="FWP_VIEW_DESCRIPT" name="FWP_VIEW_DESCRIPT"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_506" name="PDTABLE_506" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_506" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="FRZ_VIEW_ID" name="FRZ_VIEW_ID"/>
+            <column label="FWP_VIEW_ID" name="FWP_VIEW_ID"/>
+            <column indexing="true" label="FRZ_FILE_NAME" name="FRZ_FILE_NAME"/>
+            <column indexing="true" label="FWP_VIEW_NAME" name="FWP_VIEW_NAME"/>
+            <column indexing="true" label="FWP_VIEW_DESCRIPT" name="FWP_VIEW_DESCRIPT"/>
+            <column indexing="true" label="SAVED_VIEW_NAME" name="SAVED_VIEW_NAME"/>
+            <column label="GRAPH_GRP_OPT" name="GRAPH_GRP_OPT"/>
+            <column label="GEN_PROP_MOD" name="GEN_PROP_MOD"/>
+            <column label="PROC_END_TREA" name="PROC_END_TREA"/>
+            <column label="FREEZE_LEVELS" name="FREEZE_LEVELS"/>
+            <column indexing="true" label="CREATEDTIME_STRFM" name="CREATEDTIME_STRFM"/>
+            <column indexing="true" label="LAST_UPDATE_STRFMT" name="LAST_UPDATE_STRFMT"/>
+            <column indexing="true" label="LAST_REGEN_STRFMT" name="LAST_REGEN_STRFMT"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_510" name="PDTABLE_510" origin="PDS">
+      <tables repcol="SUB_PROJECT_NDX_NO">
+        <table name="PDTABLE_510" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SUB_PROJECT_NDX_NO" name="SUB_PROJECT_NDX_NO"/>
+            <column indexing="true" label="GRADE_FILE" name="GRADE_FILE"/>
+            <column indexing="true" label="ATTRIBUTES_FILE" name="ATTRIBUTES_FILE"/>
+            <column indexing="true" label="CONFIG_FILE" name="CONFIG_FILE"/>
+            <column indexing="true" label="RESOURCE_FILE" name="RESOURCE_FILE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_532" name="PDTABLE_532" origin="PDS">
+      <tables repcol="END2_RBJCATEGORY">
+        <table name="PDTABLE_532" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="END2_RBJCATEGORY" name="END2_RBJCATEGORY"/>
+            <column label="END1_RBJTYPE" name="END1_RBJTYPE"/>
+            <column label="END2_RBJTYPE" name="END2_RBJTYPE"/>
+            <column label="END1_OFFSHRBJMODE" name="END1_OFFSHRBJMODE"/>
+            <column label="END2_OFFSHRBJMODE" name="END2_OFFSHRBJMODE"/>
+            <column label="END1_SECONDARYID" name="END1_SECONDARYID"/>
+            <column label="END2_SECONDARYID" name="END2_SECONDARYID"/>
+            <column label="END1_SUPPORTID" name="END1_SUPPORTID"/>
+            <column label="END2_SUPPORTID" name="END2_SUPPORTID"/>
+            <column label="END1_CLEARENCEREQD" name="END1_CLEARENCEREQD"/>
+            <column label="END2_CLEARENCEREQD" name="END2_CLEARENCEREQD"/>
+            <column label="END1_OVERLAPREQD" name="END1_OVERLAPREQD"/>
+            <column label="END2_OVERLAPREQD" name="END2_OVERLAPREQD"/>
+            <column label="BUOYANCY" name="BUOYANCY"/>
+            <column label="COB_X" name="COB_X"/>
+            <column label="COB_Y" name="COB_Y"/>
+            <column label="COB_Z" name="COB_Z"/>
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="LINEAR_MEMBER_ID" name="LINEAR_MEMBER_ID"/>
+            <column indexing="true" label="MEMBER_TYPE" name="MEMBER_TYPE"/>
+            <column indexing="true" label="MEMBER_NAME" name="MEMBER_NAME"/>
+            <column indexing="true" label="SECTION_TYPE" name="SECTION_TYPE"/>
+            <column indexing="true" label="END1_SECTION" name="END1_SECTION"/>
+            <column indexing="true" label="END2_SECTION" name="END2_SECTION"/>
+            <column indexing="true" label="GRADE" name="GRADE"/>
+            <column indexing="true" label="MATERIAL" name="MATERIAL"/>
+            <column indexing="true" label="CREATED" name="CREATED"/>
+            <column indexing="true" label="MODIFIED" name="MODIFIED"/>
+            <column indexing="true" label="REFLECT" name="REFLECT"/>
+            <column indexing="true" label="DESIGN_STATUS" name="DESIGN_STATUS"/>
+            <column label="CLASS" name="CLASS"/>
+            <column label="CARDINALPOINT" name="CARDINALPOINT"/>
+            <column label="ROTATION" name="ROTATION"/>
+            <column label="OV_X" name="OV_X"/>
+            <column label="OV_Y" name="OV_Y"/>
+            <column label="OV_Z" name="OV_Z"/>
+            <column label="END1_CUTBACK_PRIO" name="END1_CUTBACK_PRIO"/>
+            <column label="END2_CUTBACK_PRIO" name="END2_CUTBACK_PRIO"/>
+            <column label="CNTRLNAMEDGRP_INDX" name="CNTRLNAMEDGRP_INDX"/>
+            <column label="FRAMEMEM_TOS" name="FRAMEMEM_TOS"/>
+            <column label="TOTAL_LENGTH" name="TOTAL_LENGTH"/>
+            <column label="CUT_LENGTH" name="CUT_LENGTH"/>
+            <column indexing="true" label="TOT_LEN_STRFMT" name="TOT_LEN_STRFMT"/>
+            <column indexing="true" label="CUT_LEN_STRFMT" name="CUT_LEN_STRFMT"/>
+            <column label="SURFACE_AREA" name="SURFACE_AREA"/>
+            <column label="MEMBER_WEIGHT" name="MEMBER_WEIGHT"/>
+            <column label="WEIGHT_PER_UNITLEN" name="WEIGHT_PER_UNITLEN"/>
+            <column indexing="true" label="FIREPROOF_TYPE" name="FIREPROOF_TYPE"/>
+            <column indexing="true" label="FIREPROOF_LENBASIS" name="FIREPROOF_LENBASIS"/>
+            <column indexing="true" label="FIREPROOF_APPLIED" name="FIREPROOF_APPLIED"/>
+            <column indexing="true" label="FIREPROOF_LABEL" name="FIREPROOF_LABEL"/>
+            <column label="FIREPROOF_THICK" name="FIREPROOF_THICK"/>
+            <column label="FIREPROOF_LENGTH" name="FIREPROOF_LENGTH"/>
+            <column label="FIREPROOF_VOLUME" name="FIREPROOF_VOLUME"/>
+            <column label="COG_X" name="COG_X"/>
+            <column label="COG_Y" name="COG_Y"/>
+            <column label="COG_Z" name="COG_Z"/>
+            <column label="MEMBER_VOLUME" name="MEMBER_VOLUME"/>
+            <column label="BUOYANCY_FLAG" name="BUOYANCY_FLAG"/>
+            <column label="BUOYANCY_VAL" name="BUOYANCY_VAL"/>
+            <column indexing="true" label="ASSEMBLY1" name="ASSEMBLY1"/>
+            <column indexing="true" label="ASSEMBLY2" name="ASSEMBLY2"/>
+            <column indexing="true" label="ASSEMBLY3" name="ASSEMBLY3"/>
+            <column indexing="true" label="COATINGS" name="COATINGS"/>
+            <column indexing="true" label="END1_CONNECTIONS" name="END1_CONNECTIONS"/>
+            <column indexing="true" label="END2_CONNECTIONS" name="END2_CONNECTIONS"/>
+            <column label="FABR_MEMBER_ID" name="FABR_MEMBER_ID"/>
+            <column indexing="true" label="FABR_NAME" name="FABR_NAME"/>
+            <column indexing="true" label="FABR_PREBUYMARK" name="FABR_PREBUYMARK"/>
+            <column indexing="true" label="FABR_NOTE" name="FABR_NOTE"/>
+            <column indexing="true" label="MEMBER_SUBTYPE" name="MEMBER_SUBTYPE"/>
+            <column indexing="true" label="PIECEMARK" name="PIECEMARK"/>
+            <column indexing="true" label="USER_ATTRIB1" name="USER_ATTRIB1"/>
+            <column indexing="true" label="USER_ATTRIB2" name="USER_ATTRIB2"/>
+            <column indexing="true" label="USER_ATTRIB3" name="USER_ATTRIB3"/>
+            <column indexing="true" label="USER_ATTRIB4" name="USER_ATTRIB4"/>
+            <column indexing="true" label="USER_ATTRIB5" name="USER_ATTRIB5"/>
+            <column label="END1_RBJCATEGORY" name="END1_RBJCATEGORY"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_533" name="PDTABLE_533" origin="PDS">
+      <tables repcol="SECTION_NAME">
+        <table name="PDTABLE_533" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="SECTION_NAME" name="SECTION_NAME"/>
+            <column indexing="true" label="SECTION_TYPE" name="SECTION_TYPE"/>
+            <column label="AREA" name="AREA"/>
+            <column label="WEIGHT_PER_UNITLEN" name="WEIGHT_PER_UNITLEN"/>
+            <column label="DEPTH" name="DEPTH"/>
+            <column label="WIDTH" name="WIDTH"/>
+            <column label="THICKNESS" name="THICKNESS"/>
+            <column label="FLANGE_THICKNESS" name="FLANGE_THICKNESS"/>
+            <column label="ROOT_RADIUS" name="ROOT_RADIUS"/>
+            <column label="FLOATABLE" name="FLOATABLE"/>
+            <column label="XSECTCONSTN" name="XSECTCONSTN"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_534" name="PDTABLE_534" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_534" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="LINEAR_MEMBER_ID" name="LINEAR_MEMBER_ID"/>
+            <column label="END1_X" name="END1_X"/>
+            <column label="END1_Y" name="END1_Y"/>
+            <column label="END1_Z" name="END1_Z"/>
+            <column label="END2_X" name="END2_X"/>
+            <column label="END2_Y" name="END2_Y"/>
+            <column label="END2_Z" name="END2_Z"/>
+            <column label="END1_OFFSET_X" name="END1_OFFSET_X"/>
+            <column label="END1_OFFSET_Y" name="END1_OFFSET_Y"/>
+            <column label="END1_OFFSET_Z" name="END1_OFFSET_Z"/>
+            <column label="END2_OFFSET_X" name="END2_OFFSET_X"/>
+            <column label="END2_OFFSET_Y" name="END2_OFFSET_Y"/>
+            <column label="END2_OFFSET_Z" name="END2_OFFSET_Z"/>
+            <column label="X_OFFSET" name="X_OFFSET"/>
+            <column label="Y_OFFSET" name="Y_OFFSET"/>
+            <column label="END1_CUTBACK_MIN" name="END1_CUTBACK_MIN"/>
+            <column label="END1_CUTBACK_MAX" name="END1_CUTBACK_MAX"/>
+            <column label="END2_CUTBACK_MIN" name="END2_CUTBACK_MIN"/>
+            <column label="END2_CUTBACK_MAX" name="END2_CUTBACK_MAX"/>
+            <column label="WORKPOINT_OFFSET" name="WORKPOINT_OFFSET"/>
+            <column label="END1_FPSETBACK" name="END1_FPSETBACK"/>
+            <column label="END2_FPSETBACK" name="END2_FPSETBACK"/>
+            <column label="MEMBER_FPSETBACK" name="MEMBER_FPSETBACK"/>
+            <column label="ARC_RADIUS" name="ARC_RADIUS"/>
+            <column label="ARC_CENTER_X" name="ARC_CENTER_X"/>
+            <column label="ARC_CENTER_Y" name="ARC_CENTER_Y"/>
+            <column label="ARC_CENTER_Z" name="ARC_CENTER_Z"/>
+            <column label="END1_OFFSET_LEN" name="END1_OFFSET_LEN"/>
+            <column label="END2_OFFSET_LEN" name="END2_OFFSET_LEN"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_536" name="PDTABLE_536" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_536" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="SOLID_MEMBER_ID" name="SOLID_MEMBER_ID"/>
+            <column indexing="true" label="MEMBER_TYPE" name="MEMBER_TYPE"/>
+            <column indexing="true" label="NAME" name="NAME"/>
+            <column indexing="true" label="GRADE" name="GRADE"/>
+            <column indexing="true" label="MATERIAL" name="MATERIAL"/>
+            <column label="CLASS" name="CLASS"/>
+            <column indexing="true" label="DESIGN_STATUS" name="DESIGN_STATUS"/>
+            <column indexing="true" label="CREATED" name="CREATED"/>
+            <column indexing="true" label="MODIFIED" name="MODIFIED"/>
+            <column label="CNTRLNAMEDGRP_INDX" name="CNTRLNAMEDGRP_INDX"/>
+            <column label="NUM_OF_HOLES" name="NUM_OF_HOLES"/>
+            <column label="MEM_OFFSET" name="MEM_OFFSET"/>
+            <column label="SURFACE_AREA" name="SURFACE_AREA"/>
+            <column label="NET_SURFACE_AREA" name="NET_SURFACE_AREA"/>
+            <column label="THICKNESS" name="THICKNESS"/>
+            <column label="VOLUME" name="VOLUME"/>
+            <column label="NET_VOLUME" name="NET_VOLUME"/>
+            <column label="WEIGHT" name="WEIGHT"/>
+            <column label="AREA" name="AREA"/>
+            <column label="COG_X" name="COG_X"/>
+            <column label="COG_Y" name="COG_Y"/>
+            <column label="COG_Z" name="COG_Z"/>
+            <column indexing="true" label="ASSEMBLY1" name="ASSEMBLY1"/>
+            <column indexing="true" label="ASSEMBLY2" name="ASSEMBLY2"/>
+            <column indexing="true" label="ASSEMBLY3" name="ASSEMBLY3"/>
+            <column indexing="true" label="COATING" name="COATING"/>
+            <column label="FABR_MEMBER_ID" name="FABR_MEMBER_ID"/>
+            <column indexing="true" label="FABR_NAME" name="FABR_NAME"/>
+            <column indexing="true" label="FABR_PREBUYMARK" name="FABR_PREBUYMARK"/>
+            <column indexing="true" label="FABR_NOTE" name="FABR_NOTE"/>
+            <column indexing="true" label="MEMBER_SUBTYPE" name="MEMBER_SUBTYPE"/>
+            <column indexing="true" label="PIECEMARK" name="PIECEMARK"/>
+            <column indexing="true" label="USER_ATTRIB1" name="USER_ATTRIB1"/>
+            <column indexing="true" label="USER_ATTRIB2" name="USER_ATTRIB2"/>
+            <column indexing="true" label="USER_ATTRIB3" name="USER_ATTRIB3"/>
+            <column indexing="true" label="USER_ATTRIB4" name="USER_ATTRIB4"/>
+            <column indexing="true" label="USER_ATTRIB5" name="USER_ATTRIB5"/>
+            <column label="TOP_SURF_AREA" name="TOP_SURF_AREA"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_538" name="PDTABLE_538" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_538" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="SOLID_MEMBER_ID" name="SOLID_MEMBER_ID"/>
+            <column indexing="true" label="MEMBER_TYPE" name="MEMBER_TYPE"/>
+            <column indexing="true" label="FACE" name="FACE"/>
+            <column label="COORD_INDEX" name="COORD_INDEX"/>
+            <column label="COORD_X" name="COORD_X"/>
+            <column label="COORD_Y" name="COORD_Y"/>
+            <column label="COORD_Z" name="COORD_Z"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_540" name="PDTABLE_540" origin="PDS">
+      <tables repcol="SUB_PROJECT_NDX_NO">
+        <table name="PDTABLE_540" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SUB_PROJECT_NDX_NO" name="SUB_PROJECT_NDX_NO"/>
+            <column label="NAMED_GROUP_INDEX" name="NAMED_GROUP_INDEX"/>
+            <column indexing="true" label="NAMED_GROUP_DESC" name="NAMED_GROUP_DESC"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_544" name="PDTABLE_544" origin="PDS">
+      <tables repcol="NAMED_GROUP_INDEX">
+        <table name="PDTABLE_544" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="NAMED_GROUP_INDEX" name="NAMED_GROUP_INDEX"/>
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="MEMBER_ID" name="MEMBER_ID"/>
+            <column indexing="true" label="MEMBER_TYPE" name="MEMBER_TYPE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_546" name="PDTABLE_546" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_546" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="LINEAR_MEMBER_ID" name="LINEAR_MEMBER_ID"/>
+            <column label="CAN_TYPE" name="CAN_TYPE"/>
+            <column label="CAN_CONFIGURATION" name="CAN_CONFIGURATION"/>
+            <column label="CAN_SECTION_UNITS" name="CAN_SECTION_UNITS"/>
+            <column label="CAN_OD" name="CAN_OD"/>
+            <column label="CAN_ID" name="CAN_ID"/>
+            <column label="CAN_THICK" name="CAN_THICK"/>
+            <column label="CONE1_ANGLE" name="CONE1_ANGLE"/>
+            <column indexing="true" label="CONE1_END1_SECTION" name="CONE1_END1_SECTION"/>
+            <column indexing="true" label="CONE1_END2_SECTION" name="CONE1_END2_SECTION"/>
+            <column label="CONE1_WALL_THICK" name="CONE1_WALL_THICK"/>
+            <column label="CONE2_ANGLE" name="CONE2_ANGLE"/>
+            <column indexing="true" label="CONE2_END1_SECTION" name="CONE2_END1_SECTION"/>
+            <column indexing="true" label="CONE2_END2_SECTION" name="CONE2_END2_SECTION"/>
+            <column label="CONE2_WALL_THICK" name="CONE2_WALL_THICK"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_548" name="PDTABLE_548" origin="PDS">
+      <tables repcol="MODEL_INDEX_NO">
+        <table name="PDTABLE_548" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="LINEAR_MEMBER_ID" name="LINEAR_MEMBER_ID"/>
+            <column label="TRANS_MEM_INDEX" name="TRANS_MEM_INDEX"/>
+            <column label="ATTACHED_MEM_ID" name="ATTACHED_MEM_ID"/>
+            <column label="ATTACHED_ANGLE" name="ATTACHED_ANGLE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_550" name="PDTABLE_550" origin="PDS">
+      <tables repcol="SUB_PROJECT_NDX_NO">
+        <table name="PDTABLE_550" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SUB_PROJECT_NDX_NO" name="SUB_PROJECT_NDX_NO"/>
+            <column indexing="true" label="ATTRIBUTE_NAME" name="ATTRIBUTE_NAME"/>
+            <column label="ATTRIBUTE_INDEX" name="ATTRIBUTE_INDEX"/>
+            <column indexing="true" label="ATTRIBUTE_VALUE" name="ATTRIBUTE_VALUE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_67" name="PDTABLE_67" origin="PDS">
+      <tables repcol="CP_2_OUTSIDE_DIAM">
+        <table name="PDTABLE_67" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="CP_2_OUTSIDE_DIAM" name="CP_2_OUTSIDE_DIAM"/>
+            <column label="CP_2_END_PREP" name="CP_2_END_PREP"/>
+            <column indexing="true" label="CP_2_SCH_THK" name="CP_2_SCH_THK"/>
+            <column indexing="true" label="CP_2_RATING" name="CP_2_RATING"/>
+            <column label="CP_2_FACE_TO_CTR" name="CP_2_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_2_WELD_NO" name="CP_2_WELD_NO"/>
+            <column label="CP_2_WELD_TYPE" name="CP_2_WELD_TYPE"/>
+            <column label="CP_2_GASKET_GAP" name="CP_2_GASKET_GAP"/>
+            <column label="CP_2_GASKET_OPTION" name="CP_2_GASKET_OPTION"/>
+            <column label="CP_2_STRESS_NODE" name="CP_2_STRESS_NODE"/>
+            <column label="CP_2_STRESS_FACTOR" name="CP_2_STRESS_FACTOR"/>
+            <column label="CP_2_HEAD_LOSS" name="CP_2_HEAD_LOSS"/>
+            <column label="CP_3_NOM_PIPE_DIAM" name="CP_3_NOM_PIPE_DIAM"/>
+            <column label="CP_3_OUTSIDE_DIAM" name="CP_3_OUTSIDE_DIAM"/>
+            <column label="CP_3_END_PREP" name="CP_3_END_PREP"/>
+            <column indexing="true" label="CP_3_SCH_THK" name="CP_3_SCH_THK"/>
+            <column indexing="true" label="CP_3_RATING" name="CP_3_RATING"/>
+            <column label="CP_3_FACE_TO_CTR" name="CP_3_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_3_WELD_NO" name="CP_3_WELD_NO"/>
+            <column label="CP_3_WELD_TYPE" name="CP_3_WELD_TYPE"/>
+            <column label="CP_3_GASKET_GAP" name="CP_3_GASKET_GAP"/>
+            <column label="CP_3_GASKET_OPTION" name="CP_3_GASKET_OPTION"/>
+            <column label="CP_3_STRESS_NODE" name="CP_3_STRESS_NODE"/>
+            <column label="CP_3_STRESS_FACTOR" name="CP_3_STRESS_FACTOR"/>
+            <column label="CP_3_HEAD_LOSS" name="CP_3_HEAD_LOSS"/>
+            <column label="CP_4_NOM_PIPE_DIAM" name="CP_4_NOM_PIPE_DIAM"/>
+            <column label="CP_4_OUTSIDE_DIAM" name="CP_4_OUTSIDE_DIAM"/>
+            <column label="CP_4_END_PREP" name="CP_4_END_PREP"/>
+            <column indexing="true" label="CP_4_SCH_THK" name="CP_4_SCH_THK"/>
+            <column indexing="true" label="CP_4_RATING" name="CP_4_RATING"/>
+            <column label="CP_4_FACE_TO_CTR" name="CP_4_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_4_WELD_NO" name="CP_4_WELD_NO"/>
+            <column label="CP_4_WELD_TYPE" name="CP_4_WELD_TYPE"/>
+            <column label="CP_4_GASKET_GAP" name="CP_4_GASKET_GAP"/>
+            <column label="CP_4_GASKET_OPTION" name="CP_4_GASKET_OPTION"/>
+            <column label="CP_4_STRESS_NODE" name="CP_4_STRESS_NODE"/>
+            <column label="CP_4_STRESS_FACTOR" name="CP_4_STRESS_FACTOR"/>
+            <column label="CP_4_HEAD_LOSS" name="CP_4_HEAD_LOSS"/>
+            <column label="CP_5_NOM_PIPE_DIAM" name="CP_5_NOM_PIPE_DIAM"/>
+            <column label="CP_5_OUTSIDE_DIAM" name="CP_5_OUTSIDE_DIAM"/>
+            <column label="CP_5_END_PREP" name="CP_5_END_PREP"/>
+            <column indexing="true" label="CP_5_SCH_THK" name="CP_5_SCH_THK"/>
+            <column indexing="true" label="CP_5_RATING" name="CP_5_RATING"/>
+            <column label="CP_5_FACE_TO_CTR" name="CP_5_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_5_WELD_NO" name="CP_5_WELD_NO"/>
+            <column label="CP_5_WELD_TYPE" name="CP_5_WELD_TYPE"/>
+            <column label="CP_5_GASKET_GAP" name="CP_5_GASKET_GAP"/>
+            <column label="CP_5_GASKET_OPTION" name="CP_5_GASKET_OPTION"/>
+            <column label="CP_5_STRESS_NODE" name="CP_5_STRESS_NODE"/>
+            <column label="CP_5_STRESS_FACTOR" name="CP_5_STRESS_FACTOR"/>
+            <column label="CP_5_HEAD_LOSS" name="CP_5_HEAD_LOSS"/>
+            <column indexing="true" label="UNIQUE_NAME" name="UNIQUE_NAME"/>
+            <column label="BEND_ANGLE" name="BEND_ANGLE"/>
+            <column label="VLV_OPERATOR_DIM_A" name="VLV_OPERATOR_DIM_A"/>
+            <column label="VLV_OPERATOR_DIM_B" name="VLV_OPERATOR_DIM_B"/>
+            <column label="VLV_OPERATOR_DIM_C" name="VLV_OPERATOR_DIM_C"/>
+            <column label="VLV_OPERATOR_DIM_D" name="VLV_OPERATOR_DIM_D"/>
+            <column label="LAST_PLACED_DATE" name="LAST_PLACED_DATE"/>
+            <column indexing="true" label="GENERIC_COMP_NO" name="GENERIC_COMP_NO"/>
+            <column label="INSPECTION_KEY" name="INSPECTION_KEY"/>
+            <column label="CP_1_INSPECT_KEY" name="CP_1_INSPECT_KEY"/>
+            <column label="CP_2_INSPECT_KEY" name="CP_2_INSPECT_KEY"/>
+            <column label="CP_3_INSPECT_KEY" name="CP_3_INSPECT_KEY"/>
+            <column label="CP_4_INSPECT_KEY" name="CP_4_INSPECT_KEY"/>
+            <column label="CP_5_INSPECT_KEY" name="CP_5_INSPECT_KEY"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="CP1_IDX_12" name="CP1_IDX_12"/>
+            <column label="CP2_IDX_12" name="CP2_IDX_12"/>
+            <column label="CP3_IDX_12" name="CP3_IDX_12"/>
+            <column label="CP4_IDX_12" name="CP4_IDX_12"/>
+            <column label="CP5_IDX_12" name="CP5_IDX_12"/>
+            <column label="CP1_NPD" name="CP1_NPD"/>
+            <column label="CP2_NPD" name="CP2_NPD"/>
+            <column label="CP3_NPD" name="CP3_NPD"/>
+            <column label="CP4_NPD" name="CP4_NPD"/>
+            <column label="CP5_NPD" name="CP5_NPD"/>
+            <column label="IDX_205" name="IDX_205"/>
+            <column indexing="true" label="CP1_TYPE" name="CP1_TYPE"/>
+            <column indexing="true" label="CP2_TYPE" name="CP2_TYPE"/>
+            <column indexing="true" label="CP3_TYPE" name="CP3_TYPE"/>
+            <column indexing="true" label="CP4_TYPE" name="CP4_TYPE"/>
+            <column indexing="true" label="CP5_TYPE" name="CP5_TYPE"/>
+            <column label="INSULATION_WEIGHT" name="INSULATION_WEIGHT"/>
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="INSTRUMENT_COMP_NO" name="INSTRUMENT_COMP_NO"/>
+            <column indexing="true" label="MODEL_CODE" name="MODEL_CODE"/>
+            <column label="OPTION_CODE" name="OPTION_CODE"/>
+            <column indexing="true" label="SCHED_THICK_BASIS" name="SCHED_THICK_BASIS"/>
+            <column label="MTO_REQUIREMENTS" name="MTO_REQUIREMENTS"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="SOURCE_OF_DATA" name="SOURCE_OF_DATA"/>
+            <column indexing="true" label="PDS_SORT_CODE" name="PDS_SORT_CODE"/>
+            <column indexing="true" label="PHYSICAL_DATA_ID" name="PHYSICAL_DATA_ID"/>
+            <column label="GEOMETRIC_STANDARD" name="GEOMETRIC_STANDARD"/>
+            <column label="WEIGHT_CODE" name="WEIGHT_CODE"/>
+            <column label="TABLE_SUFFIX_GREEN" name="TABLE_SUFFIX_GREEN"/>
+            <column label="TABLE_SUFFIX_RED" name="TABLE_SUFFIX_RED"/>
+            <column label="MATERIALS_GRADE" name="MATERIALS_GRADE"/>
+            <column label="FACE_TO_FACE_DIM" name="FACE_TO_FACE_DIM"/>
+            <column label="DIMENSION_A" name="DIMENSION_A"/>
+            <column label="DIMENSION_B" name="DIMENSION_B"/>
+            <column label="DIMENSION_C" name="DIMENSION_C"/>
+            <column label="SURFACE_AREA" name="SURFACE_AREA"/>
+            <column label="EMPTY_WEIGHT" name="EMPTY_WEIGHT"/>
+            <column label="WATER_WEIGHT" name="WATER_WEIGHT"/>
+            <column label="OPERATOR_WEIGHT" name="OPERATOR_WEIGHT"/>
+            <column label="OPERATOR_TYPE" name="OPERATOR_TYPE"/>
+            <column indexing="true" label="OPERATOR_SYM_NAME" name="OPERATOR_SYM_NAME"/>
+            <column label="CHAIN_OPERATOR_NO" name="CHAIN_OPERATOR_NO"/>
+            <column label="CHAIN_LENGTH" name="CHAIN_LENGTH"/>
+            <column label="OPENING_ACTION" name="OPENING_ACTION"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="HOLD_STATUS" name="HOLD_STATUS"/>
+            <column label="DESIGN_RESP" name="DESIGN_RESP"/>
+            <column label="CONSTRUCTION_RESP" name="CONSTRUCTION_RESP"/>
+            <column label="HEAT_TRACING_REQMT" name="HEAT_TRACING_REQMT"/>
+            <column label="HEAT_TRACING_MEDIA" name="HEAT_TRACING_MEDIA"/>
+            <column label="HEAT_TRACING_TEMP" name="HEAT_TRACING_TEMP"/>
+            <column label="INSULATION_PURPOSE" name="INSULATION_PURPOSE"/>
+            <column label="INSULATION_THICK" name="INSULATION_THICK"/>
+            <column label="INSULATION_DENSITY" name="INSULATION_DENSITY"/>
+            <column label="CLEANING_REQMTS" name="CLEANING_REQMTS"/>
+            <column label="SAFETY_CLASS" name="SAFETY_CLASS"/>
+            <column indexing="true" label="MODULE_NO" name="MODULE_NO"/>
+            <column indexing="true" label="PACKAGE_SYSTEM_NO" name="PACKAGE_SYSTEM_NO"/>
+            <column label="ISO_DWG_INDEX_NO" name="ISO_DWG_INDEX_NO"/>
+            <column indexing="true" label="ISOMETRIC_SHEET_NO" name="ISOMETRIC_SHEET_NO"/>
+            <column indexing="true" label="PIECE_MARK_NO" name="PIECE_MARK_NO"/>
+            <column indexing="true" label="COLOR_CODE" name="COLOR_CODE"/>
+            <column label="STRESS_NODE_NO" name="STRESS_NODE_NO"/>
+            <column label="STRESS_INTENS_FACT" name="STRESS_INTENS_FACT"/>
+            <column label="HEAD_LOSS_FACTOR" name="HEAD_LOSS_FACTOR"/>
+            <column indexing="true" label="PIPING_ASSEMBLY" name="PIPING_ASSEMBLY"/>
+            <column label="COMPONENT_GROUP_NO" name="COMPONENT_GROUP_NO"/>
+            <column indexing="true" label="REMARKS" name="REMARKS"/>
+            <column label="STANDARD_NOTE_NO_A" name="STANDARD_NOTE_NO_A"/>
+            <column label="STANDARD_NOTE_NO_B" name="STANDARD_NOTE_NO_B"/>
+            <column label="CP_1_NOM_PIPE_DIAM" name="CP_1_NOM_PIPE_DIAM"/>
+            <column label="CP_1_OUTSIDE_DIAM" name="CP_1_OUTSIDE_DIAM"/>
+            <column label="CP_1_END_PREP" name="CP_1_END_PREP"/>
+            <column indexing="true" label="CP_1_SCH_THK" name="CP_1_SCH_THK"/>
+            <column indexing="true" label="CP_1_RATING" name="CP_1_RATING"/>
+            <column label="CP_1_FACE_TO_CTR" name="CP_1_FACE_TO_CTR"/>
+            <column indexing="true" label="CP_1_WELD_NO" name="CP_1_WELD_NO"/>
+            <column label="CP_1_WELD_TYPE" name="CP_1_WELD_TYPE"/>
+            <column label="CP_1_GASKET_GAP" name="CP_1_GASKET_GAP"/>
+            <column label="CP_1_GASKET_OPTION" name="CP_1_GASKET_OPTION"/>
+            <column label="CP_1_STRESS_NODE" name="CP_1_STRESS_NODE"/>
+            <column label="CP_1_STRESS_FACTOR" name="CP_1_STRESS_FACTOR"/>
+            <column label="CP_1_HEAD_LOSS" name="CP_1_HEAD_LOSS"/>
+            <column label="CP_2_NOM_PIPE_DIAM" name="CP_2_NOM_PIPE_DIAM"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_80" name="PDTABLE_80" origin="PDS">
+      <tables repcol="ROT_RIGIDITY_Z">
+        <table name="PDTABLE_80" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="ROT_RIGIDITY_Z" name="ROT_RIGIDITY_Z"/>
+            <column label="SPRING_GAP_LENGTH" name="SPRING_GAP_LENGTH"/>
+            <column label="SPING_GAP_DIRECT" name="SPING_GAP_DIRECT"/>
+            <column label="NUMBER_OF_SPRINGS" name="NUMBER_OF_SPRINGS"/>
+            <column label="LAST_PLACED_DATE" name="LAST_PLACED_DATE"/>
+            <column label="INSPECTION_KEY" name="INSPECTION_KEY"/>
+            <column indexing="true" label="MARK_NUMBER" name="MARK_NUMBER"/>
+            <column label="GROUP_ID" name="GROUP_ID"/>
+            <column label="GANG_ID" name="GANG_ID"/>
+            <column label="MATERIAL_GRADE" name="MATERIAL_GRADE"/>
+            <column label="WELD_CODE" name="WELD_CODE"/>
+            <column indexing="true" label="MATERIAL_INDEX" name="MATERIAL_INDEX"/>
+            <column label="OPERATING_LOAD" name="OPERATING_LOAD"/>
+            <column label="INSTALLED_LOAD" name="INSTALLED_LOAD"/>
+            <column label="HYDROSTATIC_LOAD" name="HYDROSTATIC_LOAD"/>
+            <column label="TOTAL_MOVEMENT_1" name="TOTAL_MOVEMENT_1"/>
+            <column label="TOTAL_MOVEMENT_2" name="TOTAL_MOVEMENT_2"/>
+            <column label="ROD_DIAMETER" name="ROD_DIAMETER"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column label="IDX_12" name="IDX_12"/>
+            <column label="IDX_205" name="IDX_205"/>
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column indexing="true" label="PIPE_SUPPORT_NO" name="PIPE_SUPPORT_NO"/>
+            <column indexing="true" label="MODEL_CODE_PHY" name="MODEL_CODE_PHY"/>
+            <column indexing="true" label="MODEL_CODE_LOG" name="MODEL_CODE_LOG"/>
+            <column label="ISO_SUPPORT_TYPE_A" name="ISO_SUPPORT_TYPE_A"/>
+            <column label="ISO_SUPPORT_TYPE_B" name="ISO_SUPPORT_TYPE_B"/>
+            <column label="ISO_SUPPORT_TYPE_C" name="ISO_SUPPORT_TYPE_C"/>
+            <column label="ISO_SUPPORT_TYPE_D" name="ISO_SUPPORT_TYPE_D"/>
+            <column indexing="true" label="DETAILS_FOR_SHOP" name="DETAILS_FOR_SHOP"/>
+            <column indexing="true" label="DETAILS_FOR_FIELD" name="DETAILS_FOR_FIELD"/>
+            <column indexing="true" label="FABRICATION_ORIENT" name="FABRICATION_ORIENT"/>
+            <column indexing="true" label="COMMODITY_CODE" name="COMMODITY_CODE"/>
+            <column label="MTO_REQUIREMENTS" name="MTO_REQUIREMENTS"/>
+            <column label="FABRICATION_CAT" name="FABRICATION_CAT"/>
+            <column label="WEIGHT" name="WEIGHT"/>
+            <column label="CONSTRUCTION_STAT" name="CONSTRUCTION_STAT"/>
+            <column label="HOLD_STATUS" name="HOLD_STATUS"/>
+            <column label="STANDARD_NOTE_NO" name="STANDARD_NOTE_NO"/>
+            <column label="ISO_DWG_INDEX_NO" name="ISO_DWG_INDEX_NO"/>
+            <column indexing="true" label="ISOMETRIC_SHEET_NO" name="ISOMETRIC_SHEET_NO"/>
+            <column indexing="true" label="PIECE_MARK_NO" name="PIECE_MARK_NO"/>
+            <column indexing="true" label="COLOR_CODE" name="COLOR_CODE"/>
+            <column label="ISOMETRIC_DIM_A" name="ISOMETRIC_DIM_A"/>
+            <column label="ISOMETRIC_DIM_B" name="ISOMETRIC_DIM_B"/>
+            <column label="ISOMETRIC_DIM_C" name="ISOMETRIC_DIM_C"/>
+            <column label="ISOMETRIC_DIM_D" name="ISOMETRIC_DIM_D"/>
+            <column label="ISOMETRIC_DIM_E" name="ISOMETRIC_DIM_E"/>
+            <column label="TRANS_RIGIDITY_X" name="TRANS_RIGIDITY_X"/>
+            <column label="TRANS_RIGIDITY_Y" name="TRANS_RIGIDITY_Y"/>
+            <column label="TRANS_RIGIDITY_Z" name="TRANS_RIGIDITY_Z"/>
+            <column label="ROT_RIGIDITY_X" name="ROT_RIGIDITY_X"/>
+            <column label="ROT_RIGIDITY_Y" name="ROT_RIGIDITY_Y"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_900" name="PDTABLE_900" origin="PDS">
+      <tables repcol="SYSTEM_UNIQUE_NO">
+        <table name="PDTABLE_900" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SYSTEM_UNIQUE_NO" name="SYSTEM_UNIQUE_NO"/>
+            <column label="MODEL_INDEX_NO" name="MODEL_INDEX_NO"/>
+            <column label="EXTRACT_LAST_DATE" name="EXTRACT_LAST_DATE"/>
+            <column label="EXTRACT_FAIL_DATE" name="EXTRACT_FAIL_DATE"/>
+            <column indexing="true" label="MODEL_NO" name="MODEL_NO"/>
+            <column label="DISCIPLINE_NO" name="DISCIPLINE_NO"/>
+            <column label="AREA_NO" name="AREA_NO"/>
+            <column label="PARTITION_NO" name="PARTITION_NO"/>
+            <column indexing="true" label="SYSTEM_OF_UNITS" name="SYSTEM_OF_UNITS"/>
+            <column indexing="true" label="NPD_UNITS" name="NPD_UNITS"/>
+            <column indexing="true" label="BOLT_LEN_UNITS" name="BOLT_LEN_UNITS"/>
+            <column indexing="true" label="BOLT_DIA_UNITS" name="BOLT_DIA_UNITS"/>
+            <column label="MODEL_STATUS" name="MODEL_STATUS"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_910" name="PDTABLE_910" origin="PDS">
+      <tables repcol="TABLE_NO">
+        <table name="PDTABLE_910" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="TABLE_NO" name="TABLE_NO"/>
+            <column indexing="true" label="TABLE_NAME" name="TABLE_NAME"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_920" name="PDTABLE_920" origin="PDS">
+      <tables repcol="TABLE_NO">
+        <table name="PDTABLE_920" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="TABLE_NO" name="TABLE_NO"/>
+            <column label="ATTRIBUTE_NUM" name="ATTRIBUTE_NUM"/>
+            <column indexing="true" label="ATTRIBUTE_NAME" name="ATTRIBUTE_NAME"/>
+            <column indexing="true" label="ATTRIBUTE_TYPE" name="ATTRIBUTE_TYPE"/>
+            <column indexing="true" label="ATTRIBUTE_QUAL" name="ATTRIBUTE_QUAL"/>
+            <column label="ATTRIBUTE_CODE" name="ATTRIBUTE_CODE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="PDTABLE_930" name="PDTABLE_930" origin="PDS">
+      <tables repcol="MDP_TASK">
+        <table name="PDTABLE_930" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="MDP_TASK" name="MDP_TASK"/>
+            <column indexing="true" label="LOCK_NODE" name="LOCK_NODE"/>
+            <column label="LOCK_TIME" name="LOCK_TIME"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T01" name="RI05_T01" origin="PDS">
+      <tables repcol="SCHEMA_NAME">
+        <table name="RI05_T01" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="SCHEMA_NAME" name="SCHEMA_NAME"/>
+            <column indexing="true" label="SCHEMA_PASSWORD" name="SCHEMA_PASSWORD"/>
+            <column indexing="true" label="SCHEMA_OWNER" name="SCHEMA_OWNER"/>
+            <column label="SCHEMA_TYPE" name="SCHEMA_TYPE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T02" name="RI05_T02" origin="PDS">
+      <tables repcol="SCHEMA_NAME">
+        <table name="RI05_T02" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="SCHEMA_NAME" name="SCHEMA_NAME"/>
+            <column label="TABLE_ID" name="TABLE_ID"/>
+            <column indexing="true" label="DBMS_OWNER" name="DBMS_OWNER"/>
+            <column indexing="true" label="TABLE_NAME" name="TABLE_NAME"/>
+            <column indexing="true" label="EXT_TABLE_NAME" name="EXT_TABLE_NAME"/>
+            <column indexing="true" label="UPPER_TABLE_NAME" name="UPPER_TABLE_NAME"/>
+            <column indexing="true" label="TABLE_TYPE" name="TABLE_TYPE"/>
+            <column indexing="true" label="RIS_OBJECT" name="RIS_OBJECT"/>
+            <column label="DATE_ENTERED" name="DATE_ENTERED"/>
+            <column label="DATE_MODIFIED" name="DATE_MODIFIED"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T03" name="RI05_T03" origin="PDS">
+      <tables repcol="RIS_TYPE_STRING">
+        <table name="RI05_T03" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="RIS_TYPE_STRING" name="RIS_TYPE_STRING"/>
+            <column indexing="true" label="DBMS_TYPE_STRING" name="DBMS_TYPE_STRING"/>
+            <column label="CHAR_MAX_LENGTH" name="CHAR_MAX_LENGTH"/>
+            <column label="PREC" name="PREC"/>
+            <column label="SCALE" name="SCALE"/>
+            <column indexing="true" label="NULLABLE" name="NULLABLE"/>
+            <column label="TABLE_ID" name="TABLE_ID"/>
+            <column indexing="true" label="COLUMN_NAME" name="COLUMN_NAME"/>
+            <column indexing="true" label="EXT_COLUMN_NAME" name="EXT_COLUMN_NAME"/>
+            <column indexing="true" label="UPPER_COLUMN_NAME" name="UPPER_COLUMN_NAME"/>
+            <column label="POSITION" name="POSITION"/>
+            <column label="RIS_TYPE" name="RIS_TYPE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T04" name="RI05_T04" origin="PDS">
+      <tables repcol="INDEX_NAME">
+        <table name="RI05_T04" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="INDEX_NAME" name="INDEX_NAME"/>
+            <column indexing="true" label="EXT_INDEX_NAME" name="EXT_INDEX_NAME"/>
+            <column indexing="true" label="UPPER_INDEX_NAME" name="UPPER_INDEX_NAME"/>
+            <column indexing="true" label="INDEX_OWNER" name="INDEX_OWNER"/>
+            <column label="TABLE_ID" name="TABLE_ID"/>
+            <column indexing="true" label="COLUMN_NAME" name="COLUMN_NAME"/>
+            <column indexing="true" label="UPPER_COLUMN_NAME" name="UPPER_COLUMN_NAME"/>
+            <column label="POSITION" name="POSITION"/>
+            <column indexing="true" label="INDEX_TYPE" name="INDEX_TYPE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T05" name="RI05_T05" origin="PDS">
+      <tables repcol="TABLE_ID">
+        <table name="RI05_T05" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="TABLE_ID" name="TABLE_ID"/>
+            <column indexing="true" label="COLUMN_NAME" name="COLUMN_NAME"/>
+            <column indexing="true" label="UPPER_COLUMN_NAME" name="UPPER_COLUMN_NAME"/>
+            <column indexing="true" label="GRANTOR" name="GRANTOR"/>
+            <column indexing="true" label="GRANTEE" name="GRANTEE"/>
+            <column indexing="true" label="RIS_PRIVILEGES" name="RIS_PRIVILEGES"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T06" name="RI05_T06" origin="PDS">
+      <tables repcol="SCHEMA_NAME">
+        <table name="RI05_T06" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="SCHEMA_NAME" name="SCHEMA_NAME"/>
+            <column indexing="true" label="GRANTEE" name="GRANTEE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T07" name="RI05_T07" origin="PDS">
+      <tables repcol="SERVER_PID">
+        <table name="RI05_T07" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="SERVER_PID" name="SERVER_PID"/>
+            <column indexing="true" label="SCHEMA_NAME" name="SCHEMA_NAME"/>
+            <column indexing="true" label="SCHEMA_USER" name="SCHEMA_USER"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T08" name="RI05_T08" origin="PDS">
+      <tables repcol="TABLE_ID">
+        <table name="RI05_T08" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="TABLE_ID" name="TABLE_ID"/>
+            <column indexing="true" label="RIS_VIEW_DEF" name="RIS_VIEW_DEF"/>
+            <column indexing="true" label="DBMS_VIEW_DEF" name="DBMS_VIEW_DEF"/>
+            <column label="SEQUENCE_ID" name="SEQUENCE_ID"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T09" name="RI05_T09" origin="PDS">
+      <tables repcol="SCHEMA_NAME">
+        <table name="RI05_T09" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="SCHEMA_NAME" name="SCHEMA_NAME"/>
+            <column indexing="true" label="SCHEMA_OWNER" name="SCHEMA_OWNER"/>
+            <column label="DATABASE_ID" name="DATABASE_ID"/>
+            <column label="SCHEMA_TYPE" name="SCHEMA_TYPE"/>
+            <column indexing="true" label="DICTIONARY_OWNER" name="DICTIONARY_OWNER"/>
+            <column label="SRVID" name="SRVID"/>
+            <column label="MAJOR" name="MAJOR"/>
+            <column label="FEATURE" name="FEATURE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T10" name="RI05_T10" origin="PDS">
+      <tables repcol="SCHEMA_NAME">
+        <table name="RI05_T10" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="SCHEMA_NAME" name="SCHEMA_NAME"/>
+            <column indexing="true" label="USER_NAME" name="USER_NAME"/>
+            <column indexing="true" label="USER_PRIVILEGE" name="USER_PRIVILEGE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T11" name="RI05_T11" origin="PDS">
+      <tables repcol="USER_NAME">
+        <table name="RI05_T11" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column indexing="true" label="USER_NAME" name="USER_NAME"/>
+            <column indexing="true" label="USER_PRIVILEGE" name="USER_PRIVILEGE"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T12" name="RI05_T12" origin="PDS">
+      <tables repcol="LASTID">
+        <table name="RI05_T12" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="LASTID" name="LASTID"/>
+            <column indexing="true" label="DICTIONARY_OWNER" name="DICTIONARY_OWNER"/>
+            <column indexing="true" label="FIRST_SCHEMA" name="FIRST_SCHEMA"/>
+            <column label="INT_PAR1" name="INT_PAR1"/>
+            <column label="INT_PAR2" name="INT_PAR2"/>
+            <column indexing="true" label="STR_PAR1" name="STR_PAR1"/>
+            <column indexing="true" label="STR_PAR2" name="STR_PAR2"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+    <view label="RI05_T13" name="RI05_T13" origin="PDS">
+      <tables repcol="DATABASE_ID">
+        <table name="RI05_T13" owner="MTO_P00">
+          <pk/>
+          <group name="Default">
+            <column label="DATABASE_ID" name="DATABASE_ID"/>
+            <column indexing="true" label="DATABASE_TYPE" name="DATABASE_TYPE"/>
+            <column indexing="true" label="DATABASE_NAME" name="DATABASE_NAME"/>
+            <column indexing="true" label="PROTOCOL_1" name="PROTOCOL_1"/>
+            <column indexing="true" label="NET_ADDRESS_1" name="NET_ADDRESS_1"/>
+            <column indexing="true" label="PROTOCOL_2" name="PROTOCOL_2"/>
+            <column indexing="true" label="NET_ADDRESS_2" name="NET_ADDRESS_2"/>
+            <column indexing="true" label="PROTOCOL_3" name="PROTOCOL_3"/>
+            <column indexing="true" label="NET_ADDRESS_3" name="NET_ADDRESS_3"/>
+            <column indexing="true" label="PROTOCOL_4" name="PROTOCOL_4"/>
+            <column indexing="true" label="NET_ADDRESS_4" name="NET_ADDRESS_4"/>
+            <column indexing="true" label="LONG_PARAMETER_1" name="LONG_PARAMETER_1"/>
+            <column indexing="true" label="LONG_PARAMETER_2" name="LONG_PARAMETER_2"/>
+            <column indexing="true" label="LONG_PARAMETER_3" name="LONG_PARAMETER_3"/>
+            <column indexing="true" label="SHORT_PARAMETER_1" name="SHORT_PARAMETER_1"/>
+            <column indexing="true" label="SHORT_PARAMETER_2" name="SHORT_PARAMETER_2"/>
+            <column indexing="true" label="SHORT_PARAMETER_3" name="SHORT_PARAMETER_3"/>
+            <column indexing="true" label="SHORT_PARAMETER_4" name="SHORT_PARAMETER_4"/>
+            <column indexing="true" label="SHORT_PARAMETER_5" name="SHORT_PARAMETER_5"/>
+            <column indexing="true" label="SHORT_PARAMETER_6" name="SHORT_PARAMETER_6"/>
+            <column indexing="true" label="SHORT_PARAMETER_7" name="SHORT_PARAMETER_7"/>
+            <column indexing="true" label="SHORT_PARAMETER_8" name="SHORT_PARAMETER_8"/>
+            <column label="SRVID" name="SRVID"/>
+          </group>
+        </table>
+      </tables>
+    </view>
+
+    
+  </views>
+</mapping>

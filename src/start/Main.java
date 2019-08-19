@@ -17,41 +17,47 @@ public class Main {
 
 		String path = "input/";
 		List<String> files = IO.filesOnFolder(path);
-		
+
 		XMLGeneric g = null;
 		Translator t = new Translator();
+
+		String databasePath = "";
+		String filePath = "";
 
 		for (String file : files) {
 
 			File f = new File(path + file);
-			
-			//Checking if the file is still there and isn't a folder
+
+			// Checking if the file is still there and isn't a folder
 			if (!f.exists() || f.isDirectory()) {
 				throw new FileNotFoundException();
+
 			}
 
-			//Filtering for XMLs only
+			// Filtering for XMLs only
 			if (file.contains(".xml")) {
-				List<String> fileLines = IO.readAnyFile(path + file);
-				
-				//System.out.println(path + file);
+				if (file.contains("database")) {
+					databasePath = path + file;
+				} else {
+					filePath = path + file;
+				}
 
-				//if (file.contains("database")) {
-				//	continue;
-				//}
-
-				
-				g = t.xmlToObject(path + file);
-				//System.out.println(g);
-				//System.out.println(g.printTTL());
-			
 			}
-			
+
 		}
 		
-		System.out.println(g.printRML());
+		System.out.println(databasePath);
+		System.out.println(filePath);
+
+		g = t.xmlToObject(databasePath, filePath);
+		//t.xmlToRML(databasePath, filePath);
+		t.xmlToTTL(databasePath, filePath);
 		
-		//IO.writeAnyString(path + file.replace(".xml", ".ttl"), g.printTTL());
+		
+
+		//System.out.println(g.printRML());
+
+		IO.writeAnyString(filePath.replace(".xml", ".ttl"), g.printTTL());
 
 	}
 
